@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tutti gli studi – Ogni Tipo di Insegnamento</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #1C1C1E;
+      --bg2: #242426;
+      --bg3: #2C2C2E;
+      --border: rgba(255,255,255,0.08);
+      --blue: #4A90D9;
+      --blue-light: #6AAEE8;
+      --cream: #E8E4DC;
+      --gray: rgba(232,228,220,0.5);
+      --gray2: rgba(232,228,220,0.2);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Nunito Sans', sans-serif;
+      background: var(--bg);
+      color: var(--cream);
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    .page-bg {
+      position: fixed; inset: 0; z-index: -1;
+      background:
+        radial-gradient(ellipse 80% 60% at 0% 0%, rgba(30,20,20,0.9) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 100% 100%, rgba(20,20,30,0.8) 0%, transparent 60%),
+        linear-gradient(160deg, #1A1A1C 0%, #222224 40%, #1E1E20 100%);
+    }
+
+    .swirl { position: fixed; pointer-events: none; opacity: 0.07; z-index: 0; }
+    .swirl-tl { top: -100px; left: -100px; width: 500px; }
+    .swirl-br { bottom: -100px; right: -100px; width: 400px; transform: rotate(180deg); }
+
+    /* NAV */
+    nav {
+      position: relative; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0 2.5rem;
+      background: rgba(20,20,22,0.95);
+      border-bottom: 1px solid var(--border);
+      height: 64px;
+    }
+    .nav-brand { display: flex; align-items: center; gap: 0.9rem; text-decoration: none; }
+    .nav-brand-icon {
+      width: 36px; height: 36px; border-radius: 0.5rem;
+      overflow: hidden; flex-shrink: 0; border: 1px solid var(--border);
+    }
+    .nav-brand-icon img { width: 100%; height: 100%; object-fit: cover; }
+    .nav-brand-text { font-family: 'Lora', serif; font-size: 1rem; font-weight: 600; color: var(--cream); line-height: 1.2; }
+    .nav-brand-sub { font-size: 0.65rem; color: var(--gray); font-weight: 300; letter-spacing: 0.06em; }
+    .nav-links {
+      display: flex; list-style: none;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 0.5rem; overflow: hidden;
+    }
+    .nav-links li a {
+      display: block; padding: 0.5rem 1.3rem;
+      font-size: 0.78rem; font-weight: 600;
+      text-decoration: none; color: var(--gray);
+      letter-spacing: 0.06em; text-transform: uppercase;
+      border-right: 1px solid var(--border);
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-links li:last-child a { border-right: none; }
+    .nav-links li a:hover, .nav-links li a.active { background: var(--blue); color: #fff; }
+
+    /* HEADER */
+    .page-header {
+      position: relative; z-index: 1;
+      max-width: 1100px; margin: 0 auto;
+      padding: 3rem 2.5rem 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .page-header-tag {
+      font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--blue); margin-bottom: 0.8rem; display: block;
+    }
+    .page-header h1 {
+      font-family: 'Lora', serif;
+      font-size: 2.2rem; font-weight: 600;
+      line-height: 1.2; margin-bottom: 0.8rem;
+    }
+    .page-header h1 em { font-style: italic; color: var(--blue-light); }
+    .page-header p {
+      font-size: 0.88rem; color: var(--gray);
+      font-weight: 300; line-height: 1.7;
+    }
+
+    /* SEARCH */
+    .search-bar {
+      position: relative; z-index: 1;
+      max-width: 1100px; margin: 0 auto;
+      padding: 1.5rem 2.5rem;
+    }
+    .search-input {
+      width: 100%;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+      padding: 0.8rem 1rem 0.8rem 2.8rem;
+      color: var(--cream);
+      font-family: 'Nunito Sans', sans-serif;
+      font-size: 0.88rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .search-input::placeholder { color: var(--gray); }
+    .search-input:focus { border-color: var(--blue); }
+    .search-icon {
+      position: absolute;
+      left: calc(2.5rem + 0.9rem);
+      top: 50%; transform: translateY(-50%);
+      color: var(--gray); font-size: 1rem;
+      pointer-events: none;
+    }
+    .results-count {
+      font-size: 0.72rem; color: var(--gray);
+      margin-top: 0.6rem; letter-spacing: 0.05em;
+    }
+
+    /* STUDI GRID */
+    .studi-container {
+      position: relative; z-index: 1;
+      max-width: 1100px; margin: 0 auto;
+      padding: 0 2.5rem 3rem;
+    }
+    .studi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+    }
+    .studio-item {
+      display: flex; align-items: flex-start; gap: 0.7rem;
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      text-decoration: none;
+      color: var(--cream);
+      transition: background 0.15s;
+      cursor: pointer;
+    }
+    .studio-item:hover { background: rgba(74,144,217,0.08); }
+    .studio-item:nth-child(3n) { border-right: none; }
+    .pdf-bullet {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--blue); flex-shrink: 0; margin-top: 0.45rem;
+    }
+    .studio-name {
+      font-size: 0.8rem; font-weight: 600;
+      line-height: 1.4; color: var(--cream);
+    }
+    .studio-item:hover .studio-name { color: var(--blue-light); }
+
+    /* STATO */
+    .stato {
+      position: relative; z-index: 1;
+      max-width: 1100px; margin: 0 auto;
+      padding: 3rem 2.5rem;
+      text-align: center;
+      color: var(--gray);
+      font-size: 0.88rem;
+    }
+    .spinner {
+      display: inline-block;
+      width: 28px; height: 28px;
+      border: 2px solid var(--border);
+      border-top-color: var(--blue);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-bottom: 1rem;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* FOOTER */
+    footer {
+      position: relative; z-index: 1;
+      border-top: 1px solid var(--border);
+      background: rgba(15,15,17,0.8);
+      text-align: center; padding: 1.5rem;
+      font-size: 0.72rem; color: var(--gray);
+    }
+    footer a { color: var(--blue); text-decoration: none; }
+
+    @media (max-width: 900px) {
+      nav { padding: 0 1rem; }
+      .nav-links { display: none; }
+      .page-header, .search-bar, .studi-container { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .studi-grid { grid-template-columns: repeat(2, 1fr); }
+      .studio-item:nth-child(3n) { border-right: 1px solid var(--border); }
+      .studio-item:nth-child(2n) { border-right: none; }
+    }
+    @media (max-width: 500px) {
+      .studi-grid { grid-template-columns: 1fr; }
+      .studio-item { border-right: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-bg"></div>
+
+<svg class="swirl swirl-tl" viewBox="0 0 400 400" fill="none">
+  <path d="M50,200 C50,90 150,20 250,50 C350,80 380,180 320,260 C260,340 140,350 80,290 C20,230 30,140 100,110 C170,80 270,110 280,190 C290,270 210,310 150,270 C90,230 110,160 170,150" stroke="white" stroke-width="1.5" fill="none"/>
+</svg>
+<svg class="swirl swirl-br" viewBox="0 0 400 400" fill="none">
+  <path d="M50,200 C50,90 150,20 250,50 C350,80 380,180 320,260 C260,340 140,350 80,290 C20,230 30,140 100,110 C170,80 270,110 280,190 C290,270 210,310 150,270 C90,230 110,160 170,150" stroke="white" stroke-width="1.5" fill="none"/>
+</svg>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="index.html">
+    <div class="nav-brand-icon">
+      <img src="https://raw.githubusercontent.com/torla89/Ogni-tipo-di-insegnamento/main/assets/icona.png" alt="logo" onerror="this.parentElement.innerHTML='📖'"/>
+    </div>
+    <div>
+      <div class="nav-brand-text">Ogni tipo di insegnamento</div>
+      <div class="nav-brand-sub">Studi biblici gratuiti</div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="index.html#download">Scarica</a></li>
+    <li><a href="studi.html" class="active">Studi</a></li>
+    <li><a href="index.html#chiesa">Chi siamo</a></li>
+    <li><a href="https://torla89.github.io/Ogni-tipo-di-insegnamento" target="_blank">App web</a></li>
+  </ul>
+</nav>
+
+<!-- HEADER -->
+<div class="page-header">
+  <span class="page-header-tag">✦ 800+ studi · Accesso gratuito</span>
+  <h1>Tutti gli studi di<br><em>Ellero Balzani</em></h1>
+  <p>Sfoglia l'intera raccolta. Clicca su uno studio per aprire il PDF direttamente nel browser.</p>
+</div>
+
+<!-- SEARCH -->
+<div class="search-bar">
+  <span class="search-icon">🔍</span>
+  <input type="text" class="search-input" id="searchInput" placeholder="Cerca per titolo…" oninput="filterStudi()"/>
+  <div class="results-count" id="resultsCount"></div>
+</div>
+
+<!-- STUDI -->
+<div class="studi-container">
+  <div id="stato" class="stato">
+    <div class="spinner"></div>
+    <div>Caricamento studi in corso…</div>
+  </div>
+  <div class="studi-grid" id="studiGrid" style="display:none;"></div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 Chiesa Evangelica di Maranello · <a href="https://torla89.github.io/Ogni-tipo-di-insegnamento/privacy.html">Privacy Policy</a> · <a href="index.html">Home</a></p>
+</footer>
+
+<script>
+  const REPO = 'torla89/Ogni-tipo-di-insegnamento';
+  const BRANCH = 'main';
+  const ASSETS_PATH = 'assets';
+  const RAW_BASE = `https://raw.githubusercontent.com/${REPO}/${BRANCH}/${ASSETS_PATH}/`;
+  const API_URL = `https://api.github.com/repos/${REPO}/contents/${ASSETS_PATH}`;
+
+  let allStudi = [];
+
+  // Rimuove doppioni: "Titolo 2.pdf", "Titolo1.pdf" → tiene solo "Titolo.pdf"
+  function removeDuplicates(files) {
+    const map = new Map();
+    // Ordina: prima i file senza numero (originali), poi quelli con numero
+    files.sort((a, b) => {
+      const aHasNum = /\s*\d+\.pdf$/i.test(a);
+      const bHasNum = /\s*\d+\.pdf$/i.test(b);
+      if (aHasNum && !bHasNum) return 1;
+      if (!aHasNum && bHasNum) return -1;
+      return a.localeCompare(b);
+    });
+
+    for (const file of files) {
+      // Normalizza: rimuove numero finale tipo " 2", "2", " 1", "1" prima di .pdf
+      const baseName = file
+        .replace(/\.pdf$/i, '')
+        .replace(/\s*\d+$/, '')
+        .trim()
+        .toLowerCase();
+
+      if (!map.has(baseName)) {
+        map.set(baseName, file);
+      }
+    }
+    return Array.from(map.values()).sort((a, b) => a.localeCompare(b, 'it'));
+  }
+
+  function displayName(filename) {
+    return filename.replace(/\.pdf$/i, '');
+  }
+
+  function renderStudi(studi) {
+    const grid = document.getElementById('studiGrid');
+    grid.innerHTML = '';
+    studi.forEach(file => {
+      const div = document.createElement('a');
+      div.className = 'studio-item';
+      div.href = RAW_BASE + encodeURIComponent(file);
+      div.target = '_blank';
+      div.rel = 'noopener';
+      div.innerHTML = `
+        <div class="pdf-bullet"></div>
+        <div class="studio-name">${displayName(file)}</div>
+      `;
+      grid.appendChild(div);
+    });
+    document.getElementById('resultsCount').textContent = `${studi.length} studi trovati`;
+  }
+
+  function filterStudi() {
+    const query = document.getElementById('searchInput').value.toLowerCase().trim();
+    if (!query) {
+      renderStudi(allStudi);
+      return;
+    }
+    const filtered = allStudi.filter(f => f.toLowerCase().includes(query));
+    renderStudi(filtered);
+  }
+
+  async function loadStudi() {
+    try {
+      // GitHub API paginata (max 100 per pagina)
+      let allFiles = [];
+      let page = 1;
+      while (true) {
+        const res = await fetch(`${API_URL}?per_page=100&page=${page}`);
+        if (!res.ok) throw new Error('Errore API GitHub');
+        const data = await res.json();
+        if (!data.length) break;
+        const pdfs = data
+          .filter(f => f.type === 'file' && f.name.toLowerCase().endsWith('.pdf') && f.name.toLowerCase() !== 'icona.png')
+          .map(f => f.name);
+        allFiles = allFiles.concat(pdfs);
+        if (data.length < 100) break;
+        page++;
+      }
+
+      allStudi = removeDuplicates(allFiles);
+
+      document.getElementById('stato').style.display = 'none';
+      document.getElementById('studiGrid').style.display = 'grid';
+      renderStudi(allStudi);
+
+    } catch (err) {
+      document.getElementById('stato').innerHTML = `
+        <div style="color:var(--gray)">
+          <div style="font-size:1.5rem;margin-bottom:0.8rem">⚠️</div>
+          <div>Impossibile caricare gli studi.<br>
+          <a href="https://torla89.github.io/Ogni-tipo-di-insegnamento" target="_blank" style="color:var(--blue-light)">Apri la web app →</a></div>
+        </div>`;
+    }
+  }
+
+  loadStudi();
+</script>
+
+</body>
+</html>
