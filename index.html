@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ogni Tipo di Insegnamento</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #1C1C1E;
+      --bg2: #242426;
+      --bg3: #2C2C2E;
+      --border: rgba(255,255,255,0.08);
+      --blue: #4A90D9;
+      --blue-light: #6AAEE8;
+      --cream: #E8E4DC;
+      --gray: rgba(232,228,220,0.5);
+      --gray2: rgba(232,228,220,0.2);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Nunito Sans', sans-serif;
+      background: var(--bg);
+      color: var(--cream);
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* BACKGROUND */
+    .page-bg {
+      position: fixed; inset: 0; z-index: -1;
+      background:
+        radial-gradient(ellipse 80% 60% at 0% 0%, rgba(30,20,20,0.9) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 100% 100%, rgba(20,20,30,0.8) 0%, transparent 60%),
+        linear-gradient(160deg, #1A1A1C 0%, #222224 40%, #1E1E20 100%);
+    }
+
+    /* SWIRLS */
+    .swirl { position: fixed; pointer-events: none; opacity: 0.07; z-index: 0; }
+    .swirl-tl { top: -100px; left: -100px; width: 500px; }
+    .swirl-br { bottom: -100px; right: -100px; width: 400px; transform: rotate(180deg); }
+
+    /* NAV */
+    nav {
+      position: relative; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0 2.5rem;
+      background: rgba(20,20,22,0.95);
+      border-bottom: 1px solid var(--border);
+      height: 64px;
+    }
+    .nav-brand { display: flex; align-items: center; gap: 0.9rem; text-decoration: none; }
+    .nav-brand-icon {
+      width: 36px; height: 36px; border-radius: 0.5rem;
+      overflow: hidden; flex-shrink: 0; border: 1px solid var(--border);
+    }
+    .nav-brand-icon img { width: 100%; height: 100%; object-fit: cover; }
+    .nav-brand-text { font-family: 'Lora', serif; font-size: 1rem; font-weight: 600; color: var(--cream); line-height: 1.2; }
+    .nav-brand-sub { font-size: 0.65rem; color: var(--gray); font-weight: 300; letter-spacing: 0.06em; }
+    .nav-links {
+      display: flex; list-style: none;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 0.5rem; overflow: hidden;
+    }
+    .nav-links li a {
+      display: block; padding: 0.5rem 1.3rem;
+      font-size: 0.78rem; font-weight: 600;
+      text-decoration: none; color: var(--gray);
+      letter-spacing: 0.06em; text-transform: uppercase;
+      border-right: 1px solid var(--border);
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-links li:last-child a { border-right: none; }
+    .nav-links li a:hover, .nav-links li a.active { background: var(--blue); color: #fff; }
+
+    /* HERO */
+    .hero {
+      position: relative; z-index: 1;
+      display: grid; grid-template-columns: 1fr 1.1fr;
+      max-width: 1100px; margin: 0 auto;
+      padding: 3rem 2.5rem; align-items: center;
+    }
+    .hero-left { padding-right: 3rem; border-right: 1px solid var(--border); }
+    .hero-tag {
+      font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--blue); margin-bottom: 1rem; display: block;
+    }
+    .hero h1 { font-family: 'Lora', serif; font-size: 2.6rem; font-weight: 600; line-height: 1.15; margin-bottom: 1.2rem; }
+    .hero h1 em { font-style: italic; color: var(--blue-light); }
+    .hero-desc { font-size: 0.88rem; line-height: 1.8; color: var(--gray); font-weight: 300; margin-bottom: 2rem; }
+    .hero-cta { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+    .btn-blue {
+      background: var(--blue); color: #fff;
+      padding: 0.7rem 1.6rem; border-radius: 0.4rem;
+      text-decoration: none; font-size: 0.82rem; font-weight: 700;
+      letter-spacing: 0.04em; text-transform: uppercase;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-blue:hover { background: var(--blue-light); transform: translateY(-1px); }
+    .btn-ghost {
+      border: 1px solid var(--border); color: var(--cream);
+      padding: 0.7rem 1.6rem; border-radius: 0.4rem;
+      text-decoration: none; font-size: 0.82rem; font-weight: 600;
+      letter-spacing: 0.04em; text-transform: uppercase;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--blue); color: var(--blue-light); transform: translateY(-1px); }
+
+    /* HERO RIGHT */
+    .hero-right { padding-left: 3rem; display: flex; flex-direction: column; gap: 1rem; }
+    .app-preview-title { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); margin-bottom: 0.5rem; }
+    .app-screens { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+    .screen-card {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 0.7rem; overflow: hidden;
+      aspect-ratio: 9/16;
+      display: flex; align-items: center; justify-content: center; position: relative;
+    }
+    .screen-placeholder {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 0.5rem; color: var(--gray2); font-size: 0.7rem; text-align: center; padding: 1rem;
+    }
+    .screen-placeholder .icon { font-size: 1.8rem; }
+    .screen-label {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: rgba(0,0,0,0.6);
+      font-size: 0.62rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      padding: 0.4rem 0.6rem; color: var(--cream);
+    }
+
+    /* DIVIDER */
+    .section-divider { max-width: 1100px; margin: 0 auto; border: none; border-top: 1px solid var(--border); }
+
+    /* THREE COLUMNS */
+    .three-col {
+      position: relative; z-index: 1;
+      max-width: 1100px; margin: 0 auto;
+      padding: 2.5rem;
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+    }
+    .col-block { padding: 1.5rem 2rem; border-right: 1px solid var(--border); }
+    .col-block:first-child { padding-left: 0; }
+    .col-block:last-child { border-right: none; padding-right: 0; }
+    .col-num {
+      font-family: 'Lora', serif; font-size: 0.75rem; font-weight: 600;
+      color: var(--blue); border-bottom: 1px solid var(--blue);
+      padding-bottom: 0.4rem; margin-bottom: 1.2rem;
+      display: inline-block; padding-right: 1rem; letter-spacing: 0.1em;
+    }
+    .col-title { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--gray); margin-bottom: 1.2rem; }
+
+    /* DOWNLOAD */
+    .dl-item {
+      display: flex; align-items: center; gap: 0.9rem;
+      padding: 0.7rem 0; border-bottom: 1px solid var(--border);
+      text-decoration: none; color: var(--cream); transition: color 0.2s;
+    }
+    .dl-item:last-child { border-bottom: none; }
+    .dl-item:hover { color: var(--blue-light); }
+    .dl-icon {
+      width: 32px; height: 32px; background: var(--bg3);
+      border: 1px solid var(--border); border-radius: 0.4rem;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; flex-shrink: 0;
+    }
+    .dl-info { flex: 1; }
+    .dl-name { font-size: 0.82rem; font-weight: 600; }
+    .dl-sub { font-size: 0.68rem; color: var(--gray); }
+    .dl-arrow { font-size: 0.8rem; color: var(--blue); }
+
+    /* PDF ITEMS */
+    .pdf-row { display: flex; align-items: flex-start; gap: 0.7rem; padding: 0.65rem 0; border-bottom: 1px solid var(--border); }
+    .pdf-row:last-child { border-bottom: none; }
+    .pdf-bullet { width: 6px; height: 6px; border-radius: 50%; background: var(--blue); flex-shrink: 0; margin-top: 0.35rem; }
+    .pdf-info { flex: 1; }
+    .pdf-name { font-size: 0.8rem; font-weight: 600; line-height: 1.3; margin-bottom: 0.15rem; }
+    .pdf-cat { font-size: 0.65rem; color: var(--gray); text-transform: uppercase; letter-spacing: 0.06em; }
+
+    /* CONTACT */
+    .contact-row { display: flex; align-items: flex-start; gap: 0.7rem; padding: 0.65rem 0; border-bottom: 1px solid var(--border); font-size: 0.82rem; }
+    .contact-row:last-child { border-bottom: none; }
+    .contact-icon { font-size: 1rem; margin-top: 0.05rem; opacity: 0.6; }
+    .contact-label { font-size: 0.65rem; color: var(--gray); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.15rem; }
+    .contact-val { font-size: 0.82rem; }
+    .contact-val a { color: var(--blue-light); text-decoration: none; }
+
+    /* FULL-WIDTH SECTION */
+    .full-section {
+      position: relative; z-index: 1;
+      max-width: 1100px; margin: 0 auto;
+      padding: 3rem 2.5rem;
+    }
+    .full-section-bg {
+      position: relative; z-index: 1;
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* FOOTER */
+    footer {
+      position: relative; z-index: 1;
+      border-top: 1px solid var(--border);
+      background: rgba(15,15,17,0.8);
+      text-align: center; padding: 1.5rem;
+      font-size: 0.72rem; color: var(--gray);
+    }
+    footer a { color: var(--blue); text-decoration: none; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; padding: 2rem 1.5rem; }
+      .hero-left { padding-right: 0; border-right: none; border-bottom: 1px solid var(--border); padding-bottom: 2rem; margin-bottom: 2rem; }
+      .hero-right { padding-left: 0; }
+      .three-col { grid-template-columns: 1fr; padding: 1.5rem; }
+      .col-block { border-right: none; border-bottom: 1px solid var(--border); padding: 1.5rem 0; }
+      .col-block:last-child { border-bottom: none; }
+      nav { padding: 0 1rem; }
+      .nav-links { display: none; }
+      .full-section { padding: 2rem 1.5rem; }
+      .two-col-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
+      .ellero-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-bg"></div>
+
+<svg class="swirl swirl-tl" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M50,200 C50,90 150,20 250,50 C350,80 380,180 320,260 C260,340 140,350 80,290 C20,230 30,140 100,110 C170,80 270,110 280,190 C290,270 210,310 150,270 C90,230 110,160 170,150" stroke="white" stroke-width="1.5" fill="none"/>
+</svg>
+<svg class="swirl swirl-br" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M50,200 C50,90 150,20 250,50 C350,80 380,180 320,260 C260,340 140,350 80,290 C20,230 30,140 100,110 C170,80 270,110 280,190 C290,270 210,310 150,270 C90,230 110,160 170,150" stroke="white" stroke-width="1.5" fill="none"/>
+</svg>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="#">
+    <div class="nav-brand-icon">
+      <img src="https://raw.githubusercontent.com/torla89/Ogni-tipo-di-insegnamento/main/assets/icona.png" alt="logo" onerror="this.parentElement.innerHTML='📖'"/>
+    </div>
+    <div>
+      <div class="nav-brand-text">Ogni tipo di insegnamento</div>
+      <div class="nav-brand-sub">Studi biblici gratuiti</div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#" class="active">Home</a></li>
+    <li><a href="#download">Scarica</a></li>
+    <li><a href="#studi">Studi</a></li>
+    <li><a href="#chiesa">Chi siamo</a></li>
+    <li><a href="https://torla89.github.io/Ogni-tipo-di-insegnamento" target="_blank">App web</a></li>
+  </ul>
+</nav>
+
+<!-- ① HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <span class="hero-tag">✦ App gratuita · Senza pubblicità</span>
+    <h1>Studi biblici<br><em>a portata di mano</em></h1>
+    <p class="hero-desc">
+      Oltre 800 studi in PDF organizzati in 41 categorie tematiche. Ricerca per parola chiave, lettura immediata nel browser o scarica l'app per tutti i tuoi dispositivi.
+    </p>
+    <div class="hero-cta">
+      <a href="#download" class="btn-blue">Scarica l'app</a>
+      <a href="https://torla89.github.io/Ogni-tipo-di-insegnamento" target="_blank" class="btn-ghost">Apri nel browser</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="app-preview-title">Anteprima dell'app</div>
+    <div class="app-screens">
+      <div class="screen-card">
+        <div class="screen-placeholder">
+          <span class="icon">🏠</span>
+          <span>Menu principale</span>
+        </div>
+        <div class="screen-label">Home</div>
+      </div>
+      <div class="screen-card">
+        <div class="screen-placeholder">
+          <span class="icon">🔍</span>
+          <span>Cerca per parola chiave</span>
+        </div>
+        <div class="screen-label">Ricerca</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:0.5rem;margin-top:0.3rem;">
+      <div style="flex:1;background:var(--bg2);border:1px solid var(--border);border-radius:0.5rem;padding:0.8rem 1rem;display:flex;align-items:center;gap:0.6rem;">
+        <span style="font-size:1rem">📚</span>
+        <div>
+          <div style="font-size:0.82rem;font-weight:600">800+ studi</div>
+          <div style="font-size:0.65rem;color:var(--gray)">41 categorie</div>
+        </div>
+      </div>
+      <div style="flex:1;background:var(--bg2);border:1px solid var(--border);border-radius:0.5rem;padding:0.8rem 1rem;display:flex;align-items:center;gap:0.6rem;">
+        <span style="font-size:1rem">📱</span>
+        <div>
+          <div style="font-size:0.82rem;font-weight:600">5 piattaforme</div>
+          <div style="font-size:0.65rem;color:var(--gray)">Sempre gratis</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ③ SEZIONE ELLERO BALZANI -->
+<hr class="section-divider"/>
+<div class="full-section">
+  <div class="ellero-grid" style="display:grid;grid-template-columns:1fr 2fr;gap:4rem;align-items:center;">
+    <div style="text-align:center;">
+      <div style="width:160px;height:160px;border-radius:50%;background:var(--bg3);border:2px solid var(--border);margin:0 auto 1.2rem;display:flex;align-items:center;justify-content:center;font-size:4rem;">📖</div>
+      <div style="font-family:'Lora',serif;font-size:1.3rem;font-weight:600;margin-bottom:0.3rem;">Ellero Balzani</div>
+      <div style="font-size:0.72rem;color:var(--gray);text-transform:uppercase;letter-spacing:0.1em;">Predicatore ed insegnante</div>
+    </div>
+    <div>
+      <div class="col-num" style="margin-bottom:1rem;">Gli studi |</div>
+      <h2 style="font-family:'Lora',serif;font-size:1.9rem;font-weight:600;line-height:1.2;margin-bottom:1.2rem;">Chi è <em style="font-style:italic;color:var(--blue-light)">Ellero Balzani</em></h2>
+      <p style="font-size:0.88rem;line-height:1.85;color:var(--gray);font-weight:300;margin-bottom:1rem;">
+        Ellero Balzani è stato un predicatore evangelico che ha dedicato la propria vita alla predicazione della Parola di Dio e alla formazione cristiana, con particolare attenzione ai giovani. I suoi studi spaziano attraverso 41 categorie tematiche, affrontando con profondità e chiarezza i grandi temi della fede cristiana: dall'amore di Dio alla salvezza, dalla preghiera alla vita cristiana quotidiana.
+      </p>
+      <p style="font-size:0.88rem;line-height:1.85;color:var(--gray);font-weight:300;margin-bottom:1.5rem;">
+        Con uno stile diretto e accessibile, Ellero ha saputo toccare il cuore di molti credenti, lasciando un patrimonio di oltre <strong style="color:var(--cream);font-weight:600;">800 studi in PDF</strong> liberamente accessibili a chiunque voglia approfondire la fede.
+      </p>
+      <div style="display:flex;gap:0.8rem;flex-wrap:wrap;">
+        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:0.5rem;padding:0.8rem 1.2rem;text-align:center;">
+          <div style="font-family:'Lora',serif;font-size:1.6rem;color:var(--blue);font-weight:700;">800+</div>
+          <div style="font-size:0.65rem;color:var(--gray);text-transform:uppercase;letter-spacing:0.08em;">Studi scritti</div>
+        </div>
+        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:0.5rem;padding:0.8rem 1.2rem;text-align:center;">
+          <div style="font-family:'Lora',serif;font-size:1.6rem;color:var(--blue);font-weight:700;">41</div>
+          <div style="font-size:0.65rem;color:var(--gray);text-transform:uppercase;letter-spacing:0.08em;">Temi biblici</div>
+        </div>
+        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:0.5rem;padding:0.8rem 1.2rem;text-align:center;">
+          <div style="font-family:'Lora',serif;font-size:1.6rem;color:var(--blue);font-weight:700;">∞</div>
+          <div style="font-size:0.65rem;color:var(--gray);text-transform:uppercase;letter-spacing:0.08em;">Accesso gratuito</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ④ SEZIONE CHIESA EVANGELICA -->
+<hr class="section-divider"/>
+<div class="full-section-bg">
+  <div class="full-section" style="padding-top:3rem;padding-bottom:3rem;">
+    <div class="two-col-grid" style="display:grid;grid-template-columns:2fr 1fr;gap:4rem;align-items:start;">
+      <div>
+        <div class="col-num" style="margin-bottom:1rem;">La comunità |</div>
+        <h2 style="font-family:'Lora',serif;font-size:1.9rem;font-weight:600;line-height:1.2;margin-bottom:1.2rem;">Chiesa Evangelica<br><em style="font-style:italic;color:var(--blue-light)">di Maranello</em></h2>
+        <p style="font-size:0.88rem;line-height:1.85;color:var(--gray);font-weight:300;margin-bottom:1rem;">
+          La Chiesa Evangelica di Maranello è una piccola comunità che ha curato e reso disponibile questa raccolta di studi biblici.
+        </p>
+        <p style="font-size:0.88rem;line-height:1.85;color:var(--gray);font-weight:300;margin-bottom:1rem;">
+          <strong style="color:var(--cream);font-weight:600;">Ellero Balzani</strong>, che per anni ha predicato e insegnato con passione, ha costruito nel tempo un archivio prezioso di insegnamenti evangelici. La sua cura per la formazione dei giovani e la sua fedeltà alla Parola di Dio hanno lasciato un segno indelebile nella comunità e in tutti coloro che hanno avuto la grazia di ascoltarlo.
+        </p>
+        <p style="font-size:0.88rem;line-height:1.85;color:var(--gray);font-weight:300;">
+          Oggi questo materiale è disponibile gratuitamente su tutti i dispositivi, affinché il suo insegnamento possa continuare a raggiungere chiunque cerchi la Verità.
+        </p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:0.8rem;">
+        <div style="background:var(--bg3);border:1px solid var(--border);border-radius:0.8rem;padding:1.5rem;">
+          <div style="font-size:0.68rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--gray);margin-bottom:0.5rem;">Missione</div>
+          <div style="font-size:0.88rem;line-height:1.6;font-style:italic;color:var(--cream);">"Rendere accessibile la Parola di Dio a tutti, gratuitamente e senza barriere."</div>
+        </div>
+        <div style="background:var(--bg3);border:1px solid var(--border);border-radius:0.8rem;padding:1.5rem;">
+          <div style="font-size:0.68rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--gray);margin-bottom:0.8rem;">Contatti</div>
+          <div style="font-size:0.82rem;margin-bottom:0.5rem;">✉️ <a href="/cdn-cgi/l/email-protection#157c7b737a557a727b7c617c657a717c7c7b6670727b7478707b617a3b7c61" style="color:var(--blue-light);text-decoration:none;"><span class="__cf_email__" data-cfemail="c5acaba3aa85aaa2abacb1acb5aaa1acacabb6a0a2aba4a8a0abb1aaebacb1">[email&#160;protected]</span></a></div>
+          <div style="font-size:0.82rem;">🌐 <a href="https://ognitipodiinsegnamento.it" target="_blank" style="color:var(--blue-light);text-decoration:none;">ognitipodiinsegnamento.it</a></div>
+        </div>
+        <a href="https://torla89.github.io/Ogni-tipo-di-insegnamento" target="_blank" class="btn-blue" style="text-align:center;">Apri l'app web →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ④ DOWNLOAD + STUDI + CONTATTI -->
+<hr class="section-divider"/>
+<div class="three-col">
+
+  <!-- DOWNLOAD -->
+  <div class="col-block" id="download">
+    <div class="col-num">01 |</div>
+    <div class="col-title">Scarica l'app</div>
+    <a href="https://play.google.com/store" target="_blank" class="dl-item">
+      <div class="dl-icon">🤖</div>
+      <div class="dl-info">
+        <div class="dl-name">Android</div>
+        <div class="dl-sub">Google Play Store</div>
+      </div>
+      <span class="dl-arrow">→</span>
+    </a>
+    <a href="https://apps.apple.com" target="_blank" class="dl-item">
+      <div class="dl-icon">🍎</div>
+      <div class="dl-info">
+        <div class="dl-name">iPhone & iPad</div>
+        <div class="dl-sub">Apple App Store</div>
+      </div>
+      <span class="dl-arrow">→</span>
+    </a>
+    <a href="https://apps.microsoft.com" target="_blank" class="dl-item">
+      <div class="dl-icon">🪟</div>
+      <div class="dl-info">
+        <div class="dl-name">Windows</div>
+        <div class="dl-sub">Microsoft Store</div>
+      </div>
+      <span class="dl-arrow">→</span>
+    </a>
+    <a href="https://apps.apple.com/mac" target="_blank" class="dl-item">
+      <div class="dl-icon">🖥️</div>
+      <div class="dl-info">
+        <div class="dl-name">Mac</div>
+        <div class="dl-sub">Mac App Store</div>
+      </div>
+      <span class="dl-arrow">→</span>
+    </a>
+    <a href="https://torla89.github.io/Ogni-tipo-di-insegnamento" target="_blank" class="dl-item">
+      <div class="dl-icon">🌐</div>
+      <div class="dl-info">
+        <div class="dl-name">Web</div>
+        <div class="dl-sub">Nessuna installazione</div>
+      </div>
+      <span class="dl-arrow">→</span>
+    </a>
+  </div>
+
+  <!-- STUDI -->
+  <div class="col-block" id="studi">
+    <div class="col-num">02 |</div>
+    <div class="col-title">Ultimi studi</div>
+    <div class="pdf-row">
+      <div class="pdf-bullet"></div>
+      <div class="pdf-info">
+        <div class="pdf-name">Il vero amore da dove procede</div>
+        <div class="pdf-cat">Amore</div>
+      </div>
+    </div>
+    <div class="pdf-row">
+      <div class="pdf-bullet"></div>
+      <div class="pdf-info">
+        <div class="pdf-name">Perché sono felice</div>
+        <div class="pdf-cat">Ellero Balzani</div>
+      </div>
+    </div>
+    <div class="pdf-row">
+      <div class="pdf-bullet"></div>
+      <div class="pdf-info">
+        <div class="pdf-name">La grazia di Dio</div>
+        <div class="pdf-cat">Grazia</div>
+      </div>
+    </div>
+    <div class="pdf-row">
+      <div class="pdf-bullet"></div>
+      <div class="pdf-info">
+        <div class="pdf-name">Gesù Cristo e la salvezza</div>
+        <div class="pdf-cat">Gesù Cristo</div>
+      </div>
+    </div>
+    <div class="pdf-row">
+      <div class="pdf-bullet"></div>
+      <div class="pdf-info">
+        <div class="pdf-name">La preghiera cristiana</div>
+        <div class="pdf-cat">Preghiera</div>
+      </div>
+    </div>
+    <div style="margin-top:1.2rem;">
+      <a href="https://torla89.github.io/Ogni-tipo-di-insegnamento" target="_blank" class="btn-blue" style="font-size:0.75rem;padding:0.55rem 1.2rem;">Sfoglia tutti →</a>
+    </div>
+  </div>
+
+  <!-- CHI SIAMO -->
+  <div class="col-block" id="chiesa">
+    <div class="col-num">03 |</div>
+    <div class="col-title">Chi siamo</div>
+    <div class="contact-row">
+      <span class="contact-icon">⛪</span>
+      <div>
+        <div class="contact-label">Organizzazione</div>
+        <div class="contact-val">Chiesa Evangelica di Maranello</div>
+      </div>
+    </div>
+    <div class="contact-row">
+      <span class="contact-icon">✉️</span>
+      <div>
+        <div class="contact-label">Email</div>
+        <div class="contact-val"><a href="/cdn-cgi/l/email-protection#670e090108270800090e130e1708030e0e0914020009060a02091308490e13"><span class="__cf_email__" data-cfemail="a7cec9c1c8e7c8c0c9ced3ced7c8c3cecec9d4c2c0c9c6cac2c9d3c889ced3">[email&#160;protected]</span></a></div>
+      </div>
+    </div>
+    <div class="contact-row">
+      <span class="contact-icon">🌐</span>
+      <div>
+        <div class="contact-label">Sito web</div>
+        <div class="contact-val"><a href="https://ognitipodiinsegnamento.it" target="_blank">ognitipodiinsegnamento.it</a></div>
+      </div>
+    </div>
+    <div class="contact-row">
+      <span class="contact-icon">🔒</span>
+      <div>
+        <div class="contact-label">Privacy</div>
+        <div class="contact-val"><a href="https://torla89.github.io/Ogni-tipo-di-insegnamento/privacy.html" target="_blank">Privacy Policy</a></div>
+      </div>
+    </div>
+    <div style="margin-top:1.2rem;font-size:0.78rem;color:var(--gray);line-height:1.7;font-weight:300;">
+      Il materiale è liberamente disponibile per chiunque voglia approfondire la Parola di Dio. Nessun account 
