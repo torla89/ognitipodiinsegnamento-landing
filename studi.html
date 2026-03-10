@@ -271,7 +271,7 @@
   const REPO = 'torla89/Ogni-tipo-di-insegnamento';
   const BRANCH = 'main';
   const ASSETS_PATH = 'assets';
-  const RAW_BASE = `https://raw.githubusercontent.com/${REPO}/${BRANCH}/${ASSETS_PATH}/`;
+  const RAW_BASE = `https://docs.google.com/viewer?url=https://raw.githubusercontent.com/${REPO}/${BRANCH}/${ASSETS_PATH}/`;
   const API_URL = `https://api.github.com/repos/${REPO}/contents/${ASSETS_PATH}`;
 
   let allStudi = [];
@@ -363,8 +363,11 @@
       document.getElementById('stato').innerHTML = `
         <div style="color:var(--gray)">
           <div style="font-size:1.5rem;margin-bottom:0.8rem">⚠️</div>
-          <div>Impossibile caricare gli studi.<br>
-          <a href="https://torla89.github.io/Ogni-tipo-di-insegnamento" target="_blank" style="color:var(--blue-light)">Apri la web app →</a></div>
+          <div style="margin-bottom:1rem;">Errore nel caricamento degli studi.<br>
+          Controlla la connessione e riprova.</div>
+          <button onclick="location.reload()" style="background:var(--blue);color:#fff;border:none;border-radius:0.4rem;padding:0.5rem 1.2rem;font-size:0.82rem;cursor:pointer;margin-bottom:1rem;">↺ Riprova</button>
+          <br>
+          <a href="https://torla89.github.io/Ogni-tipo-di-insegnamento" target="_blank" style="color:var(--blue-light);font-size:0.82rem;">Oppure apri la web app →</a>
         </div>`;
     }
   }
