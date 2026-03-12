@@ -227,6 +227,7 @@
       background: rgba(15,15,17,0.8);
       text-align: center; padding: 1.5rem;
       font-size: 0.72rem; color: var(--gray);
+      width: 100%; box-sizing: border-box;
     }
     footer a { color: var(--blue); text-decoration: none; }
 
@@ -236,7 +237,7 @@
       .hero-left { padding-right: 0; border-right: none; border-bottom: 1px solid var(--border); padding-bottom: 2rem; margin-bottom: 2rem; }
       .hero-right { padding-left: 0; }
       .three-col { grid-template-columns: 1fr; padding: 1.5rem; }
-      .four-grid { grid-template-columns: 1fr !important; }
+      .four-grid { grid-template-columns: 1fr !important; padding: 0 1.5rem !important; }
       .col-block { border-right: none; border-bottom: 1px solid var(--border); padding: 1.5rem 0; }
       .col-block:last-child { border-bottom: none; }
       nav { padding: 0 1rem; }
@@ -410,7 +411,7 @@
 
 <!-- ④ STUDI + PODCAST + CHI SIAMO + SCARICA -->
 <hr class="section-divider"/>
-<div style="display:grid;grid-template-columns:1fr 1fr;max-width:1100px;margin:0 auto;padding:0 2.5rem;">
+<div class="four-grid" style="display:grid;grid-template-columns:1fr 1fr;max-width:1100px;margin:0 auto;padding:0 2.5rem;">
 
   <div style="padding:1.5rem 2rem 1.5rem 0;border-right:1px solid var(--border);border-bottom:1px solid var(--border);">
     <div class="col-num">01 |</div>
