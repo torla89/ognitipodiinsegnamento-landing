@@ -91,7 +91,7 @@
       letter-spacing: 0.14em; text-transform: uppercase;
       color: var(--blue); margin-bottom: 1rem; display: block;
     }
-    .hero h1 { font-family: 'Lora', serif; font-size: 2.6rem; font-weight: 600; line-height: 1.15; margin-bottom: 1.2rem; }
+    .hero h1 { font-family: 'Lora', serif; font-size: 2.1rem; font-weight: 600; line-height: 1.15; margin-bottom: 1.2rem; }
     .hero h1 em { font-style: italic; color: var(--blue-light); }
     .hero-desc { font-size: 0.88rem; line-height: 1.8; color: var(--gray); font-weight: 300; margin-bottom: 2rem; }
     .hero-cta { display: flex; gap: 0.8rem; flex-wrap: wrap; }
@@ -184,6 +184,21 @@
     .pdf-name { font-size: 0.8rem; font-weight: 600; line-height: 1.3; margin-bottom: 0.15rem; }
     .pdf-cat { font-size: 0.65rem; color: var(--gray); text-transform: uppercase; letter-spacing: 0.06em; }
 
+    /* PODCAST */
+    .podcast-item { display:flex; align-items:center; gap:0.8rem; padding:0.7rem 0; border-bottom:1px solid var(--border); }
+    .podcast-item:last-child { border-bottom:none; }
+    .podcast-play { width:34px; height:34px; border-radius:50%; background:var(--blue); color:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; transition:background 0.2s; }
+    .podcast-play:hover { background:var(--blue-light); }
+    .podcast-play.playing { background:#2ecc71; }
+    .podcast-info { flex:1; min-width:0; }
+    .podcast-title { font-size:0.82rem; font-weight:600; color:var(--cream); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-bottom:0.3rem; }
+    .podcast-progress-wrap { display:flex; align-items:center; gap:0.5rem; }
+    .podcast-bar { flex:1; height:3px; background:var(--border); border-radius:2px; cursor:pointer; }
+    .podcast-bar-fill { height:100%; width:0%; background:var(--blue); border-radius:2px; transition:width 0.1s linear; }
+    .podcast-time { font-size:0.65rem; color:var(--gray); flex-shrink:0; min-width:32px; }
+    .podcast-dl { color:var(--gray); flex-shrink:0; padding:0.3rem; transition:color 0.2s; }
+    .podcast-dl:hover { color:var(--blue-light); }
+
     /* CONTACT */
     .contact-row { display: flex; align-items: flex-start; gap: 0.7rem; padding: 0.65rem 0; border-bottom: 1px solid var(--border); font-size: 0.82rem; }
     .contact-row:last-child { border-bottom: none; }
@@ -212,6 +227,7 @@
       background: rgba(15,15,17,0.8);
       text-align: center; padding: 1.5rem;
       font-size: 0.72rem; color: var(--gray);
+      width: 100%; box-sizing: border-box;
     }
     footer a { color: var(--blue); text-decoration: none; }
 
@@ -221,6 +237,7 @@
       .hero-left { padding-right: 0; border-right: none; border-bottom: 1px solid var(--border); padding-bottom: 2rem; margin-bottom: 2rem; }
       .hero-right { padding-left: 0; }
       .three-col { grid-template-columns: 1fr; padding: 1.5rem; }
+      .four-grid { grid-template-columns: 1fr !important; padding: 0 1.5rem !important; }
       .col-block { border-right: none; border-bottom: 1px solid var(--border); padding: 1.5rem 0; }
       .col-block:last-child { border-bottom: none; }
       nav { padding: 0 1rem; }
@@ -255,10 +272,11 @@
   </a>
   <ul class="nav-links">
     <li><a href="#" class="active">Home</a></li>
-    <li><a href="#download">Scarica</a></li>
-    <li><a href="#studi">Studi</a></li>
-    <li><a href="#chiesa">Chi siamo</a></li>
     <li><a href="https://torla89.github.io/Ogni-tipo-di-insegnamento" target="_blank">App web</a></li>
+    <li><a href="studi.html">Studi</a></li>
+    <li><a href="podcast.html">Podcast</a></li>
+    <li><a href="#chiesa">Chi siamo</a></li>
+    <li><a href="#download">Scarica</a></li>
   </ul>
 </nav>
 
@@ -266,7 +284,7 @@
 <div class="hero">
   <div class="hero-left">
     <span class="hero-tag">✦ App gratuita · Senza pubblicità</span>
-    <h1>Tutti gli studi biblici di<br><em>Ellero Balzani</em><br>a portata di mano</h1>
+    <h1>Tutti gli studi biblici di <em>Ellero Balzani</em><br>a portata di mano</h1>
     <p class="hero-desc">
       Oltre 800 studi in PDF organizzati in 41 categorie tematiche. Ricerca per parola chiave, lettura immediata nel browser o scarica l'app per tutti i tuoi dispositivi.
     </p>
@@ -295,7 +313,7 @@
           <div style="font-size:0.65rem;color:var(--gray)">41 categorie</div>
         </div>
       </div>
-      <div style="flex:1;background:var(--bg2);border:1px solid var(--border);border-radius:0.5rem;padding:0.8rem 1rem;display:flex;align-items:center;gap:0.6rem;">
+<div style="flex:1;background:var(--bg2);border:1px solid var(--border);border-radius:0.5rem;padding:0.8rem 1rem;display:flex;align-items:center;gap:0.6rem;">
         <span style="font-size:1rem">📱</span>
         <div>
           <div style="font-size:0.82rem;font-weight:600">5 piattaforme</div>
@@ -314,6 +332,23 @@
       <div style="width:160px;height:160px;border-radius:50%;background:var(--bg3);border:2px solid var(--border);margin:0 auto 1.2rem;display:flex;align-items:center;justify-content:center;font-size:4rem;">📖</div>
       <div style="font-family:'Lora',serif;font-size:1.3rem;font-weight:600;margin-bottom:0.3rem;">Ellero Balzani</div>
       <div style="font-size:0.72rem;color:var(--gray);text-transform:uppercase;letter-spacing:0.1em;">Predicatore ed insegnante</div>
+      <div style="margin-top:0.8rem;">
+        <button onclick="document.getElementById('modal-video').style.display='flex'" style="display:inline-flex;align-items:center;gap:0.4rem;background:rgba(74,144,217,0.15);border:1px solid var(--blue);color:var(--blue-light);cursor:pointer;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:0.4rem 0.9rem;border-radius:0.4rem;transition:background 0.2s;">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13"><path d="M8 5v14l11-7z"/></svg>
+          Video Ellero Balzani<br>il predicatore
+        </button>
+      </div>
+
+      <!-- MODAL VIDEO -->
+      <div id="modal-video" onclick="if(event.target===this){this.style.display='none';document.getElementById('iframe-video').src=document.getElementById('iframe-video').src;}" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9999;align-items:center;justify-content:center;padding:1.5rem;">
+        <div style="position:relative;width:100%;max-width:800px;background:#111;border-radius:0.8rem;overflow:hidden;box-shadow:0 0 60px rgba(0,0,0,0.8);">
+          <button onclick="document.getElementById('modal-video').style.display='none';document.getElementById('iframe-video').src=document.getElementById('iframe-video').src;" style="position:absolute;top:0.6rem;right:0.8rem;background:none;border:none;color:#fff;font-size:1.5rem;cursor:pointer;z-index:10;line-height:1;">✕</button>
+          <div style="padding-top:56.25%;position:relative;">
+            <iframe id="iframe-video" src="https://archive.org/embed/ogni-tipo-di-insegnamento-videotestimonianza" frameborder="0" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;"></iframe>
+          </div>
+        </div>
+      </div>
+
     </div>
     <div>
       <div class="col-num" style="margin-bottom:1rem;">Gli studi |</div>
@@ -333,6 +368,10 @@
           <div style="font-family:'Lora',serif;font-size:1.6rem;color:var(--blue);font-weight:700;">41</div>
           <div style="font-size:0.65rem;color:var(--gray);text-transform:uppercase;letter-spacing:0.08em;">Temi biblici</div>
         </div>
+        <a href="podcast.html" style="background:var(--bg2);border:1px solid var(--border);border-radius:0.5rem;padding:0.8rem 1.2rem;text-align:center;text-decoration:none;display:block;transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--blue)'" onmouseout="this.style.borderColor='var(--border)'">
+          <div style="font-family:'Lora',serif;font-size:1.6rem;color:var(--blue);font-weight:700;">35</div>
+          <div style="font-size:0.65rem;color:var(--gray);text-transform:uppercase;letter-spacing:0.08em;">Podcast</div>
+        </a>
         <div style="background:var(--bg2);border:1px solid var(--border);border-radius:0.5rem;padding:0.8rem 1.2rem;text-align:center;">
           <div style="font-family:'Lora',serif;font-size:1.6rem;color:var(--blue);font-weight:700;">∞</div>
           <div style="font-size:0.65rem;color:var(--gray);text-transform:uppercase;letter-spacing:0.08em;">Accesso gratuito</div>
@@ -357,7 +396,7 @@
           <strong style="color:var(--cream);font-weight:600;">Ellero Balzani</strong>, che per anni ha predicato e insegnato con passione, ha costruito nel tempo un archivio prezioso di insegnamenti evangelici. La sua cura per la formazione dei giovani e la sua fedeltà alla Parola di Dio hanno lasciato un segno indelebile nella comunità e in tutti coloro che hanno avuto la grazia di ascoltarlo.
         </p>
         <p style="font-size:0.88rem;line-height:1.85;color:var(--gray);font-weight:300;">
-          Oggi questo materiale è disponibile gratuitamente su tutti i dispositivi, affinché il suo insegnamento possa continuare a raggiungere chiunque cerchi la Verità.
+          Oggi questo materiale è disponibile gratuitamente su tutti i dispositivi, affinché il suo insegnamento possa continuare e raggiungere chiunque voglia approfondire la Parola di Dio.
         </p>
       </div>
       <div style="display:flex;flex-direction:column;gap:0.8rem;">
@@ -367,8 +406,9 @@
         </div>
         <div style="background:var(--bg3);border:1px solid var(--border);border-radius:0.8rem;padding:1.5rem;">
           <div style="font-size:0.68rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--gray);margin-bottom:0.8rem;">Contatti</div>
-          <div style="font-size:0.82rem;margin-bottom:0.5rem;">✉️ <a href="/cdn-cgi/l/email-protection#bcffd4d5d9cfddf9caddd2dbd9d0d5dfddf1ddceddd2d9d0d0d3fcd3c9c8d0d3d3d792d5c8" style="color:var(--blue-light);text-decoration:none;"><span class="__cf_email__" data-cfemail="e1a28988849280a497808f86848d888280ac8093808f848d8d8ea18e94958d8e8e8acf8895">[email&#160;protected]</span></a></div>
+          <div style="font-size:0.82rem;margin-bottom:0.5rem;">✉️ <a id="em1" style="color:var(--blue-light);text-decoration:none;">ChiesaEvangelicaMaranello<br>@outlook.it</a></div>
           <div style="font-size:0.82rem;">🌐 <a href="https://ognitipodiinsegnamento.it" target="_blank" style="color:var(--blue-light);text-decoration:none;">ognitipodiinsegnamento.it</a></div>
+          <div style="font-size:0.82rem;margin-top:0.5rem;"><svg width="13" height="13" viewBox="0 0 24 24" fill="#1877F2" style="vertical-align:middle;margin-right:4px;"><path d="M24 12.073C24 5.404 18.627 0 12 0S0 5.404 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.267h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg><a href="https://www.facebook.com/profile.php?id=61584977437002" target="_blank" rel="noopener" style="color:var(--blue-light);text-decoration:none;">Ogni tipo di insegnamento</a></div>
         </div>
         <a href="https://torla89.github.io/Ogni-tipo-di-insegnamento" target="_blank" class="btn-blue" style="text-align:center;">Apri l'app web →</a>
       </div>
@@ -376,13 +416,161 @@
   </div>
 </div>
 
-<!-- ④ DOWNLOAD + STUDI + CONTATTI -->
+<!-- ④ STUDI + PODCAST + CHI SIAMO + SCARICA -->
 <hr class="section-divider"/>
-<div class="three-col">
+<div class="four-grid" style="display:grid;grid-template-columns:1fr 1fr;max-width:1100px;margin:0 auto;padding:0 2.5rem;">
 
-  <!-- DOWNLOAD -->
-  <div class="col-block" id="download">
+  <div style="padding:1.5rem 2rem 1.5rem 0;border-right:1px solid var(--border);border-bottom:1px solid var(--border);">
     <div class="col-num">01 |</div>
+    <div class="col-title">Studi in evidenza</div>
+    <a href="https://cdn.jsdelivr.net/gh/torla89/Ogni-tipo-di-insegnamento@main/assets/Il%20vero%20amore%20da%20dove%20procede.pdf" target="_blank" rel="noopener" class="pdf-row" style="text-decoration:none;color:inherit;">
+      <div class="pdf-bullet"></div>
+      <div class="pdf-info">
+        <div class="pdf-name">Il vero amore da dove procede</div>
+        <div class="pdf-cat">Amore</div>
+      </div>
+    </a>
+    <a href="https://cdn.jsdelivr.net/gh/torla89/Ogni-tipo-di-insegnamento@main/assets/Perch%C3%A9%20sono%20felice.pdf" target="_blank" rel="noopener" class="pdf-row" style="text-decoration:none;color:inherit;">
+      <div class="pdf-bullet"></div>
+      <div class="pdf-info">
+        <div class="pdf-name">Perché sono felice</div>
+        <div class="pdf-cat">Ellero Balzani</div>
+      </div>
+    </a>
+    <a href="https://cdn.jsdelivr.net/gh/torla89/Ogni-tipo-di-insegnamento@main/assets/Il%20battesimo%20come%20impegno.pdf" target="_blank" rel="noopener" class="pdf-row" style="text-decoration:none;color:inherit;">
+      <div class="pdf-bullet"></div>
+      <div class="pdf-info">
+        <div class="pdf-name">Il battesimo come impegno</div>
+        <div class="pdf-cat">Battesimo</div>
+      </div>
+    </a>
+    <a href="https://cdn.jsdelivr.net/gh/torla89/Ogni-tipo-di-insegnamento@main/assets/Lo%20spreco%20di%20Maria.pdf" target="_blank" rel="noopener" class="pdf-row" style="text-decoration:none;color:inherit;">
+      <div class="pdf-bullet"></div>
+      <div class="pdf-info">
+        <div class="pdf-name">Lo spreco di Maria</div>
+        <div class="pdf-cat">Devozione</div>
+      </div>
+    </a>
+    <a href="https://cdn.jsdelivr.net/gh/torla89/Ogni-tipo-di-insegnamento@main/assets/La%20tristezza.pdf" target="_blank" rel="noopener" class="pdf-row" style="text-decoration:none;color:inherit;">
+      <div class="pdf-bullet"></div>
+      <div class="pdf-info">
+        <div class="pdf-name">La tristezza</div>
+        <div class="pdf-cat">Vita cristiana</div>
+      </div>
+    </a>
+    <div style="margin-top:1.2rem;">
+      <a href="studi.html" class="btn-blue" style="font-size:0.75rem;padding:0.55rem 1.2rem;">Sfoglia tutti →</a>
+    </div>
+  </div>
+
+  <div style="padding:1.5rem 0 1.5rem 2rem;border-bottom:1px solid var(--border);">
+  <div class="col-num">02 |</div>
+  <div class="col-title" style="margin-bottom:0.3rem;">Podcast in evidenza</div>
+  <p style="font-size:0.82rem;color:var(--gray);margin-bottom:1.5rem;font-weight:300;">Registrazioni audio di Ellero Balzani. Clicca ▶ per ascoltare.</p>
+
+  <div class="podcast-item" data-src="https://archive.org/download/ogni-tipo-di-insegnamento-podcast/Chi%20non%20e%CC%80%20con%20Cristo.mp3">
+    <div class="podcast-play" onclick="window._podcastPlay(this)">
+      <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M8 5v14l11-7z"/></svg>
+      <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+    </div>
+    <div class="podcast-info">
+      <div class="podcast-title">Chi non è con Cristo</div>
+      <div class="podcast-progress-wrap"><div class="podcast-bar"><div class="podcast-bar-fill"></div></div><span class="podcast-time">0:00</span></div>
+    </div>
+    <a href="https://archive.org/download/ogni-tipo-di-insegnamento-podcast/Chi%20non%20e%CC%80%20con%20Cristo.mp3" download class="podcast-dl" title="Scarica"><svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg></a>
+  </div>
+
+  <div class="podcast-item" data-src="https://archive.org/download/ogni-tipo-di-insegnamento-podcast/Perch%C3%A9%20i%20figli%20di%20Dio%20sono%20divisi.mp3">
+    <div class="podcast-play" onclick="window._podcastPlay(this)">
+      <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M8 5v14l11-7z"/></svg>
+      <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+    </div>
+    <div class="podcast-info">
+      <div class="podcast-title">Perché i figli di Dio sono divisi</div>
+      <div class="podcast-progress-wrap"><div class="podcast-bar"><div class="podcast-bar-fill"></div></div><span class="podcast-time">0:00</span></div>
+    </div>
+    <a href="https://archive.org/download/ogni-tipo-di-insegnamento-podcast/Perch%C3%A9%20i%20figli%20di%20Dio%20sono%20divisi.mp3" download class="podcast-dl" title="Scarica"><svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg></a>
+  </div>
+
+  <div class="podcast-item" data-src="https://archive.org/download/ogni-tipo-di-insegnamento-podcast/Unico-Dio.mp3">
+    <div class="podcast-play" onclick="window._podcastPlay(this)">
+      <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M8 5v14l11-7z"/></svg>
+      <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+    </div>
+    <div class="podcast-info">
+      <div class="podcast-title">Unico Dio</div>
+      <div class="podcast-progress-wrap"><div class="podcast-bar"><div class="podcast-bar-fill"></div></div><span class="podcast-time">0:00</span></div>
+    </div>
+    <a href="https://archive.org/download/ogni-tipo-di-insegnamento-podcast/Unico-Dio.mp3" download class="podcast-dl" title="Scarica"><svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg></a>
+  </div>
+
+  <div class="podcast-item" data-src="https://archive.org/download/ogni-tipo-di-insegnamento-podcast/vi%20%C3%A8%20un%20solo%20Dio.mp3">
+    <div class="podcast-play" onclick="window._podcastPlay(this)">
+      <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M8 5v14l11-7z"/></svg>
+      <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+    </div>
+    <div class="podcast-info">
+      <div class="podcast-title">Vi è un solo Dio</div>
+      <div class="podcast-progress-wrap"><div class="podcast-bar"><div class="podcast-bar-fill"></div></div><span class="podcast-time">0:00</span></div>
+    </div>
+    <a href="https://archive.org/download/ogni-tipo-di-insegnamento-podcast/vi%20%C3%A8%20un%20solo%20Dio.mp3" download class="podcast-dl" title="Scarica"><svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg></a>
+  </div>
+
+  <div class="podcast-item" data-src="https://archive.org/download/ogni-tipo-di-insegnamento-podcast/JHWH%2001%20%20%20I%20nomi%20della%20divinita%CC%80.mp3">
+    <div class="podcast-play" onclick="window._podcastPlay(this)">
+      <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M8 5v14l11-7z"/></svg>
+      <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+    </div>
+    <div class="podcast-info">
+      <div class="podcast-title">JHWH 01 — I nomi della divinità</div>
+      <div class="podcast-progress-wrap"><div class="podcast-bar"><div class="podcast-bar-fill"></div></div><span class="podcast-time">0:00</span></div>
+    </div>
+    <a href="https://archive.org/download/ogni-tipo-di-insegnamento-podcast/JHWH%2001%20%20%20I%20nomi%20della%20divinita%CC%80.mp3" download class="podcast-dl" title="Scarica"><svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg></a>
+  </div>
+
+  <div style="margin-top:1.2rem;margin-bottom:3rem;">
+    <a href="podcast.html" class="btn-blue" style="font-size:0.75rem;padding:0.55rem 1.2rem;">Sfoglia tutti →</a>
+  </div>
+</div>
+
+  <div id="chiesa" style="padding:1.5rem 2rem 1.5rem 0;border-right:1px solid var(--border);">
+    <div class="col-num">03 |</div>
+    <div class="col-title">Chi siamo</div>
+    <div class="contact-row">
+      <span class="contact-icon">⛪</span>
+      <div>
+        <div class="contact-label">Organizzazione</div>
+        <div class="contact-val">Chiesa Evangelica di Maranello</div>
+      </div>
+    </div>
+    <div class="contact-row">
+      <span class="contact-icon">✉️</span>
+      <div>
+        <div class="contact-label">Email</div>
+        <div class="contact-val"><a id="em2" style="color:var(--blue-light);text-decoration:none;">ChiesaEvangelicaMaranello<br>@outlook.it</a></div>
+      </div>
+    </div>
+    <div class="contact-row">
+      <span class="contact-icon">🌐</span>
+      <div>
+        <div class="contact-label">Sito web</div>
+           <div class="contact-val"><a href="https://ognitipodiinsegnamento.it" target="_blank">ognitipodiinsegnamento.it</a></div>
+      </div>
+    </div>
+    <div class="contact-row">
+      <span class="contact-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073C24 5.404 18.627 0 12 0S0 5.404 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.267h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
+      </span>
+      <div>
+        <div class="contact-label">Facebook</div>
+        <div class="contact-val"><a href="https://www.facebook.com/profile.php?id=61584977437002" target="_blank" rel="noopener" style="color:var(--blue-light);text-decoration:none;">Ogni tipo di insegnamento</a></div>
+      </div>
+    </div>
+        <div class="contact-val"><a href="https://1drv.ms/t/c/7d9462168c8bb500/IQBFJz8LaS5aR5P0S9iX4TKQAS9XneRGLLTuSY0C2nykQXw?e=pIjTOz" target="_blank">Privacy Policy</a></div>
+      </div>
+
+  <div id="download" style="padding:1.5rem 0 1.5rem 2rem;">
+    <div class="col-num">04 |</div>
     <div class="col-title">Scarica l'app</div>
     <a href="https://play.google.com/store/apps/details?id=com.ognitipodiinsegnamento" target="_blank" class="dl-item">
       <div class="dl-icon" style="background:transparent;border:none;width:40px;height:40px;display:flex;align-items:center;justify-content:center;">
@@ -471,70 +659,52 @@
     </a>
   </div>
 
-  <!-- STUDI -->
-  <div class="col-block" id="studi">
-    <div class="col-num">02 |</div>
-    <div class="col-title">Ultimi studi</div>
-    <div class="pdf-row">
-      <div class="pdf-bullet"></div>
-      <div class="pdf-info">
-        <div class="pdf-name">Il vero amore da dove procede</div>
-        <div class="pdf-cat">Amore</div>
-      </div>
-    </div>
-    <div class="pdf-row">
-      <div class="pdf-bullet"></div>
-      <div class="pdf-info">
-        <div class="pdf-name">Perché sono felice</div>
-        <div class="pdf-cat">Ellero Balzani</div>
-      </div>
-    </div>
-    <div class="pdf-row">
-      <div class="pdf-bullet"></div>
-      <div class="pdf-info">
-        <div class="pdf-name">La grazia di Dio</div>
-        <div class="pdf-cat">Grazia</div>
-      </div>
-    </div>
-    <div class="pdf-row">
-      <div class="pdf-bullet"></div>
-      <div class="pdf-info">
-        <div class="pdf-name">Gesù Cristo e la salvezza</div>
-        <div class="pdf-cat">Gesù Cristo</div>
-      </div>
-    </div>
-    <div class="pdf-row">
-      <div class="pdf-bullet"></div>
-      <div class="pdf-info">
-        <div class="pdf-name">La preghiera cristiana</div>
-        <div class="pdf-cat">Preghiera</div>
-      </div>
-    </div>
-    <div style="margin-top:1.2rem;">
-      <a href="https://torla89.github.io/Ogni-tipo-di-insegnamento" target="_blank" class="btn-blue" style="font-size:0.75rem;padding:0.55rem 1.2rem;">Sfoglia tutti →</a>
-    </div>
-  </div>
+</div>
 
-  <!-- CHI SIAMO -->
-  <div class="col-block" id="chiesa">
-    <div class="col-num">03 |</div>
-    <div class="col-title">Chi siamo</div>
-    <div class="contact-row">
-      <span class="contact-icon">⛪</span>
-      <div>
-        <div class="contact-label">Organizzazione</div>
-        <div class="contact-val">Chiesa Evangelica di Maranello</div>
-      </div>
-    </div>
-    <div class="contact-row">
-      <span class="contact-icon">✉️</span>
-      <div>
-        <div class="contact-label">Email</div>
-        <div class="contact-val"><a href="/cdn-cgi/l/email-protection#216249484452406457404f46444d4842406c4053404f444d4d4e614e54554d4e4e4a0f4855" style="color:var(--blue-light);text-decoration:none;"><span class="__cf_email__" data-cfemail="44072c2d2137250132252a2321282d2725092536252a2128282b042b3130282b2b2f6a2d30">[email&#160;protected]</span></a></div>
-      </div>
-    </div>
-    <div class="contact-row">
-      <span class="contact-icon">🌐</span>
-      <div>
-        <div class="contact-label">Sito web</div>
-   
+<footer>
+  <p>© 2025 Chiesa Evangelica di Maranello · <a href="https://1drv.ms/t/c/7d9462168c8bb500/IQBFJz8LaS5aR5P0S9iX4TKQAS9XneRGLLTuSY0C2nykQXw?e=pIjTOz">Privacy Policy</a> · <a href="ognitipodiinsegnamento.it">ognitipodiinsegnamento.it</a></p>
+</footer>
+
+
+
+<script>
+(function(){
+  var u="ChiesaEvangelicaMaranello";
+  var d="outlook.it";
+  var href="mailto:"+u+"@"+d;
+  var e1=document.getElementById("em1");
+  var e2=document.getElementById("em2");
+  if(e1){e1.href=href;e1.style.cursor="pointer";}
+  if(e2){e2.href=href;e2.style.cursor="pointer";}
+})();
+
+// PODCAST PLAYER
+(function(){
+  let currentAudio = null, currentBtn = null;
+  function fmtTime(s) { if(isNaN(s)) return "0:00"; var m=Math.floor(s/60),sec=Math.floor(s%60); return m+":"+(sec<10?"0":"")+sec; }
+  function togglePlay(btn) {
+    var item = btn.closest(".podcast-item");
+    var src = item.dataset.src;
+    var fill = item.querySelector(".podcast-bar-fill");
+    var time = item.querySelector(".podcast-time");
+    var bar  = item.querySelector(".podcast-bar");
+    if(currentAudio && currentBtn===btn) {
+      if(currentAudio.paused){ currentAudio.play(); btn.classList.add("playing"); btn.querySelector(".play-icon").style.display="none"; btn.querySelector(".pause-icon").style.display=""; }
+      else { currentAudio.pause(); btn.classList.remove("playing"); btn.querySelector(".play-icon").style.display=""; btn.querySelector(".pause-icon").style.display="none"; }
+      return;
+    }
+    if(currentAudio){ currentAudio.pause(); currentBtn.classList.remove("playing"); currentBtn.querySelector(".play-icon").style.display=""; currentBtn.querySelector(".pause-icon").style.display="none"; currentBtn.closest(".podcast-item").querySelector(".podcast-bar-fill").style.width="0%"; currentBtn.closest(".podcast-item").querySelector(".podcast-time").textContent="0:00"; }
+    currentAudio=new Audio(src); currentBtn=btn;
+    btn.classList.add("playing"); btn.querySelector(".play-icon").style.display="none"; btn.querySelector(".pause-icon").style.display="";
+    currentAudio.ontimeupdate=function(){ if(currentAudio.duration){ fill.style.width=(currentAudio.currentTime/currentAudio.duration*100)+"%"; time.textContent=fmtTime(currentAudio.currentTime); } };
+    currentAudio.onended=function(){ btn.classList.remove("playing"); btn.querySelector(".play-icon").style.display=""; btn.querySelector(".pause-icon").style.display="none"; fill.style.width="0%"; time.textContent="0:00"; };
+    bar.onclick=function(e){ if(currentAudio&&currentBtn===btn&&currentAudio.duration){ var r=bar.getBoundingClientRect(); currentAudio.currentTime=((e.clientX-r.left)/r.width)*currentAudio.duration; } };
+    currentAudio.play();
+  }
+  window._podcastPlay = togglePlay;
+  window._podcastPlay = togglePlay;
+})();
+</script>
+
+</body>
+</html>
