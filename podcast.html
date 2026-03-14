@@ -86,7 +86,7 @@
     <li><a href="https://torla89.github.io/Ogni-tipo-di-insegnamento" target="_blank">App web</a></li>
     <li><a href="studi.html">Studi</a></li>
     <li><a href="podcast.html" class="active">Podcast</a></li>
-    <li><a href="index.html#chiesa">Chi siamo</a></li>
+    <li><a href="index.html#chiesa">Contattaci</a></li>
     <li><a href="index.html#download">Scarica</a></li>
   </ul>
 </nav>
@@ -114,12 +114,12 @@
 <script>
 const BASE = "https://archive.org/download/ogni-tipo-di-insegnamento-podcast/";
 const tracks = [
-  "Chi non è con Cristo.mp3",
+  "Chi non è con Cristo.mp3",
   "Credente o Cristiano.mp3",
   "Cristiano o religioso.mp3",
-  "Dio è Spirito.mp3",
-  "Gesù è Geova.mp3",
-  "Gesù il figlio di Dio.mp3",
+  "Dio è Spirito.mp3",
+  "Gesù è Geova.mp3",
+  "Gesù il figlio di Dio.mp3",
   "I nomi di Dio.mp3",
   "Il Dio tremendo.mp3",
   "Il Dio uno e trino.mp3",
@@ -128,35 +128,35 @@ const tracks = [
   "il termine nomeg.mp3",
   "il termine padre.mp3",
   "Io SONO.mp3",
-  "JHWH 01   I nomi della divinità.mp3",
+  "JHWH 01   I nomi della divinità.mp3",
   "JHWH 02   Elohim.mp3",
-  "JHWH 03   La polideità e pluralità di Dio.mp3",
+  "JHWH 03   La polideità e pluralità di Dio.mp3",
   "JHWH 04   Lo Spirito di Dio.mp3",
   "JHWH 05   L'antropomorfismo di Dio.mp3",
   "JHWH 06   L'angelo dell'Eterno.mp3",
   "JHWH 07   L'io sono.mp3",
   "JHWH 08   La presenza di Cristo nel AT.mp3",
   "JHWH 09   Cristo nell'Antico Testamento.mp3",
-  "JHWH 10   Gesù è il Signore.mp3",
+  "JHWH 10   Gesù è il Signore.mp3",
   "JHWH 11 un Dio trino.mp3",
-  "JHWH 12 Gesù rivela il Padre.mp3",
+  "JHWH 12 Gesù rivela il Padre.mp3",
   "JHWH ed i profeti.mp3",
   "JHWH unico Dio.mp3",
-  "JHWH é Cristo.mp3",
+  "JHWH é Cristo.mp3",
   "L'Angelo quale messaggero di YHWH.mp3",
   "l'Elohim dell'Antico patto.mp3",
-  "L'unicità del Cristianesimo.mp3",
-  "La divinità di Gesù.mp3",
-  "La pluralità di Dio.mp3",
-  "La polideità dell'Elohim.mp3",
+  "L'unicità del Cristianesimo.mp3",
+  "La divinità di Gesù.mp3",
+  "La pluralità di Dio.mp3",
+  "La polideità dell'Elohim.mp3",
   "la vita comunitaria dei primi cristiani.mp3",
   "Lo spirito dell'Elohim.mp3",
-  "Perché i figli di Dio sono divisi.mp3",
+  "Perché i figli di Dio sono divisi.mp3",
   "Prefazione al Libro.mp3",
   "Sei guidato dallo Spirito Santo o da uno spirito maligno.mp3",
   "Unico-Dio.mp3",
   "uno stesso Dio.mp3",
-  "vi è un solo Dio.mp3"
+  "vi è un solo Dio.mp3"
 ];
 
 let currentAudio = null, currentBtn = null;
@@ -199,27 +199,6 @@ function togglePlay(btn) {
   }
 
   currentAudio = new Audio(src);
-  currentAudio.onerror = function() {
-    var nfd = item.dataset.srcNfd;
-    if(nfd && nfd !== src) {
-      currentAudio = new Audio(nfd);
-      item.dataset.src = nfd;
-      currentAudio.ontimeupdate = function() {
-        if(currentAudio.duration) {
-          fill.style.width = (currentAudio.currentTime / currentAudio.duration * 100) + "%";
-          time.textContent = fmtTime(currentAudio.currentTime);
-        }
-      };
-      currentAudio.onended = function() {
-        btn.classList.remove("playing");
-        btn.querySelector(".play-icon").style.display = "";
-        btn.querySelector(".pause-icon").style.display = "none";
-        fill.style.width = "0%";
-        time.textContent = "0:00";
-      };
-      currentAudio.play();
-    }
-  };
   currentBtn = btn;
   btn.classList.add("playing");
   btn.querySelector(".play-icon").style.display = "none";
@@ -248,41 +227,15 @@ function togglePlay(btn) {
   currentAudio.play();
 }
 
-const nfdTracks = [
-  "Chi non è con Cristo.mp3",
-  "Dio è Spirito.mp3",
-  "Gesù è Geova.mp3",
-  "Gesù il figlio di Dio.mp3",
-  "JHWH 01   I nomi della divinità.mp3",
-  "JHWH 03   La polideità e pluralità di Dio.mp3",
-  "JHWH 10   Gesù è il Signore.mp3"
-];
-
-function downloadTrack(url, filename) {
-  fetch(url)
-    .then(r => r.blob())
-    .then(blob => {
-      var a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = filename;
-      a.click();
-      URL.revokeObjectURL(a.href);
-    })
-    .catch(() => { window.open(url, '_blank'); });
-}
-
 function renderTracks(list) {
   var container = document.getElementById("podcastList");
   container.innerHTML = "";
   list.forEach(function(t) {
-    var isNfd = nfdTracks.indexOf(t) >= 0;
-    var norm = isNfd ? 'NFD' : 'NFC';
-    var urlOK = BASE + encodeURIComponent(t.normalize(norm));
+    var url = BASE + encodeURIComponent(t.normalize('NFC'));
     var title = t.replace(/\.mp3$/i, "");
     var div = document.createElement("div");
     div.className = "podcast-item";
-    div.dataset.src = urlOK;
-    var dlAttr = 'onclick="downloadTrack(\'' + urlOK.replace(/'/g, "\\'") + '\',\'' + title.replace(/'/g, "\\'") + '.mp3\')"';
+    div.dataset.src = url;
     div.innerHTML =
       '<div class="podcast-play" onclick="togglePlay(this)">' +
         '<svg class="play-icon" viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M8 5v14l11-7z"/></svg>' +
@@ -295,7 +248,7 @@ function renderTracks(list) {
           '<span class="podcast-time">0:00</span>' +
         '</div>' +
       '</div>' +
-      '<a href="#" ' + dlAttr + ' class="podcast-dl" title="Scarica">' +
+      '<a href="' + url + '" download class="podcast-dl" title="Scarica">' +
         '<svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>' +
       '</a>';
     container.appendChild(div);
