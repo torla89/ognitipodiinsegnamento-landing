@@ -231,7 +231,7 @@ function renderTracks(list) {
   var container = document.getElementById("podcastList");
   container.innerHTML = "";
   list.forEach(function(t) {
-    var url = BASE + encodeURIComponent(t.normalize('NFD'));
+    var url = BASE + encodeURIComponent(t.normalize('NFC'));
     var title = t.replace(/\.mp3$/i, "");
     var div = document.createElement("div");
     div.className = "podcast-item";
