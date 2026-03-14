@@ -231,7 +231,8 @@ function renderTracks(list) {
   var container = document.getElementById("podcastList");
   container.innerHTML = "";
   list.forEach(function(t) {
-    var url = BASE + encodeURIComponent(t.normalize('NFC'));
+    var nfdList = ["Chi non è con Cristo.mp3","Dio è Spirito.mp3","Gesù è Geova.mp3","Gesù il figlio di Dio.mp3","JHWH 01   I nomi della divinità.mp3","JHWH 03   La polideità e pluralità di Dio.mp3","JHWH 10   Gesù è il Signore.mp3"];
+    var url = BASE + encodeURIComponent((nfdList.indexOf(t) >= 0 ? t.normalize('NFD') : t.normalize('NFC')));
     var title = t.replace(/\.mp3$/i, "");
     var div = document.createElement("div");
     div.className = "podcast-item";
