@@ -263,12 +263,12 @@ function renderTracks(list) {
   container.innerHTML = "";
   list.forEach(function(t) {
     var norm = nfdTracks.indexOf(t) >= 0 ? 'NFD' : 'NFC';
-    var urlNFC = BASE + encodeURIComponent(t.normalize(norm));
+    var urlOK = BASE + encodeURIComponent(t.normalize(norm));
     var urlNFD = BASE + encodeURIComponent(t.normalize('NFD'));
     var title = t.replace(/\.mp3$/i, "");
     var div = document.createElement("div");
     div.className = "podcast-item";
-    div.dataset.src = urlNFC;
+    div.dataset.src = urlOK;
     div.dataset.srcNfd = urlNFD;
     div.innerHTML =
       '<div class="podcast-play" onclick="togglePlay(this)">' +
@@ -282,7 +282,7 @@ function renderTracks(list) {
           '<span class="podcast-time">0:00</span>' +
         '</div>' +
       '</div>' +
-      '<a href="' + urlNFC + '" download class="podcast-dl" title="Scarica">' +
+      '<a href="' + urlOK + '" download class="podcast-dl" title="Scarica">' +
         '<svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>' +
       '</a>';
     container.appendChild(div);
