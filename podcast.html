@@ -248,11 +248,22 @@ function togglePlay(btn) {
   currentAudio.play();
 }
 
+const nfdTracks = [
+  "Chi non è con Cristo.mp3",
+  "Dio è Spirito.mp3",
+  "Gesù è Geova.mp3",
+  "Gesù il figlio di Dio.mp3",
+  "JHWH 01   I nomi della divinità.mp3",
+  "JHWH 03   La polideità e pluralità di Dio.mp3",
+  "JHWH 10   Gesù è il Signore.mp3"
+];
+
 function renderTracks(list) {
   var container = document.getElementById("podcastList");
   container.innerHTML = "";
   list.forEach(function(t) {
-    var urlNFC = BASE + encodeURIComponent(t.normalize('NFC'));
+    var norm = nfdTracks.indexOf(t) >= 0 ? 'NFD' : 'NFC';
+    var urlNFC = BASE + encodeURIComponent(t.normalize(norm));
     var urlNFD = BASE + encodeURIComponent(t.normalize('NFD'));
     var title = t.replace(/\.mp3$/i, "");
     var div = document.createElement("div");
