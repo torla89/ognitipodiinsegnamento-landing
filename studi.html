@@ -281,10 +281,36 @@
 <script>
   const RAW_BASE = `https://cdn.jsdelivr.net/gh/torla89/Ogni-tipo-di-insegnamento@main/assets/`;
 
+  const titleOverride = {
+    'chiedere perdono o confessare il peccato': 'chiedere perdono o confessare il peccato?',
+    'cosa vorresti che fosse scritto sulla tua epigrafe': 'cosa vorresti che fosse scritto sulla tua epigrafe?',
+    'credenti o discepoli': 'credenti o discepoli?',
+    'Perché la legge': 'Perché la legge?',
+    'sono io chiamato a predicare': 'sono io chiamato a predicare?',
+    'Chi può rimettere i peccati': 'Chi può rimettere i peccati?',
+    'Chi sono i pagani': 'Chi sono i pagani?',
+    'Di che cosa hai paura': 'Di che cosa hai paura?',
+    'dove era il codice stradale': 'dove era il codice stradale?',
+    'perché predicare il vangelo se gli uomini sono salvati senza': 'perché predicare il vangelo se gli uomini sono salvati senza?',
+    'Fede sì, ma in che cosa': 'Fede sì, ma in che cosa?',
+    'Dio mio, Dio mio, perchè mi hai abbandonato': 'Dio mio, Dio mio, perchè mi hai abbandonato?',
+    'e se Gesù non fosse risorto': 'e se Gesù non fosse risorto?',
+    'gesù si idenfica con JHWH oppure lo è': 'gesù si idenfica con JHWH oppure lo è?',
+    'Perché servire Dio': 'Perché servire Dio?',
+    "l'unione degli omosessuali è naturale": "l'unione degli omosessuali è naturale?",
+    "L'unione dei gay è un matrimonio": "L'unione dei gay è un matrimonio?",
+    "Ma perché quell'uno lo fece": "Ma perché quell'uno lo fece?",
+    'Non ti basta il Signore': 'Non ti basta il Signore?',
+    'nudo integrale si o no': 'nudo integrale si o no?',
+    'Sposi vinti o convinti': 'Sposi vinti o convinti?',
+    'Spirito Santo o spirito maligno': 'Spirito Santo o spirito maligno?',
+  };
+
   let allStudi = [];
 
   function displayName(filename) {
-    return filename.replace(/\.pdf$/i, '');
+    const base = filename.replace(/\.pdf$/i, '');
+    return titleOverride[base] ?? base;
   }
 
   function renderStudi(studi) {
