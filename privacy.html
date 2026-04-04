@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Privacy Policy – Ogni Tipo di Insegnamento</title>
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/torla89/Ogni-tipo-di-insegnamento/main/assets/icona.png"/>
+  <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/torla89/Ogni-tipo-di-insegnamento/main/assets/icona.png"/>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #1C1C1E;
+      --bg2: #242426;
+      --border: rgba(255,255,255,0.08);
+      --blue: #4A90D9;
+      --blue-light: #6AAEE8;
+      --cream: #E8E4DC;
+      --gray: rgba(232,228,220,0.5);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Nunito Sans', sans-serif;
+      background: var(--bg);
+      color: var(--cream);
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    .page-bg {
+      position: fixed; inset: 0; z-index: -1;
+      background:
+        radial-gradient(ellipse 80% 60% at 0% 0%, rgba(30,20,20,0.9) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 100% 100%, rgba(20,20,30,0.8) 0%, transparent 60%),
+        linear-gradient(160deg, #1A1A1C 0%, #222224 40%, #1E1E20 100%);
+    }
+
+    /* NAV */
+    nav {
+      position: relative; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0 2.5rem;
+      background: rgba(20,20,22,0.95);
+      border-bottom: 1px solid var(--border);
+      height: 64px;
+    }
+    .nav-brand { display: flex; align-items: center; gap: 0.9rem; text-decoration: none; }
+    .nav-brand-icon {
+      width: 36px; height: 36px; border-radius: 0.5rem;
+      overflow: hidden; flex-shrink: 0; border: 1px solid var(--border);
+    }
+    .nav-brand-icon img { width: 100%; height: 100%; object-fit: cover; }
+    .nav-brand-text { font-family: 'Lora', serif; font-size: 1rem; font-weight: 600; color: var(--cream); line-height: 1.2; }
+    .nav-brand-sub { font-size: 0.65rem; color: var(--gray); font-weight: 300; letter-spacing: 0.06em; }
+    .nav-links {
+      display: flex; list-style: none;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 0.5rem; overflow: hidden;
+    }
+    .nav-links li a {
+      display: block; padding: 0.5rem 1.3rem;
+      font-size: 0.78rem; font-weight: 600;
+      text-decoration: none; color: var(--gray);
+      letter-spacing: 0.06em; text-transform: uppercase;
+      border-right: 1px solid var(--border);
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-links li:last-child a { border-right: none; }
+    .nav-links li a:hover, .nav-links li a.active { background: var(--blue); color: #fff; }
+
+    /* HEADER */
+    .page-header {
+      position: relative; z-index: 1;
+      max-width: 800px; margin: 0 auto;
+      padding: 3rem 2.5rem 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .page-header-tag {
+      font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--blue); margin-bottom: 0.8rem; display: block;
+    }
+    .page-header h1 {
+      font-family: 'Lora', serif;
+      font-size: 2.2rem; font-weight: 600;
+      line-height: 1.2; margin-bottom: 0.8rem;
+    }
+    .page-header p {
+      font-size: 0.88rem; color: var(--gray);
+      font-weight: 300; line-height: 1.7;
+    }
+
+    /* CONTENT */
+    .privacy-content {
+      position: relative; z-index: 1;
+      max-width: 800px; margin: 0 auto;
+      padding: 2.5rem 2.5rem 4rem;
+    }
+
+    .privacy-section {
+      margin-bottom: 2.5rem;
+    }
+
+    .privacy-section h2 {
+      font-family: 'Lora', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--blue-light);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .privacy-section p {
+      font-size: 0.9rem;
+      line-height: 1.8;
+      color: var(--cream);
+      font-weight: 300;
+      margin-bottom: 0.8rem;
+    }
+
+    .privacy-section ul {
+      list-style: none;
+      margin: 0.5rem 0 0.8rem 0;
+    }
+
+    .privacy-section ul li {
+      font-size: 0.9rem;
+      line-height: 1.8;
+      color: var(--cream);
+      font-weight: 300;
+      padding-left: 1.2rem;
+      position: relative;
+      margin-bottom: 0.3rem;
+    }
+
+    .privacy-section ul li::before {
+      content: '·';
+      color: var(--blue);
+      position: absolute;
+      left: 0;
+      font-size: 1.2rem;
+      line-height: 1.5;
+    }
+
+    .privacy-section a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+    .privacy-section a:hover {
+      text-decoration: underline;
+    }
+
+    .email-link {
+      display: inline-block;
+      background: rgba(74,144,217,0.1);
+      border: 1px solid rgba(74,144,217,0.3);
+      border-radius: 0.4rem;
+      padding: 0.2rem 0.6rem;
+      color: var(--blue-light);
+      font-size: 0.88rem;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .email-link:hover {
+      background: rgba(74,144,217,0.2);
+    }
+
+    /* FOOTER */
+    footer {
+      position: relative; z-index: 1;
+      border-top: 1px solid var(--border);
+      background: rgba(15,15,17,0.8);
+      text-align: center; padding: 1.5rem;
+      font-size: 0.72rem; color: var(--gray);
+    }
+    footer a { color: var(--blue); text-decoration: none; }
+
+    @media (max-width: 900px) {
+      nav { padding: 0 1rem; }
+      .nav-links { display: none; }
+      .page-header, .privacy-content { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .page-header h1 { font-size: 1.7rem; }
+    }
+  </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HZD3DN7HST"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-HZD3DN7HST');
+</script>
+</head>
+<body>
+
+<div class="page-bg"></div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="index.html">
+    <div class="nav-brand-icon">
+      <img src="https://raw.githubusercontent.com/torla89/Ogni-tipo-di-insegnamento/main/assets/icona.png" alt="logo" onerror="this.parentElement.innerHTML='📖'"/>
+    </div>
+    <div>
+      <div class="nav-brand-text">Ogni tipo di insegnamento</div>
+      <div class="nav-brand-sub">Studi biblici gratuiti</div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="https://torla89.github.io/Ogni-tipo-di-insegnamento" target="_blank">App web</a></li>
+    <li><a href="studi.html">Studi</a></li>
+    <li><a href="podcast.html">Podcast</a></li>
+    <li><a href="index.html#chiesa">Chi siamo</a></li>
+    <li><a href="index.html#download">Scarica</a></li>
+  </ul>
+</nav>
+
+<!-- HEADER -->
+<div class="page-header">
+  <span class="page-header-tag">✦ Informativa sulla Privacy</span>
+  <h1>Privacy Policy</h1>
+  <p>Informativa ai sensi del Regolamento (UE) 2016/679 (GDPR) relativa all'applicazione <em>Ogni tipo di insegnamento</em>.</p>
+</div>
+
+<!-- CONTENT -->
+<div class="privacy-content">
+
+  <div class="privacy-section">
+    <h2>1. Titolare del trattamento</h2>
+    <p>Chiesa Evangelica Maranello<br>
+    Email: <a class="email-link" href="mailto:ChiesaEvangelicaMaranello@outlook.it">ChiesaEvangelicaMaranello@outlook.it</a></p>
+    <p>Il Titolare garantisce che il trattamento dei dati personali avviene nel rispetto del Regolamento (UE) 2016/679 ("GDPR") e della normativa nazionale applicabile.</p>
+  </div>
+
+  <div class="privacy-section">
+    <h2>2. Tipologie di dati trattati</h2>
+    <p>L'applicazione non raccoglie dati personali in modo automatico. L'unica forma di raccolta avviene tramite la sezione "Segnalazioni", attraverso la quale l'utente può inviare segnalazioni o richieste.</p>
+    <p>I dati trattati sono esclusivamente:</p>
+    <ul>
+      <li>Indirizzo email dell'utente</li>
+      <li>Contenuto del messaggio, che può includere informazioni personali fornite volontariamente</li>
+    </ul>
+    <p>Non vengono raccolti dati ulteriori, né vengono utilizzati cookie, sistemi di profilazione o strumenti di tracciamento.</p>
+  </div>
+
+  <div class="privacy-section">
+    <h2>3. Finalità del trattamento</h2>
+    <p>I dati forniti dall'utente sono trattati esclusivamente per:</p>
+    <ul>
+      <li>ricevere e gestire segnalazioni di malfunzionamenti</li>
+      <li>fornire riscontro alle richieste di assistenza</li>
+      <li>mantenere un canale di comunicazione diretto con l'utente</li>
+    </ul>
+    <p>I dati non sono utilizzati per finalità commerciali o di marketing.</p>
+  </div>
+
+  <div class="privacy-section">
+    <h2>4. Base giuridica del trattamento</h2>
+    <p>Il trattamento si fonda su:</p>
+    <ul>
+      <li>art. 6(1)(b) GDPR – esecuzione di misure precontrattuali richieste dall'utente</li>
+      <li>art. 6(1)(f) GDPR – legittimo interesse del Titolare a garantire il corretto funzionamento del servizio e la gestione delle comunicazioni</li>
+    </ul>
+  </div>
+
+  <div class="privacy-section">
+    <h2>5. Modalità del trattamento</h2>
+    <p>Il trattamento avviene mediante strumenti informatici e telematici, adottando misure tecniche e organizzative adeguate a garantire:</p>
+    <ul>
+      <li>integrità</li>
+      <li>riservatezza</li>
+      <li>disponibilità</li>
+      <li>protezione da accessi non autorizzati</li>
+    </ul>
+    <p>Non è previsto alcun processo decisionale automatizzato.</p>
+  </div>
+
+  <div class="privacy-section">
+    <h2>6. Servizi esterni e Responsabili del trattamento</h2>
+    <p>Per l'invio delle comunicazioni viene utilizzato il servizio <a href="https://www.emailjs.com" target="_blank" rel="noopener">EmailJS</a>, che agisce in qualità di Responsabile del trattamento ai sensi dell'art. 28 GDPR.</p>
+    <p>Il messaggio inviato dall'utente viene recapitato automaticamente alla casella email del Titolare gestita tramite Outlook.</p>
+  </div>
+
+  <div class="privacy-section">
+    <h2>7. Luogo del trattamento e trasferimenti extra-UE</h2>
+    <p>Il trattamento dei dati avviene presso:</p>
+    <ul>
+      <li>i server del provider EmailJS</li>
+      <li>la casella email Outlook del Titolare</li>
+    </ul>
+    <p>EmailJS può effettuare trasferimenti di dati verso Paesi situati al di fuori dell'Unione Europea. Tali trasferimenti avvengono nel rispetto degli artt. 44–49 GDPR, mediante garanzie adeguate quali le Clausole Contrattuali Standard.</p>
+  </div>
+
+  <div class="privacy-section">
+    <h2>8. Periodo di conservazione</h2>
+    <p>I dati sono conservati per il tempo strettamente necessario a:</p>
+    <ul>
+      <li>gestire la richiesta dell'utente</li>
+      <li>effettuare eventuali verifiche tecniche successive</li>
+    </ul>
+    <p>Il periodo di conservazione non supera normalmente 12 mesi, salvo obblighi di legge o necessità di tutela dei diritti del Titolare.</p>
+  </div>
+
+  <div class="privacy-section">
+    <h2>9. Diritti dell'interessato</h2>
+    <p>L'utente può esercitare in qualsiasi momento i diritti previsti dagli artt. 15–22 GDPR, tra cui:</p>
+    <ul>
+      <li>diritto di accesso</li>
+      <li>diritto di rettifica</li>
+      <li>diritto alla cancellazione</li>
+      <li>diritto alla limitazione del trattamento</li>
+      <li>diritto di opposizione</li>
+    </ul>
+    <p>Le richieste devono essere indirizzate a: <a class="email-link" href="mailto:ChiesaEvangelicaMaranello@outlook.it">ChiesaEvangelicaMaranello@outlook.it</a></p>
+  </div>
+
+  <div class="privacy-section">
+    <h2>10. Modifiche alla presente informativa</h2>
+    <p>Il Titolare si riserva il diritto di aggiornare la presente informativa in qualsiasi momento. Le modifiche saranno rese disponibili tramite il link fornito all'utente.</p>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 Chiesa Evangelica di Maranello · <a href="privacy.html">Privacy Policy</a> · <a href="index.html">Home</a></p>
+</footer>
+
+</body>
+</html>
