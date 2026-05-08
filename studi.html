@@ -166,6 +166,39 @@
     }
     .studio-item:hover .studio-name { color: var(--blue-light); }
 
+    /* AUDIO PLAYER INLINE */
+    .studio-item { flex-wrap: wrap; align-items: flex-start; }
+    .studio-main { display:flex; align-items:flex-start; gap:0.7rem; flex:1; min-width:0; }
+    .studio-pdf-link { flex:1; min-width:0; display:flex; align-items:flex-start; gap:0.7rem; text-decoration:none; color:inherit; }
+    .studio-pdf-link:hover .studio-name { color: var(--blue-light); }
+
+    .play-btn {
+      width:28px; height:28px; border-radius:50%;
+      border:none; cursor:pointer; flex-shrink:0;
+      display:flex; align-items:center; justify-content:center;
+      background:var(--blue); color:#fff;
+      transition:background 0.2s, transform 0.15s;
+      margin-top:0.1rem; margin-left:0.4rem;
+    }
+    .play-btn:hover   { background:var(--blue-light); transform:scale(1.1); }
+    .play-btn.playing { background:#2ecc71; }
+    .play-btn.loading { background:var(--bg3); color:var(--gray); cursor:wait; }
+    .play-btn.no-audio { background:var(--bg3); color:var(--gray2); cursor:not-allowed; opacity:0.4; }
+
+    .studio-progress {
+      display:none; width:100%;
+      padding:0.3rem 0.75rem 0.45rem calc(0.75rem + 6px + 0.7rem + 28px + 0.4rem + 28px + 0.75rem);
+      align-items:center; gap:0.5rem;
+    }
+    .studio-progress.visible { display:flex; }
+    .prog-bar { flex:1; height:3px; background:var(--border); border-radius:2px; cursor:pointer; }
+    .prog-fill { height:100%; width:0%; background:var(--blue); border-radius:2px; transition:width 0.1s linear; }
+    .prog-time { font-size:0.62rem; color:var(--gray); flex-shrink:0; min-width:34px; }
+    .pdf-inline-btn { width:28px; height:28px; border-radius:4px; border:none; cursor:pointer; flex-shrink:0; display:flex; align-items:center; justify-content:center; background:none; transition:opacity 0.2s, transform 0.15s; margin-top:0.1rem; text-decoration:none; }
+    .pdf-inline-btn:hover { opacity:0.8; transform:scale(1.08); }
+    .dl-btn { color:var(--gray); flex-shrink:0; padding:0.2rem; margin-left:0.2rem; background:none; border:none; cursor:pointer; transition:color 0.2s; margin-top:0.1rem; }
+    .dl-btn:hover { color:var(--blue-light); }
+
     /* STATO */
     .stato {
       position: relative; z-index: 1;
@@ -313,19 +346,126 @@
     return titleOverride[base] ?? base;
   }
 
+  const MP3_BASE = 'https://archive.org/download/ogni-tipo-di-insegnamento-letture-fixed/';
+  let currentAudio = null, currentPlayBtn = null, currentItem = null;
+
+  function fmtTime(s) {
+    if (isNaN(s)||s<0) return '0:00';
+    const m=Math.floor(s/60), sec=Math.floor(s%60);
+    return m+':'+(sec<10?'0':'')+sec;
+  }
+
+  const iconPlay  = `<svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13"><path d="M8 5v14l11-7z"/></svg>`;
+  const iconPause = `<svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`;
+  const iconSpin  = `<svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13" style="animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg>`;
+
+  function stopCurrent() {
+    if (currentAudio) { currentAudio.pause(); currentAudio = null; }
+    if (currentPlayBtn) {
+      currentPlayBtn.className = 'play-btn';
+      currentPlayBtn.innerHTML = iconPlay;
+    }
+    if (currentItem) {
+      const prog = currentItem.querySelector('.studio-progress');
+      const fill = currentItem.querySelector('.prog-fill');
+      const time = currentItem.querySelector('.prog-time');
+      if (prog) prog.classList.remove('visible');
+      if (fill) fill.style.width = '0%';
+      if (time) time.textContent = '0:00';
+    }
+    currentPlayBtn = null; currentItem = null;
+  }
+
+  async function handlePlay(btn, item, mp3Url) {
+    // Se stesso bottone: toggle play/pause
+    if (currentItem === item && currentAudio) {
+      if (currentAudio.paused) {
+        currentAudio.play();
+        btn.className = 'play-btn playing'; btn.innerHTML = iconPause;
+      } else {
+        currentAudio.pause();
+        btn.className = 'play-btn'; btn.innerHTML = iconPlay;
+      }
+      return;
+    }
+    stopCurrent();
+    btn.className = 'play-btn loading'; btn.innerHTML = iconSpin;
+
+    // Verifica esistenza MP3
+    try {
+      const r = await fetch(mp3Url, { method: 'HEAD' });
+      if (!r.ok) throw new Error();
+    } catch {
+      btn.className = 'play-btn no-audio';
+      btn.innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>`;
+      btn.title = 'Audio non disponibile';
+      return;
+    }
+
+    const audio = new Audio(mp3Url);
+    currentAudio = audio; currentPlayBtn = btn; currentItem = item;
+    btn.className = 'play-btn playing'; btn.innerHTML = iconPause;
+
+    const prog = item.querySelector('.studio-progress');
+    const fill = item.querySelector('.prog-fill');
+    const time = item.querySelector('.prog-time');
+    const bar  = item.querySelector('.prog-bar');
+    prog.classList.add('visible');
+    const dlLink = item.querySelector('.dl-btn');
+    if (dlLink) { dlLink.href = mp3Url; dlLink.style.display = ''; }
+
+    audio.ontimeupdate = () => {
+      if (audio.duration) {
+        fill.style.width = (audio.currentTime/audio.duration*100)+'%';
+        time.textContent = fmtTime(audio.currentTime);
+      }
+    };
+    audio.onended = () => {
+      btn.className = 'play-btn'; btn.innerHTML = iconPlay;
+      fill.style.width = '0%'; time.textContent = '0:00';
+      prog.classList.remove('visible');
+      const dl = item.querySelector('.dl-btn'); if(dl) dl.style.display='none';
+      currentAudio = null; currentPlayBtn = null; currentItem = null;
+    };
+    bar.onclick = e => {
+      if (audio.duration) {
+        const r = bar.getBoundingClientRect();
+        audio.currentTime = ((e.clientX-r.left)/r.width)*audio.duration;
+      }
+    };
+    audio.play();
+  }
+
   function renderStudi(studi) {
     const grid = document.getElementById('studiGrid');
     grid.innerHTML = '';
     studi.forEach(file => {
-      const div = document.createElement('a');
+      const pdfUrl = RAW_BASE + encodeURIComponent(file);
+      const mp3Url = MP3_BASE + encodeURIComponent(file.replace(/\.pdf$/i, '.mp3'));
+
+      const div = document.createElement('div');
       div.className = 'studio-item';
-      div.href = RAW_BASE + encodeURIComponent(file);
-      div.target = '_blank';
-      div.rel = 'noopener';
       div.innerHTML = `
-        <div class="pdf-bullet"></div>
-        <div class="studio-name">${displayName(file)}</div>
+        <div class="studio-main">
+          <a class="studio-pdf-link" href="${pdfUrl}" target="_blank" rel="noopener">
+            <div class="pdf-bullet"></div>
+            <div class="studio-name">${displayName(file)}</div>
+          </a>
+          <a class="pdf-inline-btn" href="${pdfUrl}" target="_blank" rel="noopener" title="Apri PDF"><img src="PDF icona.png" alt="PDF" style="width:22px;height:22px;object-fit:contain;"></a>
+          <button class="play-btn" title="Ascolta audio">${iconPlay}</button>
+          
+        </div>
+        <div class="studio-progress">
+          <div class="prog-bar"><div class="prog-fill"></div></div>
+          <span class="prog-time">0:00</span>
+          <a class="dl-btn" href="" download title="Scarica MP3" style="display:none">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+          </a>
+        </div>
       `;
+
+      const btn = div.querySelector('.play-btn');
+      btn.addEventListener('click', () => handlePlay(btn, div, mp3Url));
       grid.appendChild(div);
     });
     document.getElementById('resultsCount').textContent = `${studi.length} studi trovati`;
