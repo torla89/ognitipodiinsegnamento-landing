@@ -100,7 +100,7 @@
 </nav>
 
 <div class="page-header">
-  <span class="page-header-tag">✦ 43 episodi · Accesso gratuito</span>
+  <span class="page-header-tag">✦ 73 episodi · Accesso gratuito</span>
   <h1>Podcast di<br><em>Ellero Balzani</em></h1>
   <p>Registrazioni audio originali. Clicca ▶ per ascoltare direttamente, oppure scarica il file MP3.</p>
 </div>
@@ -120,51 +120,81 @@
 </footer>
 
 <script>
-const BASE = "https://archive.org/download/ogni-tipo-di-insegnamento-podcast/";
+const BASE = "https://archive.org/download/podcast_revisionati/";
 const tracks = [
-  "Chi non e con Cristo.mp3",
-  "Credente o Cristiano.mp3",
-  "Cristiano o religioso.mp3",
-  "Dio e Spirito.mp3",
-  "Gesu e Geova.mp3",
-  "Gesu il figlio di Dio.mp3",
-  "I nomi di Dio.mp3",
-  "Il Dio tremendo.mp3",
-  "Il Dio uno e trino.mp3",
-  "Il termine DIO.mp3",
-  "Il termine immagine.mp3",
-  "il termine nomeg.mp3",
-  "il termine padre.mp3",
-  "Io SONO.mp3",
-  "JHWH 01 I nomi della divinita.mp3",
-  "JHWH 02   Elohim.mp3",
-  "JHWH 03 La polideita e pluralita di Dio.mp3",
-  "JHWH 04   Lo Spirito di Dio.mp3",
-  "JHWH 05   L'antropomorfismo di Dio.mp3",
-  "JHWH 06   L'angelo dell'Eterno.mp3",
-  "JHWH 07   L'io sono.mp3",
-  "JHWH 08   La presenza di Cristo nel AT.mp3",
-  "JHWH 09   Cristo nell'Antico Testamento.mp3",
-  "JHWH 10 Gesu e il Signore.mp3",
-  "JHWH 11 un Dio trino.mp3",
-  "JHWH 12 Gesù rivela il Padre.mp3",
-  "JHWH ed i profeti.mp3",
-  "JHWH unico Dio.mp3",
-  "JHWH é Cristo.mp3",
-  "L'Angelo quale messaggero di YHWH.mp3",
-  "l'Elohim dell'Antico patto.mp3",
-  "L'unicità del Cristianesimo.mp3",
-  "La divinità di Gesù.mp3",
-  "La pluralità di Dio.mp3",
-  "La polideità dell'Elohim.mp3",
-  "la vita comunitaria dei primi cristiani.mp3",
-  "Lo spirito dell'Elohim.mp3",
-  "Perché i figli di Dio sono divisi.mp3",
-  "Prefazione al Libro.mp3",
-  "Sei guidato dallo Spirito Santo o da uno spirito maligno.mp3",
-  "Unico-Dio.mp3",
-  "uno stesso Dio.mp3",
-  "vi è un solo Dio.mp3"
+  ["Chi non è con Cristo", "Chi non è con Cristo.mp3"],
+  ["Credente o Cristiano? — Parte I", "Credente o Cristiano - Parte 1 di 4.mp3"],
+  ["Credente o Cristiano? — Parte II", "Credente o Cristiano - Parte 2 di 4.mp3"],
+  ["Credente o Cristiano? — Parte III", "Credente o Cristiano - Parte 3 di 4.mp3"],
+  ["Credente o Cristiano? — Parte IV", "Credente o Cristiano - Parte 4 di 4.mp3"],
+  ["Cristiano o religioso?", "Cristiano o religioso.mp3"],
+  ["Dio è Spirito", "Dio è Spirito.mp3"],
+  ["Gesù il figlio di Dio — Parte I", "Gesù il figlio di Dio - Parte 1 di 2.mp3"],
+  ["Gesù il figlio di Dio — Parte II", "Gesù il figlio di Dio - Parte 2 di 2.mp3"],
+  ["Gesù è Geova", "Gesù è Geova.mp3"],
+  ["I Nomi di Dio — Parte I", "I nomi di Dio - Parte 1 di 3.mp3"],
+  ["I Nomi di Dio — Parte II", "I nomi di Dio - Parte 2 di 3.mp3"],
+  ["I Nomi di Dio — Parte III", "I nomi di Dio - Parte 3 di 3.mp3"],
+  ["Il Dio tremendo", "Il Dio tremendo.mp3"],
+  ["Il Dio uno e trino", "Il Dio uno e trino.mp3"],
+  ["Il termine Dio", "Il termine Dio.mp3"],
+  ["Il termine Padre", "Il termine Padre.mp3"],
+  ["Il termine immagine", "Il termine immagine.mp3"],
+  ["Il termine nome", "Il termine nome.mp3"],
+  ["Io Sono", "Io Sono.mp3"],
+  ["I nomi della divinità — Parte I", "JHWH 01 - I nomi della divinita - Parte 1 di 4.mp3"],
+  ["I nomi della divinità — Parte II", "JHWH 01 - I nomi della divinita - Parte 2 di 4.mp3"],
+  ["I nomi della divinità — Parte III", "JHWH 01 - I nomi della divinita - Parte 3 di 4.mp3"],
+  ["I nomi della divinità — Parte IV", "JHWH 01 - I nomi della divinita - Parte 4 di 4.mp3"],
+  ["Elohim — Parte I", "JHWH 02 - Elohim - Parte 1 di 3.mp3"],
+  ["Elohim — Parte II", "JHWH 02 - Elohim - Parte 2 di 3.mp3"],
+  ["Elohim — Parte III", "JHWH 02 - Elohim - Parte 3 di 3.mp3"],
+  ["La polideità e pluralità di Dio — Parte I", "JHWH 03 - La polideità e pluralità di Dio - Parte 1 di 3.mp3"],
+  ["La polideità e pluralità di Dio — Parte II", "JHWH 03 - La polideità e pluralità di Dio - Parte 2 di 3.mp3"],
+  ["La polideità e pluralità di Dio — Parte III", "JHWH 03 - La polideità e pluralità di Dio - Parte 3 di 3.mp3"],
+  ["Lo spirito di Dio", "JHWH 04 - Lo Spirito di Dio.mp3"],
+  ["L'antropomorfismo di Dio — Parte I", "JHWH 05 - L'antropomorfismo di Dio - Parte 1 di 3.mp3"],
+  ["L'antropomorfismo di Dio — Parte II", "JHWH 05 - L'antropomorfismo di Dio - Parte 2 di 3.mp3"],
+  ["L'antropomorfismo di Dio — Parte III", "JHWH 05 - L'antropomorfismo di Dio - Parte 3 di 3.mp3"],
+  ["L'angelo dell'Eterno — Parte I", "JHWH 06 - L'angelo dell'Eterno - Parte 1 di 3.mp3"],
+  ["L'angelo dell'Eterno — Parte II", "JHWH 06 - L'angelo dell'Eterno - Parte 2 di 3.mp3"],
+  ["L'angelo dell'Eterno — Parte III", "JHWH 06 - L'angelo dell'Eterno - Parte 3 di 3.mp3"],
+  ["L'Io sono — Parte I", "JHWH 07 - L'Io sono - Parte 1 di 2.mp3"],
+  ["L'Io sono — Parte II", "JHWH 07 - L'Io sono - Parte 2 di 2.mp3"],
+  ["La presenza di Cristo nel AT — Parte I", "JHWH 08 - La presenza di Cristo nel AT - Parte 1 di 3.mp3"],
+  ["La presenza di Cristo nel AT — Parte II", "JHWH 08 - La presenza di Cristo nel AT - Parte 2 di 3.mp3"],
+  ["La presenza di Cristo nel AT — Parte III", "JHWH 08 - La presenza di Cristo nel AT - Parte 3 di 3.mp3"],
+  ["Cristo nell'Antico Testamento — Parte I", "JHWH 09 - Cristo nell'Antico Testamento - Parte 1 di 2.mp3"],
+  ["Cristo nell'Antico Testamento — Parte II", "JHWH 09 - Cristo nell'Antico Testamento - Parte 2 di 2.mp3"],
+  ["Gesù è il Signore — Parte I", "JHWH 10 - Gesù è il Signore - Parte 1 di 4.mp3"],
+  ["Gesù è il Signore — Parte II", "JHWH 10 - Gesù è il Signore - Parte 2 di 4.mp3"],
+  ["Gesù è il Signore — Parte III", "JHWH 10 - Gesù è il Signore - Parte 3 di 4.mp3"],
+  ["Gesù è il Signore — Parte IV", "JHWH 10 - Gesù è il Signore - Parte 4 di 4.mp3"],
+  ["Un Dio trino — Parte I", "JHWH 11 - Un Dio trino - Parte 1 di 4.mp3"],
+  ["Un Dio trino — Parte II", "JHWH 11 - Un Dio trino - Parte 2 di 4.mp3"],
+  ["Un Dio trino — Parte III", "JHWH 11 - Un Dio trino - Parte 3 di 4.mp3"],
+  ["Un Dio trino — Parte IV", "JHWH 11 - Un Dio trino - Parte 4 di 4.mp3"],
+  ["Gesù rivela il Padre — Parte I", "JHWH 12 - Gesù rivela il Padre - Parte 1 di 4.mp3"],
+  ["Gesù rivela il Padre — Parte II", "JHWH 12 - Gesù rivela il Padre - Parte 2 di 4.mp3"],
+  ["Gesù rivela il Padre — Parte III", "JHWH 12 - Gesù rivela il Padre - Parte 3 di 4.mp3"],
+  ["Gesù rivela il Padre — Parte IV", "JHWH 12 - Gesù rivela il Padre - Parte 4 di 4.mp3"],
+  ["L'unicità del Cristianesimo", "L'unicità del Cristianesimo.mp3"],
+  ["La divinità di Gesù — Parte I", "La divinità di Gesù - Parte 1 di 3.mp3"],
+  ["La divinità di Gesù — Parte II", "La divinità di Gesù - Parte 2 di 3.mp3"],
+  ["La divinità di Gesù — Parte III", "La divinità di Gesù - Parte 3 di 3.mp3"],
+  ["La pluralità di Dio — Parte I", "La pluralità di Dio - Parte 1 di 2.mp3"],
+  ["La pluralità di Dio — Parte II", "La pluralità di Dio _ Parte 2 di 2.mp3"],
+  ["La polideità dell'Elohim", "La polideità dell'Elohim.mp3"],
+  ["La vita comunitaria dei primi cristiani", "La vita comunitaria dei primi cristiani.mp3"],
+  ["Lo spirito dell'Elohim", "Lo spirito dell'Elohim.mp3"],
+  ["Perché i figli di Dio sono divisi", "Perché i figli di Dio sono divisi.mp3"],
+  ["Prefazione al Libro", "Prefazione al Libro.mp3"],
+  ["Sei guidato dallo Spirito Santo — Parte I", "Sei guidato dallo Spirito Santo o da uno spirito maligno - Parte 1 di 2.mp3"],
+  ["Sei guidato dallo Spirito Santo — Parte II", "Sei guidato dallo Spirito Santo o da uno spirito maligno - Parte 2 di 2.mp3"],
+  ["Unico Dio — Parte I", "Unico Dio - Parte 1 di 2.mp3"],
+  ["Unico Dio — Parte II", "Unico Dio - Parte 2 di 2.mp3"],
+  ["Uno stesso Dio", "Uno stesso Dio.mp3"],
+  ["Vi è un solo Dio", "Vi è un solo Dio.mp3"]
 ];
 
 let currentAudio = null, currentBtn = null;
@@ -239,17 +269,8 @@ function renderTracks(list) {
   var container = document.getElementById("podcastList");
   container.innerHTML = "";
   list.forEach(function(t) {
-    var url = BASE + encodeURIComponent(t.normalize('NFC'));
-    var titleMap = {
-      "Chi non e con Cristo.mp3": "Chi non è con Cristo",
-      "Dio e Spirito.mp3": "Dio è Spirito",
-      "Gesu e Geova.mp3": "Gesù è Geova",
-      "Gesu il figlio di Dio.mp3": "Gesù il figlio di Dio",
-      "JHWH 01 I nomi della divinita.mp3": "JHWH 01   I nomi della divinità",
-      "JHWH 03 La polideita e pluralita di Dio.mp3": "JHWH 03   La polideità e pluralità di Dio",
-      "JHWH 10 Gesu e il Signore.mp3": "JHWH 10   Gesù è il Signore"
-    };
-    var title = titleMap[t] || t.replace(/\.mp3$/i, "");
+    var title = t[0];
+    var url = BASE + encodeURIComponent(t[1]);
     var div = document.createElement("div");
     div.className = "podcast-item";
     div.dataset.src = url;
@@ -275,7 +296,7 @@ function renderTracks(list) {
 
 function filterPodcast() {
   var q = document.getElementById("searchInput").value.toLowerCase().trim();
-  renderTracks(q ? tracks.filter(t => t.toLowerCase().includes(q)) : tracks);
+  renderTracks(q ? tracks.filter(t => t[0].toLowerCase().includes(q)) : tracks);
 }
 
 renderTracks(tracks);
