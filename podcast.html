@@ -13,293 +13,1267 @@
       --bg: #1C1C1E; --bg2: #242426; --bg3: #2C2C2E;
       --border: rgba(255,255,255,0.08);
       --blue: #4A90D9; --blue-light: #6AAEE8;
-      --cream: #E8E4DC; --gray: rgba(232,228,220,0.5);
+      --cream: #E8E4DC; --gray: rgba(232,228,220,0.5); --gray2: rgba(232,228,220,0.2);
     }
-    body { font-family: 'Nunito Sans', sans-serif; background: var(--bg); color: var(--cream); min-height: 100vh; }
-    .page-bg { position:fixed; inset:0; z-index:-1; background: radial-gradient(ellipse 80% 60% at 0% 0%, rgba(30,20,20,0.9) 0%, transparent 60%), linear-gradient(160deg, #1A1A1C 0%, #222224 40%, #1E1E20 100%); }
-
-    nav { position:relative; z-index:100; display:flex; justify-content:space-between; align-items:center; padding:0 2.5rem; background:rgba(20,20,22,0.95); border-bottom:1px solid var(--border); height:64px; }
-    .nav-brand { display:flex; align-items:center; gap:0.9rem; text-decoration:none; }
-    .nav-brand-icon { width:36px; height:36px; border-radius:0.5rem; overflow:hidden; flex-shrink:0; border:1px solid var(--border); }
-    .nav-brand-icon img { width:100%; height:100%; object-fit:cover; }
-    .nav-brand-text { font-family:'Lora',serif; font-size:1rem; font-weight:600; color:var(--cream); line-height:1.2; }
-    .nav-brand-sub { font-size:0.65rem; color:var(--gray); font-weight:300; letter-spacing:0.06em; }
-    .nav-links { display:flex; list-style:none; background:rgba(255,255,255,0.05); border:1px solid var(--border); border-radius:0.5rem; overflow:hidden; }
-    .nav-links li a { display:block; padding:0.5rem 1.3rem; font-size:0.78rem; font-weight:600; text-decoration:none; color:var(--gray); letter-spacing:0.06em; text-transform:uppercase; border-right:1px solid var(--border); transition:background 0.2s, color 0.2s; }
-    .nav-links li:last-child a { border-right:none; }
-    .nav-links li a:hover, .nav-links li a.active { background:var(--blue); color:#fff; }
-
-    .page-header { position:relative; z-index:1; max-width:800px; margin:0 auto; padding:3rem 2.5rem 2rem; border-bottom:1px solid var(--border); }
-    .page-header-tag { font-size:0.68rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--blue); margin-bottom:0.8rem; display:block; }
-    .page-header h1 { font-family:'Lora',serif; font-size:2.2rem; font-weight:600; line-height:1.2; margin-bottom:0.8rem; }
-    .page-header h1 em { font-style:italic; color:var(--blue-light); }
-    .page-header p { font-size:0.88rem; color:var(--gray); font-weight:300; line-height:1.7; }
-
-    .search-bar { position:relative; z-index:1; max-width:800px; margin:0 auto; padding:1.5rem 2.5rem; }
-    .search-input { width:100%; background:var(--bg2); border:1px solid var(--border); border-radius:0.5rem; padding:0.8rem 1rem 0.8rem 2.8rem; color:var(--cream); font-family:'Nunito Sans',sans-serif; font-size:0.88rem; outline:none; transition:border-color 0.2s; }
-    .search-input::placeholder { color:var(--gray); }
-    .search-input:focus { border-color:var(--blue); }
-    .search-icon { position:absolute; left:calc(2.5rem + 0.9rem); top:50%; transform:translateY(-50%); color:var(--gray); pointer-events:none; }
-    .results-count { font-size:0.72rem; color:var(--gray); margin-top:0.6rem; }
-
-    .podcast-container { position:relative; z-index:1; max-width:800px; margin:0 auto; padding:0 2.5rem 3rem; }
-
-    .podcast-item { display:flex; align-items:center; gap:0.8rem; padding:0.8rem 0; border-bottom:1px solid var(--border); }
-    .podcast-item:last-child { border-bottom:none; }
-    .podcast-play { width:36px; height:36px; border-radius:50%; background:var(--blue); color:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; transition:background 0.2s; }
-    .podcast-play:hover { background:var(--blue-light); }
-    .podcast-play.playing { background:#2ecc71; }
-    .podcast-info { flex:1; min-width:0; }
-    .podcast-title { font-size:0.85rem; font-weight:600; color:var(--cream); margin-bottom:0.3rem; }
-    .podcast-progress-wrap { display:flex; align-items:center; gap:0.5rem; }
-    .podcast-bar { flex:1; height:3px; background:var(--border); border-radius:2px; cursor:pointer; }
-    .podcast-bar-fill { height:100%; width:0%; background:var(--blue); border-radius:2px; transition:width 0.1s linear; }
-    .podcast-time { font-size:0.65rem; color:var(--gray); flex-shrink:0; min-width:32px; }
-    .podcast-dl { color:var(--gray); flex-shrink:0; padding:0.3rem; transition:color 0.2s; }
-    .podcast-dl:hover { color:var(--blue-light); }
-
-    footer { position:relative; z-index:1; border-top:1px solid var(--border); background:rgba(15,15,17,0.8); text-align:center; padding:1.5rem; font-size:0.72rem; color:var(--gray); }
-    footer a { color:var(--blue); text-decoration:none; }
-
-    @media (max-width:600px) {
-      nav { padding:0 1rem; }
-      .nav-links { display:none; }
-      .page-header, .search-bar, .podcast-container { padding-left:1.5rem; padding-right:1.5rem; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Nunito Sans', sans-serif; background: var(--bg); color: var(--cream); overflow-x: hidden; min-height: 100vh; }
+    .page-bg { position: fixed; inset: 0; z-index: -1; background: radial-gradient(ellipse 80% 60% at 0% 0%, rgba(30,20,20,0.9) 0%, transparent 60%), radial-gradient(ellipse 60% 50% at 100% 100%, rgba(20,20,30,0.8) 0%, transparent 60%), linear-gradient(160deg, #1A1A1C 0%, #222224 40%, #1E1E20 100%); }
+    nav { position: relative; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 0 2.5rem; background: rgba(20,20,22,0.95); border-bottom: 1px solid var(--border); height: 64px; }
+    .nav-brand { display: flex; align-items: center; gap: 0.9rem; text-decoration: none; }
+    .nav-brand-icon { width: 36px; height: 36px; border-radius: 0.5rem; overflow: hidden; flex-shrink: 0; border: 1px solid var(--border); }
+    .nav-brand-icon img { width: 100%; height: 100%; object-fit: cover; }
+    .nav-brand-text { font-family: 'Lora', serif; font-size: 1rem; font-weight: 600; color: var(--cream); line-height: 1.2; }
+    .nav-brand-sub { font-size: 0.65rem; color: var(--gray); font-weight: 300; letter-spacing: 0.06em; }
+    .nav-links { display: flex; list-style: none; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 0.5rem; overflow: hidden; }
+    .nav-links li a { display: block; padding: 0.5rem 1.3rem; font-size: 0.78rem; font-weight: 600; text-decoration: none; color: var(--gray); letter-spacing: 0.06em; text-transform: uppercase; border-right: 1px solid var(--border); transition: background 0.2s, color 0.2s; }
+    .nav-links li:last-child a { border-right: none; }
+    .nav-links li a:hover, .nav-links li a.active { background: var(--blue); color: #fff; }
+    .page-header { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 3rem 2.5rem 2rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: flex-end; gap: 2rem; flex-wrap: wrap; }
+    .page-header-tag { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.8rem; display: block; }
+    .page-header h1 { font-family: 'Lora', serif; font-size: 2.2rem; font-weight: 600; line-height: 1.2; margin-bottom: 0.8rem; }
+    .page-header p { font-size: 0.88rem; color: var(--gray); font-weight: 300; line-height: 1.7; max-width: 520px; }
+    .header-stats { display: flex; gap: 1.2rem; flex-shrink: 0; }
+    .stat-box { background: var(--bg2); border: 1px solid var(--border); border-radius: 0.6rem; padding: 0.9rem 1.3rem; text-align: center; }
+    .stat-num { font-family: 'Lora', serif; font-size: 1.6rem; color: var(--blue); font-weight: 700; }
+    .stat-lbl { font-size: 0.62rem; color: var(--gray); text-transform: uppercase; letter-spacing: 0.08em; }
+    .filter-bar { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 1.2rem 2.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .search-wrap { position: relative; display: flex; align-items: center; flex: 1; }
+    .search-input { background: var(--bg2); border: 1px solid var(--border); border-radius: 0.4rem; padding: 0.4rem 0.8rem 0.4rem 2.1rem; font-size: 0.82rem; color: var(--cream); font-family: 'Nunito Sans', sans-serif; outline: none; width: 100%; max-width: 360px; transition: border-color 0.2s; }
+    .search-input:focus { border-color: var(--blue); }
+    .search-input::placeholder { color: var(--gray2); }
+    .search-icon { position: absolute; left: 0.6rem; pointer-events: none; color: var(--gray); display: flex; }
+    .spotify-link { display: inline-flex; align-items: center; gap: 0.5rem; background: #1DB954; border-radius: 0.4rem; padding: 0.4rem 1rem; font-size: 0.75rem; font-weight: 700; color: #fff; text-decoration: none; letter-spacing: 0.04em; transition: opacity 0.2s; flex-shrink: 0; }
+    .spotify-link:hover { opacity: 0.85; }
+    .content-wrap { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 0 2.5rem 4rem; }
+    .series-block { border-bottom: 1px solid var(--border); }
+    .series-block:last-child { border-bottom: none; }
+    .series-block.hidden { display: none !important; }
+    .series-header { display: flex; align-items: center; gap: 0.8rem; padding: 0.8rem 0.4rem; cursor: pointer; user-select: none; transition: background 0.15s; border-radius: 0.3rem; }
+    .series-header:hover { background: rgba(255,255,255,0.03); }
+    .series-header:hover .series-name { color: var(--blue-light); }
+    .series-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
+    .series-name { font-family: 'Lora', serif; font-size: 1rem; font-weight: 600; flex: 1; transition: color 0.2s; line-height: 1.3; }
+    .series-count { font-size: 0.65rem; color: var(--gray); text-transform: uppercase; letter-spacing: 0.08em; background: var(--bg2); border: 1px solid var(--border); border-radius: 2rem; padding: 0.15rem 0.6rem; white-space: nowrap; }
+    .series-chevron { color: var(--gray); transition: transform 0.25s; display: flex; flex-shrink: 0; }
+    .series-block.open .series-chevron { transform: rotate(180deg); }
+    .series-tracks { display: none; padding: 0 0 0.6rem; }
+    .series-block.open .series-tracks { display: block; }
+    .track-row { display: flex; align-items: center; gap: 0.8rem; padding: 0.55rem 0.4rem; border-bottom: 1px solid var(--border); transition: background 0.15s; border-radius: 0.3rem; }
+    .track-row:last-child { border-bottom: none; }
+    .track-row:hover { background: rgba(255,255,255,0.03); }
+    .track-row.hidden { display: none !important; }
+    .track-num { font-size: 0.68rem; color: var(--gray2); width: 20px; text-align: right; flex-shrink: 0; }
+    .track-play-btn { width: 30px; height: 30px; border-radius: 50%; background: var(--blue); color: #fff; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; transition: background 0.2s; }
+    .track-play-btn:hover { background: var(--blue-light); }
+    .track-play-btn.playing { background: #2ecc71; }
+    .track-play-btn.loading { background: var(--bg3); color: var(--gray); cursor: wait; }
+    .track-info { flex: 1; min-width: 0; }
+    .track-name { font-size: 0.82rem; font-weight: 600; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .track-progress-wrap { display: none; align-items: center; gap: 0.5rem; margin-top: 0.3rem; }
+    .track-progress-wrap.visible { display: flex; }
+    .track-bar { flex: 1; height: 3px; background: var(--border); border-radius: 2px; cursor: pointer; }
+    .track-bar-fill { height: 100%; width: 0%; background: var(--blue); border-radius: 2px; transition: width 0.1s linear; }
+    .track-time { font-size: 0.6rem; color: var(--gray); flex-shrink: 0; min-width: 34px; }
+    .track-actions { display: flex; gap: 0.3rem; flex-shrink: 0; }
+    .track-dl-btn { width: 28px; height: 28px; border-radius: 0.3rem; background: none; border: 1px solid var(--border); color: var(--gray); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: color 0.2s, border-color 0.2s; text-decoration: none; }
+    .track-dl-btn:hover { color: var(--blue-light); border-color: var(--blue); }
+    .no-results { text-align: center; padding: 3rem 1rem; color: var(--gray); font-size: 0.85rem; display: none; }
+    footer { position: relative; z-index: 1; border-top: 1px solid var(--border); background: rgba(15,15,17,0.8); text-align: center; padding: 1.5rem; font-size: 0.72rem; color: var(--gray); }
+    footer a { color: var(--blue); text-decoration: none; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @media (max-width: 900px) {
+      nav { padding: 0 1rem; } .nav-links { display: none; }
+      .page-header { padding: 2rem 1.5rem 1.5rem; } .page-header h1 { font-size: 1.7rem; }
+      .filter-bar, .content-wrap { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .search-input { max-width: 100%; } .header-stats { display: none; }
     }
   </style>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-HZD3DN7HST"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-HZD3DN7HST');
-</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HZD3DN7HST"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-HZD3DN7HST');</script>
 </head>
 <body>
 <div class="page-bg"></div>
-
 <nav>
   <a class="nav-brand" href="index.html">
-    <div class="nav-brand-icon">
-      <img src="https://raw.githubusercontent.com/torla89/Ogni-tipo-di-insegnamento/main/assets/icona.png" alt="logo" onerror="this.parentElement.innerHTML='📖'"/>
-    </div>
-    <div>
-      <div class="nav-brand-text">Ogni tipo di insegnamento</div>
-      <div class="nav-brand-sub">Studi biblici gratuiti</div>
-    </div>
+    <div class="nav-brand-icon"><img src="https://raw.githubusercontent.com/torla89/Ogni-tipo-di-insegnamento/main/assets/icona.png" alt="logo" onerror="this.parentElement.innerHTML='📖'"/></div>
+    <div><div class="nav-brand-text">Ogni tipo di insegnamento</div><div class="nav-brand-sub">Studi biblici gratuiti</div></div>
   </a>
   <ul class="nav-links">
     <li><a href="index.html">Home</a></li>
     <li><a href="https://torla89.github.io/Ogni-tipo-di-insegnamento" target="_blank">App web</a></li>
     <li><a href="studi.html">Studi</a></li>
     <li><a href="podcast.html" class="active">Podcast</a></li>
-    <li><a href="index.html#chiesa">Contattaci</a></li>
+    <li><a href="predicazioni.html">Predicazioni</a></li>
+    <li><a href="index.html#chiesa">Chi siamo</a></li>
     <li><a href="index.html#download">Scarica</a></li>
   </ul>
 </nav>
-
 <div class="page-header">
-  <span class="page-header-tag">✦ 73 episodi · Accesso gratuito</span>
-  <h1>Podcast di<br><em>Ellero Balzani</em></h1>
-  <p>Registrazioni audio originali. Clicca ▶ per ascoltare direttamente, oppure scarica il file MP3.</p>
+  <div>
+    <span class="page-header-tag">✦ Accesso gratuito</span>
+    <h1>Podcast di <em style="font-style:italic;color:var(--blue-light)">Ellero Balzani</em></h1>
+    <p>Registrazioni audio originali. Clicca su un titolo per ascoltare direttamente, oppure scarica il file MP3.</p>
+  </div>
+  <div class="header-stats">
+    <div class="stat-box"><div class="stat-num">73</div><div class="stat-lbl">Episodi</div></div>
+    <div class="stat-box"><div class="stat-num">38</div><div class="stat-lbl">Titoli</div></div>
+  </div>
 </div>
-
-<div class="search-bar">
-  <span class="search-icon">🔍</span>
-  <input type="text" class="search-input" id="searchInput" placeholder="Cerca per titolo…" oninput="filterPodcast()"/>
-  <div class="results-count" id="resultsCount"></div>
+<div class="filter-bar">
+  <div class="search-wrap">
+    <span class="search-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
+    <input class="search-input" type="text" id="search-input" placeholder="Cerca episodio…" autocomplete="off"/>
+  </div>
+  <a class="spotify-link" href="https://open.spotify.com/show/7fPC8f6ivOjpRcMezYN6Fp?si=N3QOyVT1TI6VqEqx0yYNIg" target="_blank" rel="noopener">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424a.623.623 0 0 1-.857.207c-2.348-1.435-5.304-1.76-8.785-.964a.623.623 0 1 1-.277-1.215c3.809-.87 7.077-.496 9.712 1.115a.623.623 0 0 1 .207.857zm1.223-2.723a.78.78 0 0 1-1.072.257c-2.687-1.652-6.785-2.131-9.965-1.166a.78.78 0 0 1-.973-.519.781.781 0 0 1 .52-.972c3.632-1.102 8.147-.568 11.233 1.328a.78.78 0 0 1 .257 1.072zm.105-2.835C14.692 8.95 9.375 8.775 6.297 9.71a.937.937 0 1 1-.543-1.793c3.563-1.08 9.484-.87 13.22 1.37a.937.937 0 0 1-.06 1.579z"/></svg>
+    Ascolta su Spotify
+  </a>
 </div>
+<div class="content-wrap">
+<div id="no-results" class="no-results">Nessun episodio trovato.</div>
 
-<div class="podcast-container">
-  <div id="podcastList"></div>
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">Chi non è con Cristo</div>
+      <span class="series-count">1 episodio</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/Chi%20non%20%C3%A8%20con%20Cristo.mp3" data-name="Chi non è con Cristo">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Chi non è con Cristo</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/Chi%20non%20%C3%A8%20con%20Cristo.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">Credente o Cristiano?</div>
+      <span class="series-count">4 episodi</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/Credente%20o%20Cristiano%20-%20Parte%201%20di%204.mp3" data-name="Credente o Cristiano? — Parte I">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Credente o Cristiano? — Parte I</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/Credente%20o%20Cristiano%20-%20Parte%201%20di%204.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/Credente%20o%20Cristiano%20-%20Parte%202%20di%204.mp3" data-name="Credente o Cristiano? — Parte II">
+        <span class="track-num">2</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Credente o Cristiano? — Parte II</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/Credente%20o%20Cristiano%20-%20Parte%202%20di%204.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/Credente%20o%20Cristiano%20-%20Parte%203%20di%204.mp3" data-name="Credente o Cristiano? — Parte III">
+        <span class="track-num">3</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Credente o Cristiano? — Parte III</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/Credente%20o%20Cristiano%20-%20Parte%203%20di%204.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/Credente%20o%20Cristiano%20-%20Parte%204%20di%204.mp3" data-name="Credente o Cristiano? — Parte IV">
+        <span class="track-num">4</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Credente o Cristiano? — Parte IV</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/Credente%20o%20Cristiano%20-%20Parte%204%20di%204.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">Cristiano o religioso?</div>
+      <span class="series-count">1 episodio</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/Cristiano%20o%20religioso.mp3" data-name="Cristiano o religioso?">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Cristiano o religioso?</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/Cristiano%20o%20religioso.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">Cristo nell'Antico Testamento</div>
+      <span class="series-count">2 episodi</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/JHWH%2009%20-%20Cristo%20nell%27Antico%20Testamento%20-%20Parte%201%20di%202.mp3" data-name="Cristo nell'Antico Testamento — Parte I">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Cristo nell'Antico Testamento — Parte I</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/JHWH%2009%20-%20Cristo%20nell%27Antico%20Testamento%20-%20Parte%201%20di%202.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/JHWH%2009%20-%20Cristo%20nell%27Antico%20Testamento%20-%20Parte%202%20di%202.mp3" data-name="Cristo nell'Antico Testamento — Parte II">
+        <span class="track-num">2</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Cristo nell'Antico Testamento — Parte II</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/JHWH%2009%20-%20Cristo%20nell%27Antico%20Testamento%20-%20Parte%202%20di%202.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">Dio è Spirito</div>
+      <span class="series-count">1 episodio</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/Dio%20%C3%A8%20Spirito.mp3" data-name="Dio è Spirito">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Dio è Spirito</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/Dio%20%C3%A8%20Spirito.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">Elohim</div>
+      <span class="series-count">3 episodi</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/JHWH%2002%20-%20Elohim%20-%20Parte%201%20di%203.mp3" data-name="Elohim — Parte I">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Elohim — Parte I</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/JHWH%2002%20-%20Elohim%20-%20Parte%201%20di%203.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/JHWH%2002%20-%20Elohim%20-%20Parte%202%20di%203.mp3" data-name="Elohim — Parte II">
+        <span class="track-num">2</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Elohim — Parte II</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/JHWH%2002%20-%20Elohim%20-%20Parte%202%20di%203.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/JHWH%2002%20-%20Elohim%20-%20Parte%203%20di%203.mp3" data-name="Elohim — Parte III">
+        <span class="track-num">3</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Elohim — Parte III</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/JHWH%2002%20-%20Elohim%20-%20Parte%203%20di%203.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">Gesù il figlio di Dio</div>
+      <span class="series-count">2 episodi</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/Ges%C3%B9%20il%20figlio%20di%20Dio%20-%20Parte%201%20di%202.mp3" data-name="Gesù il figlio di Dio — Parte I">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Gesù il figlio di Dio — Parte I</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/Ges%C3%B9%20il%20figlio%20di%20Dio%20-%20Parte%201%20di%202.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/Ges%C3%B9%20il%20figlio%20di%20Dio%20-%20Parte%202%20di%202.mp3" data-name="Gesù il figlio di Dio — Parte II">
+        <span class="track-num">2</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Gesù il figlio di Dio — Parte II</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/Ges%C3%B9%20il%20figlio%20di%20Dio%20-%20Parte%202%20di%202.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">Gesù rivela il Padre</div>
+      <span class="series-count">4 episodi</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/JHWH%2012%20-%20Ges%C3%B9%20rivela%20il%20Padre%20-%20Parte%201%20di%204.mp3" data-name="Gesù rivela il Padre — Parte I">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Gesù rivela il Padre — Parte I</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/JHWH%2012%20-%20Ges%C3%B9%20rivela%20il%20Padre%20-%20Parte%201%20di%204.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/JHWH%2012%20-%20Ges%C3%B9%20rivela%20il%20Padre%20-%20Parte%202%20di%204.mp3" data-name="Gesù rivela il Padre — Parte II">
+        <span class="track-num">2</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Gesù rivela il Padre — Parte II</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/JHWH%2012%20-%20Ges%C3%B9%20rivela%20il%20Padre%20-%20Parte%202%20di%204.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/JHWH%2012%20-%20Ges%C3%B9%20rivela%20il%20Padre%20-%20Parte%203%20di%204.mp3" data-name="Gesù rivela il Padre — Parte III">
+        <span class="track-num">3</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Gesù rivela il Padre — Parte III</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/JHWH%2012%20-%20Ges%C3%B9%20rivela%20il%20Padre%20-%20Parte%203%20di%204.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/JHWH%2012%20-%20Ges%C3%B9%20rivela%20il%20Padre%20-%20Parte%204%20di%204.mp3" data-name="Gesù rivela il Padre — Parte IV">
+        <span class="track-num">4</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Gesù rivela il Padre — Parte IV</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/JHWH%2012%20-%20Ges%C3%B9%20rivela%20il%20Padre%20-%20Parte%204%20di%204.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">Gesù è Geova</div>
+      <span class="series-count">1 episodio</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/Ges%C3%B9%20%C3%A8%20Geova.mp3" data-name="Gesù è Geova">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Gesù è Geova</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/Ges%C3%B9%20%C3%A8%20Geova.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">Gesù è il Signore</div>
+      <span class="series-count">4 episodi</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/JHWH%2010%20-%20Ges%C3%B9%20%C3%A8%20il%20Signore%20-%20Parte%201%20di%204.mp3" data-name="Gesù è il Signore — Parte I">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Gesù è il Signore — Parte I</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/JHWH%2010%20-%20Ges%C3%B9%20%C3%A8%20il%20Signore%20-%20Parte%201%20di%204.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/JHWH%2010%20-%20Ges%C3%B9%20%C3%A8%20il%20Signore%20-%20Parte%202%20di%204.mp3" data-name="Gesù è il Signore — Parte II">
+        <span class="track-num">2</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Gesù è il Signore — Parte II</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/JHWH%2010%20-%20Ges%C3%B9%20%C3%A8%20il%20Signore%20-%20Parte%202%20di%204.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/JHWH%2010%20-%20Ges%C3%B9%20%C3%A8%20il%20Signore%20-%20Parte%203%20di%204.mp3" data-name="Gesù è il Signore — Parte III">
+        <span class="track-num">3</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Gesù è il Signore — Parte III</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/JHWH%2010%20-%20Ges%C3%B9%20%C3%A8%20il%20Signore%20-%20Parte%203%20di%204.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/JHWH%2010%20-%20Ges%C3%B9%20%C3%A8%20il%20Signore%20-%20Parte%204%20di%204.mp3" data-name="Gesù è il Signore — Parte IV">
+        <span class="track-num">4</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Gesù è il Signore — Parte IV</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/JHWH%2010%20-%20Ges%C3%B9%20%C3%A8%20il%20Signore%20-%20Parte%204%20di%204.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">I nomi della divinità</div>
+      <span class="series-count">4 episodi</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/JHWH%2001%20-%20I%20nomi%20della%20divinita%20-%20Parte%201%20di%204.mp3" data-name="I nomi della divinità — Parte I">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">I nomi della divinità — Parte I</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/JHWH%2001%20-%20I%20nomi%20della%20divinita%20-%20Parte%201%20di%204.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/JHWH%2001%20-%20I%20nomi%20della%20divinita%20-%20Parte%202%20di%204.mp3" data-name="I nomi della divinità — Parte II">
+        <span class="track-num">2</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">I nomi della divinità — Parte II</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/JHWH%2001%20-%20I%20nomi%20della%20divinita%20-%20Parte%202%20di%204.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/JHWH%2001%20-%20I%20nomi%20della%20divinita%20-%20Parte%203%20di%204.mp3" data-name="I nomi della divinità — Parte III">
+        <span class="track-num">3</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">I nomi della divinità — Parte III</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/JHWH%2001%20-%20I%20nomi%20della%20divinita%20-%20Parte%203%20di%204.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/JHWH%2001%20-%20I%20nomi%20della%20divinita%20-%20Parte%204%20di%204.mp3" data-name="I nomi della divinità — Parte IV">
+        <span class="track-num">4</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">I nomi della divinità — Parte IV</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/JHWH%2001%20-%20I%20nomi%20della%20divinita%20-%20Parte%204%20di%204.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">I Nomi di Dio</div>
+      <span class="series-count">3 episodi</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/I%20nomi%20di%20Dio%20-%20Parte%201%20di%203.mp3" data-name="I Nomi di Dio — Parte I">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">I Nomi di Dio — Parte I</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/I%20nomi%20di%20Dio%20-%20Parte%201%20di%203.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/I%20nomi%20di%20Dio%20-%20Parte%202%20di%203.mp3" data-name="I Nomi di Dio — Parte II">
+        <span class="track-num">2</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">I Nomi di Dio — Parte II</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/I%20nomi%20di%20Dio%20-%20Parte%202%20di%203.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/I%20nomi%20di%20Dio%20-%20Parte%203%20di%203.mp3" data-name="I Nomi di Dio — Parte III">
+        <span class="track-num">3</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">I Nomi di Dio — Parte III</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/I%20nomi%20di%20Dio%20-%20Parte%203%20di%203.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">Il Dio tremendo</div>
+      <span class="series-count">1 episodio</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/Il%20Dio%20tremendo.mp3" data-name="Il Dio tremendo">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Il Dio tremendo</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/Il%20Dio%20tremendo.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">Il Dio uno e trino</div>
+      <span class="series-count">1 episodio</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/Il%20Dio%20uno%20e%20trino.mp3" data-name="Il Dio uno e trino">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Il Dio uno e trino</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/Il%20Dio%20uno%20e%20trino.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">Il termine Dio</div>
+      <span class="series-count">1 episodio</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/Il%20termine%20Dio.mp3" data-name="Il termine Dio">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Il termine Dio</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/Il%20termine%20Dio.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">Il termine immagine</div>
+      <span class="series-count">1 episodio</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/Il%20termine%20immagine.mp3" data-name="Il termine immagine">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Il termine immagine</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/Il%20termine%20immagine.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">Il termine nome</div>
+      <span class="series-count">1 episodio</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/Il%20termine%20nome.mp3" data-name="Il termine nome">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Il termine nome</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/Il%20termine%20nome.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">Il termine Padre</div>
+      <span class="series-count">1 episodio</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/Il%20termine%20Padre.mp3" data-name="Il termine Padre">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Il termine Padre</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/Il%20termine%20Padre.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">Io Sono</div>
+      <span class="series-count">1 episodio</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/Io%20Sono.mp3" data-name="Io Sono">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Io Sono</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/Io%20Sono.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">La divinità di Gesù</div>
+      <span class="series-count">3 episodi</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/La%20divinit%C3%A0%20di%20Ges%C3%B9%20-%20Parte%201%20di%203.mp3" data-name="La divinità di Gesù — Parte I">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">La divinità di Gesù — Parte I</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/La%20divinit%C3%A0%20di%20Ges%C3%B9%20-%20Parte%201%20di%203.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/La%20divinit%C3%A0%20di%20Ges%C3%B9%20-%20Parte%202%20di%203.mp3" data-name="La divinità di Gesù — Parte II">
+        <span class="track-num">2</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">La divinità di Gesù — Parte II</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/La%20divinit%C3%A0%20di%20Ges%C3%B9%20-%20Parte%202%20di%203.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/La%20divinit%C3%A0%20di%20Ges%C3%B9%20-%20Parte%203%20di%203.mp3" data-name="La divinità di Gesù — Parte III">
+        <span class="track-num">3</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">La divinità di Gesù — Parte III</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/La%20divinit%C3%A0%20di%20Ges%C3%B9%20-%20Parte%203%20di%203.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">La pluralità di Dio</div>
+      <span class="series-count">2 episodi</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/La%20pluralit%C3%A0%20di%20Dio%20-%20Parte%201%20di%202.mp3" data-name="La pluralità di Dio — Parte I">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">La pluralità di Dio — Parte I</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/La%20pluralit%C3%A0%20di%20Dio%20-%20Parte%201%20di%202.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/La%20pluralit%C3%A0%20di%20Dio%20_%20Parte%202%20di%202.mp3" data-name="La pluralità di Dio — Parte II">
+        <span class="track-num">2</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">La pluralità di Dio — Parte II</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/La%20pluralit%C3%A0%20di%20Dio%20_%20Parte%202%20di%202.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">La polideità dell'Elohim</div>
+      <span class="series-count">1 episodio</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/La%20polideit%C3%A0%20dell%27Elohim.mp3" data-name="La polideità dell'Elohim">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">La polideità dell'Elohim</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/La%20polideit%C3%A0%20dell%27Elohim.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">La polideità e pluralità di Dio</div>
+      <span class="series-count">3 episodi</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/JHWH%2003%20-%20La%20polideit%C3%A0%20e%20pluralit%C3%A0%20di%20Dio%20-%20Parte%201%20di%203.mp3" data-name="La polideità e pluralità di Dio — Parte I">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">La polideità e pluralità di Dio — Parte I</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/JHWH%2003%20-%20La%20polideit%C3%A0%20e%20pluralit%C3%A0%20di%20Dio%20-%20Parte%201%20di%203.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/JHWH%2003%20-%20La%20polideit%C3%A0%20e%20pluralit%C3%A0%20di%20Dio%20-%20Parte%202%20di%203.mp3" data-name="La polideità e pluralità di Dio — Parte II">
+        <span class="track-num">2</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">La polideità e pluralità di Dio — Parte II</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/JHWH%2003%20-%20La%20polideit%C3%A0%20e%20pluralit%C3%A0%20di%20Dio%20-%20Parte%202%20di%203.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/JHWH%2003%20-%20La%20polideit%C3%A0%20e%20pluralit%C3%A0%20di%20Dio%20-%20Parte%203%20di%203.mp3" data-name="La polideità e pluralità di Dio — Parte III">
+        <span class="track-num">3</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">La polideità e pluralità di Dio — Parte III</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/JHWH%2003%20-%20La%20polideit%C3%A0%20e%20pluralit%C3%A0%20di%20Dio%20-%20Parte%203%20di%203.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">La presenza di Cristo nel AT</div>
+      <span class="series-count">3 episodi</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/JHWH%2008%20-%20La%20presenza%20di%20Cristo%20nel%20AT%20-%20Parte%201%20di%203.mp3" data-name="La presenza di Cristo nel AT — Parte I">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">La presenza di Cristo nel AT — Parte I</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/JHWH%2008%20-%20La%20presenza%20di%20Cristo%20nel%20AT%20-%20Parte%201%20di%203.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/JHWH%2008%20-%20La%20presenza%20di%20Cristo%20nel%20AT%20-%20Parte%202%20di%203.mp3" data-name="La presenza di Cristo nel AT — Parte II">
+        <span class="track-num">2</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">La presenza di Cristo nel AT — Parte II</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/JHWH%2008%20-%20La%20presenza%20di%20Cristo%20nel%20AT%20-%20Parte%202%20di%203.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/JHWH%2008%20-%20La%20presenza%20di%20Cristo%20nel%20AT%20-%20Parte%203%20di%203.mp3" data-name="La presenza di Cristo nel AT — Parte III">
+        <span class="track-num">3</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">La presenza di Cristo nel AT — Parte III</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/JHWH%2008%20-%20La%20presenza%20di%20Cristo%20nel%20AT%20-%20Parte%203%20di%203.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">La vita comunitaria dei primi cristiani</div>
+      <span class="series-count">1 episodio</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/La%20vita%20comunitaria%20dei%20primi%20cristiani.mp3" data-name="La vita comunitaria dei primi cristiani">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">La vita comunitaria dei primi cristiani</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/La%20vita%20comunitaria%20dei%20primi%20cristiani.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">L'angelo dell'Eterno</div>
+      <span class="series-count">3 episodi</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/JHWH%2006%20-%20L%27angelo%20dell%27Eterno%20-%20Parte%201%20di%203.mp3" data-name="L'angelo dell'Eterno — Parte I">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">L'angelo dell'Eterno — Parte I</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/JHWH%2006%20-%20L%27angelo%20dell%27Eterno%20-%20Parte%201%20di%203.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/JHWH%2006%20-%20L%27angelo%20dell%27Eterno%20-%20Parte%202%20di%203.mp3" data-name="L'angelo dell'Eterno — Parte II">
+        <span class="track-num">2</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">L'angelo dell'Eterno — Parte II</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/JHWH%2006%20-%20L%27angelo%20dell%27Eterno%20-%20Parte%202%20di%203.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/JHWH%2006%20-%20L%27angelo%20dell%27Eterno%20-%20Parte%203%20di%203.mp3" data-name="L'angelo dell'Eterno — Parte III">
+        <span class="track-num">3</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">L'angelo dell'Eterno — Parte III</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/JHWH%2006%20-%20L%27angelo%20dell%27Eterno%20-%20Parte%203%20di%203.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">L'antropomorfismo di Dio</div>
+      <span class="series-count">3 episodi</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/JHWH%2005%20-%20L%27antropomorfismo%20di%20Dio%20-%20Parte%201%20di%203.mp3" data-name="L'antropomorfismo di Dio — Parte I">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">L'antropomorfismo di Dio — Parte I</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/JHWH%2005%20-%20L%27antropomorfismo%20di%20Dio%20-%20Parte%201%20di%203.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/JHWH%2005%20-%20L%27antropomorfismo%20di%20Dio%20-%20Parte%202%20di%203.mp3" data-name="L'antropomorfismo di Dio — Parte II">
+        <span class="track-num">2</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">L'antropomorfismo di Dio — Parte II</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/JHWH%2005%20-%20L%27antropomorfismo%20di%20Dio%20-%20Parte%202%20di%203.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/JHWH%2005%20-%20L%27antropomorfismo%20di%20Dio%20-%20Parte%203%20di%203.mp3" data-name="L'antropomorfismo di Dio — Parte III">
+        <span class="track-num">3</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">L'antropomorfismo di Dio — Parte III</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/JHWH%2005%20-%20L%27antropomorfismo%20di%20Dio%20-%20Parte%203%20di%203.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">L'Io sono</div>
+      <span class="series-count">2 episodi</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/JHWH%2007%20-%20L%27Io%20sono%20-%20Parte%201%20di%202.mp3" data-name="L'Io sono — Parte I">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">L'Io sono — Parte I</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/JHWH%2007%20-%20L%27Io%20sono%20-%20Parte%201%20di%202.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/JHWH%2007%20-%20L%27Io%20sono%20-%20Parte%202%20di%202.mp3" data-name="L'Io sono — Parte II">
+        <span class="track-num">2</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">L'Io sono — Parte II</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/JHWH%2007%20-%20L%27Io%20sono%20-%20Parte%202%20di%202.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">Lo spirito dell'Elohim</div>
+      <span class="series-count">1 episodio</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/Lo%20spirito%20dell%27Elohim.mp3" data-name="Lo spirito dell'Elohim">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Lo spirito dell'Elohim</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/Lo%20spirito%20dell%27Elohim.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">Lo spirito di Dio</div>
+      <span class="series-count">1 episodio</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/JHWH%2004%20-%20Lo%20Spirito%20di%20Dio.mp3" data-name="Lo spirito di Dio">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Lo spirito di Dio</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/JHWH%2004%20-%20Lo%20Spirito%20di%20Dio.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">L'unicità del Cristianesimo</div>
+      <span class="series-count">1 episodio</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/L%27unicit%C3%A0%20del%20Cristianesimo.mp3" data-name="L'unicità del Cristianesimo">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">L'unicità del Cristianesimo</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/L%27unicit%C3%A0%20del%20Cristianesimo.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">Perché i figli di Dio sono divisi</div>
+      <span class="series-count">1 episodio</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/Perch%C3%A9%20i%20figli%20di%20Dio%20sono%20divisi.mp3" data-name="Perché i figli di Dio sono divisi">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Perché i figli di Dio sono divisi</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/Perch%C3%A9%20i%20figli%20di%20Dio%20sono%20divisi.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">Prefazione al Libro</div>
+      <span class="series-count">1 episodio</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/Prefazione%20al%20Libro.mp3" data-name="Prefazione al Libro">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Prefazione al Libro</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/Prefazione%20al%20Libro.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">Sei guidato dallo Spirito Santo</div>
+      <span class="series-count">2 episodi</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/Sei%20guidato%20dallo%20Spirito%20Santo%20o%20da%20uno%20spirito%20maligno%20-%20Parte%201%20di%202.mp3" data-name="Sei guidato dallo Spirito Santo — Parte I">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Sei guidato dallo Spirito Santo — Parte I</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/Sei%20guidato%20dallo%20Spirito%20Santo%20o%20da%20uno%20spirito%20maligno%20-%20Parte%201%20di%202.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/Sei%20guidato%20dallo%20Spirito%20Santo%20o%20da%20uno%20spirito%20maligno%20-%20Parte%202%20di%202.mp3" data-name="Sei guidato dallo Spirito Santo — Parte II">
+        <span class="track-num">2</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Sei guidato dallo Spirito Santo — Parte II</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/Sei%20guidato%20dallo%20Spirito%20Santo%20o%20da%20uno%20spirito%20maligno%20-%20Parte%202%20di%202.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">Un Dio trino</div>
+      <span class="series-count">4 episodi</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/JHWH%2011%20-%20Un%20Dio%20trino%20-%20Parte%201%20di%204.mp3" data-name="Un Dio trino — Parte I">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Un Dio trino — Parte I</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/JHWH%2011%20-%20Un%20Dio%20trino%20-%20Parte%201%20di%204.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/JHWH%2011%20-%20Un%20Dio%20trino%20-%20Parte%202%20di%204.mp3" data-name="Un Dio trino — Parte II">
+        <span class="track-num">2</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Un Dio trino — Parte II</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/JHWH%2011%20-%20Un%20Dio%20trino%20-%20Parte%202%20di%204.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/JHWH%2011%20-%20Un%20Dio%20trino%20-%20Parte%203%20di%204.mp3" data-name="Un Dio trino — Parte III">
+        <span class="track-num">3</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Un Dio trino — Parte III</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/JHWH%2011%20-%20Un%20Dio%20trino%20-%20Parte%203%20di%204.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/JHWH%2011%20-%20Un%20Dio%20trino%20-%20Parte%204%20di%204.mp3" data-name="Un Dio trino — Parte IV">
+        <span class="track-num">4</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Un Dio trino — Parte IV</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/JHWH%2011%20-%20Un%20Dio%20trino%20-%20Parte%204%20di%204.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">Unico Dio</div>
+      <span class="series-count">2 episodi</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/Unico%20Dio%20-%20Parte%201%20di%202.mp3" data-name="Unico Dio — Parte I">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Unico Dio — Parte I</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/Unico%20Dio%20-%20Parte%201%20di%202.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/Unico%20Dio%20-%20Parte%202%20di%202.mp3" data-name="Unico Dio — Parte II">
+        <span class="track-num">2</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Unico Dio — Parte II</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/Unico%20Dio%20-%20Parte%202%20di%202.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">Uno stesso Dio</div>
+      <span class="series-count">1 episodio</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/Uno%20stesso%20Dio.mp3" data-name="Uno stesso Dio">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Uno stesso Dio</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/Uno%20stesso%20Dio.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">Vi è un solo Dio</div>
+      <span class="series-count">1 episodio</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/podcast_revisionati/Vi%20%C3%A8%20un%20solo%20Dio.mp3" data-name="Vi è un solo Dio">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Vi è un solo Dio</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/podcast_revisionati/Vi%20%C3%A8%20un%20solo%20Dio.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
 </div>
-
 <footer>
-  <p>© 2025 Chiesa Evangelica di Maranello · <a href="https://www.ognitipodiinsegnamento.it/privacy.html">Privacy Policy</a> · <a href="index.html">Home</a></p>
+  <p>© 2025 Chiesa Evangelica di Maranello · <a href="privacy.html">Privacy Policy</a> · <a href="index.html">Home</a></p>
 </footer>
-
 <script>
-const BASE = "https://archive.org/download/podcast_revisionati/";
-const tracks = [
-  ["Chi non è con Cristo", "Chi non è con Cristo.mp3"],
-  ["Credente o Cristiano? — Parte I", "Credente o Cristiano - Parte 1 di 4.mp3"],
-  ["Credente o Cristiano? — Parte II", "Credente o Cristiano - Parte 2 di 4.mp3"],
-  ["Credente o Cristiano? — Parte III", "Credente o Cristiano - Parte 3 di 4.mp3"],
-  ["Credente o Cristiano? — Parte IV", "Credente o Cristiano - Parte 4 di 4.mp3"],
-  ["Cristiano o religioso?", "Cristiano o religioso.mp3"],
-  ["Dio è Spirito", "Dio è Spirito.mp3"],
-  ["Gesù il figlio di Dio — Parte I", "Gesù il figlio di Dio - Parte 1 di 2.mp3"],
-  ["Gesù il figlio di Dio — Parte II", "Gesù il figlio di Dio - Parte 2 di 2.mp3"],
-  ["Gesù è Geova", "Gesù è Geova.mp3"],
-  ["I Nomi di Dio — Parte I", "I nomi di Dio - Parte 1 di 3.mp3"],
-  ["I Nomi di Dio — Parte II", "I nomi di Dio - Parte 2 di 3.mp3"],
-  ["I Nomi di Dio — Parte III", "I nomi di Dio - Parte 3 di 3.mp3"],
-  ["Il Dio tremendo", "Il Dio tremendo.mp3"],
-  ["Il Dio uno e trino", "Il Dio uno e trino.mp3"],
-  ["Il termine Dio", "Il termine Dio.mp3"],
-  ["Il termine Padre", "Il termine Padre.mp3"],
-  ["Il termine immagine", "Il termine immagine.mp3"],
-  ["Il termine nome", "Il termine nome.mp3"],
-  ["Io Sono", "Io Sono.mp3"],
-  ["I nomi della divinità — Parte I", "JHWH 01 - I nomi della divinita - Parte 1 di 4.mp3"],
-  ["I nomi della divinità — Parte II", "JHWH 01 - I nomi della divinita - Parte 2 di 4.mp3"],
-  ["I nomi della divinità — Parte III", "JHWH 01 - I nomi della divinita - Parte 3 di 4.mp3"],
-  ["I nomi della divinità — Parte IV", "JHWH 01 - I nomi della divinita - Parte 4 di 4.mp3"],
-  ["Elohim — Parte I", "JHWH 02 - Elohim - Parte 1 di 3.mp3"],
-  ["Elohim — Parte II", "JHWH 02 - Elohim - Parte 2 di 3.mp3"],
-  ["Elohim — Parte III", "JHWH 02 - Elohim - Parte 3 di 3.mp3"],
-  ["La polideità e pluralità di Dio — Parte I", "JHWH 03 - La polideità e pluralità di Dio - Parte 1 di 3.mp3"],
-  ["La polideità e pluralità di Dio — Parte II", "JHWH 03 - La polideità e pluralità di Dio - Parte 2 di 3.mp3"],
-  ["La polideità e pluralità di Dio — Parte III", "JHWH 03 - La polideità e pluralità di Dio - Parte 3 di 3.mp3"],
-  ["Lo spirito di Dio", "JHWH 04 - Lo Spirito di Dio.mp3"],
-  ["L'antropomorfismo di Dio — Parte I", "JHWH 05 - L'antropomorfismo di Dio - Parte 1 di 3.mp3"],
-  ["L'antropomorfismo di Dio — Parte II", "JHWH 05 - L'antropomorfismo di Dio - Parte 2 di 3.mp3"],
-  ["L'antropomorfismo di Dio — Parte III", "JHWH 05 - L'antropomorfismo di Dio - Parte 3 di 3.mp3"],
-  ["L'angelo dell'Eterno — Parte I", "JHWH 06 - L'angelo dell'Eterno - Parte 1 di 3.mp3"],
-  ["L'angelo dell'Eterno — Parte II", "JHWH 06 - L'angelo dell'Eterno - Parte 2 di 3.mp3"],
-  ["L'angelo dell'Eterno — Parte III", "JHWH 06 - L'angelo dell'Eterno - Parte 3 di 3.mp3"],
-  ["L'Io sono — Parte I", "JHWH 07 - L'Io sono - Parte 1 di 2.mp3"],
-  ["L'Io sono — Parte II", "JHWH 07 - L'Io sono - Parte 2 di 2.mp3"],
-  ["La presenza di Cristo nel AT — Parte I", "JHWH 08 - La presenza di Cristo nel AT - Parte 1 di 3.mp3"],
-  ["La presenza di Cristo nel AT — Parte II", "JHWH 08 - La presenza di Cristo nel AT - Parte 2 di 3.mp3"],
-  ["La presenza di Cristo nel AT — Parte III", "JHWH 08 - La presenza di Cristo nel AT - Parte 3 di 3.mp3"],
-  ["Cristo nell'Antico Testamento — Parte I", "JHWH 09 - Cristo nell'Antico Testamento - Parte 1 di 2.mp3"],
-  ["Cristo nell'Antico Testamento — Parte II", "JHWH 09 - Cristo nell'Antico Testamento - Parte 2 di 2.mp3"],
-  ["Gesù è il Signore — Parte I", "JHWH 10 - Gesù è il Signore - Parte 1 di 4.mp3"],
-  ["Gesù è il Signore — Parte II", "JHWH 10 - Gesù è il Signore - Parte 2 di 4.mp3"],
-  ["Gesù è il Signore — Parte III", "JHWH 10 - Gesù è il Signore - Parte 3 di 4.mp3"],
-  ["Gesù è il Signore — Parte IV", "JHWH 10 - Gesù è il Signore - Parte 4 di 4.mp3"],
-  ["Un Dio trino — Parte I", "JHWH 11 - Un Dio trino - Parte 1 di 4.mp3"],
-  ["Un Dio trino — Parte II", "JHWH 11 - Un Dio trino - Parte 2 di 4.mp3"],
-  ["Un Dio trino — Parte III", "JHWH 11 - Un Dio trino - Parte 3 di 4.mp3"],
-  ["Un Dio trino — Parte IV", "JHWH 11 - Un Dio trino - Parte 4 di 4.mp3"],
-  ["Gesù rivela il Padre — Parte I", "JHWH 12 - Gesù rivela il Padre - Parte 1 di 4.mp3"],
-  ["Gesù rivela il Padre — Parte II", "JHWH 12 - Gesù rivela il Padre - Parte 2 di 4.mp3"],
-  ["Gesù rivela il Padre — Parte III", "JHWH 12 - Gesù rivela il Padre - Parte 3 di 4.mp3"],
-  ["Gesù rivela il Padre — Parte IV", "JHWH 12 - Gesù rivela il Padre - Parte 4 di 4.mp3"],
-  ["L'unicità del Cristianesimo", "L'unicità del Cristianesimo.mp3"],
-  ["La divinità di Gesù — Parte I", "La divinità di Gesù - Parte 1 di 3.mp3"],
-  ["La divinità di Gesù — Parte II", "La divinità di Gesù - Parte 2 di 3.mp3"],
-  ["La divinità di Gesù — Parte III", "La divinità di Gesù - Parte 3 di 3.mp3"],
-  ["La pluralità di Dio — Parte I", "La pluralità di Dio - Parte 1 di 2.mp3"],
-  ["La pluralità di Dio — Parte II", "La pluralità di Dio _ Parte 2 di 2.mp3"],
-  ["La polideità dell'Elohim", "La polideità dell'Elohim.mp3"],
-  ["La vita comunitaria dei primi cristiani", "La vita comunitaria dei primi cristiani.mp3"],
-  ["Lo spirito dell'Elohim", "Lo spirito dell'Elohim.mp3"],
-  ["Perché i figli di Dio sono divisi", "Perché i figli di Dio sono divisi.mp3"],
-  ["Prefazione al Libro", "Prefazione al Libro.mp3"],
-  ["Sei guidato dallo Spirito Santo — Parte I", "Sei guidato dallo Spirito Santo o da uno spirito maligno - Parte 1 di 2.mp3"],
-  ["Sei guidato dallo Spirito Santo — Parte II", "Sei guidato dallo Spirito Santo o da uno spirito maligno - Parte 2 di 2.mp3"],
-  ["Unico Dio — Parte I", "Unico Dio - Parte 1 di 2.mp3"],
-  ["Unico Dio — Parte II", "Unico Dio - Parte 2 di 2.mp3"],
-  ["Uno stesso Dio", "Uno stesso Dio.mp3"],
-  ["Vi è un solo Dio", "Vi è un solo Dio.mp3"]
-];
+function toggleSeries(block){block.classList.toggle('open');}
 
-let currentAudio = null, currentBtn = null;
-
-function fmtTime(s) {
-  if(isNaN(s)) return "0:00";
-  var m = Math.floor(s/60), sec = Math.floor(s%60);
-  return m + ":" + (sec < 10 ? "0" : "") + sec;
-}
-
-function togglePlay(btn) {
-  var item = btn.closest(".podcast-item");
-  var src = item.dataset.src;
-  var fill = item.querySelector(".podcast-bar-fill");
-  var time = item.querySelector(".podcast-time");
-  var bar  = item.querySelector(".podcast-bar");
-
-  if(currentAudio && currentBtn === btn) {
-    if(currentAudio.paused) {
-      currentAudio.play();
-      btn.classList.add("playing");
-      btn.querySelector(".play-icon").style.display = "none";
-      btn.querySelector(".pause-icon").style.display = "";
-    } else {
-      currentAudio.pause();
-      btn.classList.remove("playing");
-      btn.querySelector(".play-icon").style.display = "";
-      btn.querySelector(".pause-icon").style.display = "none";
-    }
-    return;
+(function(){
+  let curAudio=null,curBtn=null,curRow=null;
+  function fmtT(s){if(isNaN(s)||s<0)return'0:00';const m=Math.floor(s/60),sec=Math.floor(s%60);return m+':'+(sec<10?'0':'')+sec;}
+  function setIcon(btn,state){
+    btn.querySelector('.icon-play').style.display=state==='play'?'':'none';
+    btn.querySelector('.icon-pause').style.display=state==='pause'?'':'none';
+    btn.querySelector('.icon-spin').style.display=state==='spin'?'':'none';
+    btn.className='track-play-btn'+(state==='pause'?' playing':state==='spin'?' loading':'');
   }
-
-  if(currentAudio) {
-    currentAudio.pause();
-    currentBtn.classList.remove("playing");
-    currentBtn.querySelector(".play-icon").style.display = "";
-    currentBtn.querySelector(".pause-icon").style.display = "none";
-    currentBtn.closest(".podcast-item").querySelector(".podcast-bar-fill").style.width = "0%";
-    currentBtn.closest(".podcast-item").querySelector(".podcast-time").textContent = "0:00";
+  function stopCurrent(){
+    if(curAudio){curAudio.pause();curAudio=null;}
+    if(curBtn)setIcon(curBtn,'play');
+    if(curRow){curRow.querySelector('.track-progress-wrap').classList.remove('visible');curRow.querySelector('.track-bar-fill').style.width='0%';curRow.querySelector('.track-time').textContent='0:00';}
+    curBtn=null;curRow=null;
   }
-
-  currentAudio = new Audio(src);
-  currentBtn = btn;
-  btn.classList.add("playing");
-  btn.querySelector(".play-icon").style.display = "none";
-  btn.querySelector(".pause-icon").style.display = "";
-
-  currentAudio.ontimeupdate = function() {
-    if(currentAudio.duration) {
-      fill.style.width = (currentAudio.currentTime / currentAudio.duration * 100) + "%";
-      time.textContent = fmtTime(currentAudio.currentTime);
+  async function handlePlay(btn,row){
+    if(curRow===row&&curAudio){
+      if(curAudio.paused){curAudio.play();setIcon(btn,'pause');}
+      else{curAudio.pause();setIcon(btn,'play');}
+      return;
     }
-  };
-  currentAudio.onended = function() {
-    btn.classList.remove("playing");
-    btn.querySelector(".play-icon").style.display = "";
-    btn.querySelector(".pause-icon").style.display = "none";
-    fill.style.width = "0%";
-    time.textContent = "0:00";
-  };
-  bar.onclick = function(e) {
-    if(currentAudio && currentBtn === btn && currentAudio.duration) {
-      var r = bar.getBoundingClientRect();
-      currentAudio.currentTime = ((e.clientX - r.left) / r.width) * currentAudio.duration;
-    }
-  };
-
-  currentAudio.play();
-}
-
-function renderTracks(list) {
-  var container = document.getElementById("podcastList");
-  container.innerHTML = "";
-  list.forEach(function(t) {
-    var title = t[0];
-    var url = BASE + encodeURIComponent(t[1]);
-    var div = document.createElement("div");
-    div.className = "podcast-item";
-    div.dataset.src = url;
-    div.innerHTML =
-      '<div class="podcast-play" onclick="togglePlay(this)">' +
-        '<svg class="play-icon" viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M8 5v14l11-7z"/></svg>' +
-        '<svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>' +
-      '</div>' +
-      '<div class="podcast-info">' +
-        '<div class="podcast-title">' + title + '</div>' +
-        '<div class="podcast-progress-wrap">' +
-          '<div class="podcast-bar"><div class="podcast-bar-fill"></div></div>' +
-          '<span class="podcast-time">0:00</span>' +
-        '</div>' +
-      '</div>' +
-      '<a href="' + url + '" download class="podcast-dl" title="Scarica">' +
-        '<svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>' +
-      '</a>';
-    container.appendChild(div);
+    stopCurrent();setIcon(btn,'spin');
+    const audio=new Audio(row.dataset.src);
+    curAudio=audio;curBtn=btn;curRow=row;
+    const prog=row.querySelector('.track-progress-wrap'),fill=row.querySelector('.track-bar-fill'),time=row.querySelector('.track-time'),bar=row.querySelector('.track-bar');
+    prog.classList.add('visible');
+    audio.ontimeupdate=()=>{if(audio.duration){fill.style.width=(audio.currentTime/audio.duration*100)+'%';time.textContent=fmtT(audio.currentTime);}};
+    audio.onended=()=>{setIcon(btn,'play');fill.style.width='0%';time.textContent='0:00';prog.classList.remove('visible');curAudio=null;curBtn=null;curRow=null;};
+    bar.onclick=e=>{if(audio.duration){const r=bar.getBoundingClientRect();audio.currentTime=((e.clientX-r.left)/r.width)*audio.duration;}};
+    try{await audio.play();setIcon(btn,'pause');}
+    catch(e){setIcon(btn,'play');prog.classList.remove('visible');curAudio=null;curBtn=null;curRow=null;}
+  }
+  document.querySelectorAll('.track-play-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>handlePlay(btn,btn.closest('.track-row')));
   });
-  document.getElementById("resultsCount").textContent = list.length + " episodi";
-}
+})();
 
-function filterPodcast() {
-  var q = document.getElementById("searchInput").value.toLowerCase().trim();
-  renderTracks(q ? tracks.filter(t => t[0].toLowerCase().includes(q)) : tracks);
-}
-
-renderTracks(tracks);
+(function(){
+  const searchInput=document.getElementById('search-input');
+  const noResults=document.getElementById('no-results');
+  searchInput.addEventListener('input',applyFilters);
+  function applyFilters(){
+    const q=searchInput.value.toLowerCase().trim();
+    let anyVisible=false;
+    document.querySelectorAll('.series-block').forEach(block=>{
+      let hasVisible=false;
+      block.querySelectorAll('.track-row').forEach(row=>{
+        const match=q===''||row.dataset.name.toLowerCase().includes(q);
+        row.classList.toggle('hidden',!match);
+        if(match)hasVisible=true;
+      });
+      if(!hasVisible&&q!==''&&block.querySelector('.series-name').textContent.toLowerCase().includes(q)){
+        block.querySelectorAll('.track-row').forEach(r=>r.classList.remove('hidden'));
+        hasVisible=true;
+      }
+      block.classList.toggle('hidden',!hasVisible);
+      if(hasVisible)anyVisible=true;
+    });
+    noResults.style.display=anyVisible?'none':'block';
+  }
+})();
 </script>
 </body>
 </html>

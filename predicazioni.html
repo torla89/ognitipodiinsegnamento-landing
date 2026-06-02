@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Predicazioni – Ogni Tipo di Insegnamento</title>
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/torla89/Ogni-tipo-di-insegnamento/main/assets/icona.png"/>
+  <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/torla89/Ogni-tipo-di-insegnamento/main/assets/icona.png"/>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #1C1C1E; --bg2: #242426; --bg3: #2C2C2E;
+      --border: rgba(255,255,255,0.08);
+      --blue: #4A90D9; --blue-light: #6AAEE8;
+      --cream: #E8E4DC; --gray: rgba(232,228,220,0.5); --gray2: rgba(232,228,220,0.2);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Nunito Sans', sans-serif; background: var(--bg); color: var(--cream); overflow-x: hidden; min-height: 100vh; }
+    .page-bg { position: fixed; inset: 0; z-index: -1; background: radial-gradient(ellipse 80% 60% at 0% 0%, rgba(30,20,20,0.9) 0%, transparent 60%), radial-gradient(ellipse 60% 50% at 100% 100%, rgba(20,20,30,0.8) 0%, transparent 60%), linear-gradient(160deg, #1A1A1C 0%, #222224 40%, #1E1E20 100%); }
+    nav { position: relative; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 0 2.5rem; background: rgba(20,20,22,0.95); border-bottom: 1px solid var(--border); height: 64px; }
+    .nav-brand { display: flex; align-items: center; gap: 0.9rem; text-decoration: none; }
+    .nav-brand-icon { width: 36px; height: 36px; border-radius: 0.5rem; overflow: hidden; flex-shrink: 0; border: 1px solid var(--border); }
+    .nav-brand-icon img { width: 100%; height: 100%; object-fit: cover; }
+    .nav-brand-text { font-family: 'Lora', serif; font-size: 1rem; font-weight: 600; color: var(--cream); line-height: 1.2; }
+    .nav-brand-sub { font-size: 0.65rem; color: var(--gray); font-weight: 300; letter-spacing: 0.06em; }
+    .nav-links { display: flex; list-style: none; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 0.5rem; overflow: hidden; }
+    .nav-links li a { display: block; padding: 0.5rem 1.3rem; font-size: 0.78rem; font-weight: 600; text-decoration: none; color: var(--gray); letter-spacing: 0.06em; text-transform: uppercase; border-right: 1px solid var(--border); transition: background 0.2s, color 0.2s; }
+    .nav-links li:last-child a { border-right: none; }
+    .nav-links li a:hover, .nav-links li a.active { background: var(--blue); color: #fff; }
+    .page-header { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 3rem 2.5rem 2rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: flex-end; gap: 2rem; flex-wrap: wrap; }
+    .page-header-tag { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.8rem; display: block; }
+    .page-header h1 { font-family: 'Lora', serif; font-size: 2.2rem; font-weight: 600; line-height: 1.2; margin-bottom: 0.8rem; }
+    .page-header p { font-size: 0.88rem; color: var(--gray); font-weight: 300; line-height: 1.7; max-width: 520px; }
+    .header-stats { display: flex; gap: 1.2rem; flex-shrink: 0; }
+    .stat-box { background: var(--bg2); border: 1px solid var(--border); border-radius: 0.6rem; padding: 0.9rem 1.3rem; text-align: center; }
+    .stat-num { font-family: 'Lora', serif; font-size: 1.6rem; color: var(--blue); font-weight: 700; }
+    .stat-lbl { font-size: 0.62rem; color: var(--gray); text-transform: uppercase; letter-spacing: 0.08em; }
+    .filter-bar { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 1.2rem 2.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; }
+    .search-wrap { position: relative; display: flex; align-items: center; width: 100%; }
+    .search-input { background: var(--bg2); border: 1px solid var(--border); border-radius: 0.4rem; padding: 0.4rem 0.8rem 0.4rem 2.1rem; font-size: 0.82rem; color: var(--cream); font-family: 'Nunito Sans', sans-serif; outline: none; width: 100%; max-width: 360px; transition: border-color 0.2s; }
+    .search-input:focus { border-color: var(--blue); }
+    .search-input::placeholder { color: var(--gray2); }
+    .search-icon { position: absolute; left: 0.6rem; pointer-events: none; color: var(--gray); display: flex; }
+    .content-wrap { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 0 2.5rem 4rem; }
+    .series-block { border-bottom: 1px solid var(--border); }
+    .series-block:last-child { border-bottom: none; }
+    .series-block.hidden { display: none !important; }
+    .series-header { display: flex; align-items: center; gap: 0.8rem; padding: 0.8rem 0.4rem; cursor: pointer; user-select: none; transition: background 0.15s; border-radius: 0.3rem; }
+    .series-header:hover { background: rgba(255,255,255,0.03); }
+    .series-header:hover .series-name { color: var(--blue-light); }
+    .series-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
+    .series-name { font-family: 'Lora', serif; font-size: 1rem; font-weight: 600; flex: 1; transition: color 0.2s; line-height: 1.3; }
+    .series-count { font-size: 0.65rem; color: var(--gray); text-transform: uppercase; letter-spacing: 0.08em; background: var(--bg2); border: 1px solid var(--border); border-radius: 2rem; padding: 0.15rem 0.6rem; white-space: nowrap; }
+    .series-chevron { color: var(--gray); transition: transform 0.25s; display: flex; flex-shrink: 0; }
+    .series-block.open .series-chevron { transform: rotate(180deg); }
+    .series-tracks { display: none; padding: 0 0 0.6rem; }
+    .series-block.open .series-tracks { display: block; }
+    .track-row { display: flex; align-items: center; gap: 0.8rem; padding: 0.55rem 0.4rem; border-bottom: 1px solid var(--border); transition: background 0.15s; border-radius: 0.3rem; }
+    .track-row:last-child { border-bottom: none; }
+    .track-row:hover { background: rgba(255,255,255,0.03); }
+    .track-row.hidden { display: none !important; }
+    .track-num { font-size: 0.68rem; color: var(--gray2); width: 20px; text-align: right; flex-shrink: 0; }
+    .track-play-btn { width: 30px; height: 30px; border-radius: 50%; background: var(--blue); color: #fff; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; transition: background 0.2s; }
+    .track-play-btn:hover { background: var(--blue-light); }
+    .track-play-btn.playing { background: #2ecc71; }
+    .track-play-btn.loading { background: var(--bg3); color: var(--gray); cursor: wait; }
+    .track-info { flex: 1; min-width: 0; }
+    .track-name { font-size: 0.82rem; font-weight: 600; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .track-progress-wrap { display: none; align-items: center; gap: 0.5rem; margin-top: 0.3rem; }
+    .track-progress-wrap.visible { display: flex; }
+    .track-bar { flex: 1; height: 3px; background: var(--border); border-radius: 2px; cursor: pointer; }
+    .track-bar-fill { height: 100%; width: 0%; background: var(--blue); border-radius: 2px; transition: width 0.1s linear; }
+    .track-time { font-size: 0.6rem; color: var(--gray); flex-shrink: 0; min-width: 34px; }
+    .track-actions { display: flex; gap: 0.3rem; flex-shrink: 0; }
+    .track-dl-btn { width: 28px; height: 28px; border-radius: 0.3rem; background: none; border: 1px solid var(--border); color: var(--gray); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: color 0.2s, border-color 0.2s; text-decoration: none; }
+    .track-dl-btn:hover { color: var(--blue-light); border-color: var(--blue); }
+    .no-results { text-align: center; padding: 3rem 1rem; color: var(--gray); font-size: 0.85rem; display: none; }
+    footer { position: relative; z-index: 1; border-top: 1px solid var(--border); background: rgba(15,15,17,0.8); text-align: center; padding: 1.5rem; font-size: 0.72rem; color: var(--gray); }
+    footer a { color: var(--blue); text-decoration: none; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @media (max-width: 900px) {
+      nav { padding: 0 1rem; } .nav-links { display: none; }
+      .page-header { padding: 2rem 1.5rem 1.5rem; } .page-header h1 { font-size: 1.7rem; }
+      .filter-bar, .content-wrap { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .search-input { max-width: 100%; } .header-stats { display: none; }
+    }
+  </style>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HZD3DN7HST"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-HZD3DN7HST');</script>
+</head>
+<body>
+<div class="page-bg"></div>
+<nav>
+  <a class="nav-brand" href="index.html">
+    <div class="nav-brand-icon"><img src="https://raw.githubusercontent.com/torla89/Ogni-tipo-di-insegnamento/main/assets/icona.png" alt="logo" onerror="this.parentElement.innerHTML='📖'"/></div>
+    <div><div class="nav-brand-text">Ogni tipo di insegnamento</div><div class="nav-brand-sub">Studi biblici gratuiti</div></div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="https://torla89.github.io/Ogni-tipo-di-insegnamento" target="_blank">App web</a></li>
+    <li><a href="studi.html">Studi</a></li>
+    <li><a href="podcast.html">Podcast</a></li>
+    <li><a href="predicazioni.html" class="active">Predicazioni</a></li>
+    <li><a href="index.html#chiesa">Chi siamo</a></li>
+    <li><a href="index.html#download">Scarica</a></li>
+  </ul>
+</nav>
+<div class="page-header">
+  <div>
+    <span class="page-header-tag">✦ Archivio audio</span>
+    <h1>Predicazioni di <em style="font-style:italic;color:var(--blue-light)">Ellero Balzani</em></h1>
+    <p>Registrazioni originali conservate e rese disponibili gratuitamente. Ascolta direttamente dal browser o scarica i file audio.</p>
+  </div>
+  <div class="header-stats">
+    <div class="stat-box"><div class="stat-num">65</div><div class="stat-lbl">Predicazioni</div></div>
+    <div class="stat-box"><div class="stat-num">21</div><div class="stat-lbl">Titoli</div></div>
+  </div>
+</div>
+<div class="filter-bar">
+  <div class="search-wrap">
+    <span class="search-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
+    <input class="search-input" type="text" id="search-input" placeholder="Cerca predicazione…" autocomplete="off"/>
+  </div>
+</div>
+<div class="content-wrap">
+<div id="no-results" class="no-results">Nessuna predicazione trovata.</div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">Alcuni errori della chiesa cattolico romana – La morte di Gesù</div>
+      <span class="series-count">1 predicazione</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Alcuni%20errori%20della%20chiesa%20cattolico%20romana%20-%20La%20morte%20di%20ges%C3%B9.mp3" data-name="Alcuni errori della chiesa cattolico romana – La morte di Gesù">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Alcuni errori della chiesa cattolico romana – La morte di Gesù</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Alcuni%20errori%20della%20chiesa%20cattolico%20romana%20-%20La%20morte%20di%20ges%C3%B9.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">Come essere felici</div>
+      <span class="series-count">8 predicazioni</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Come%20essere%20felici%201%20-%20Lato%20A.mp3" data-name="Come essere felici 1 – Lato A">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Come essere felici 1 – Lato A</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Come%20essere%20felici%201%20-%20Lato%20A.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Come%20essere%20felici%202%20-%20Lato%20A.mp3" data-name="Come essere felici 2 – Lato A">
+        <span class="track-num">2</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Come essere felici 2 – Lato A</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Come%20essere%20felici%202%20-%20Lato%20A.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Come%20essere%20felici%202%20-%20Lato%20B.mp3" data-name="Come essere felici 2 – Lato B">
+        <span class="track-num">3</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Come essere felici 2 – Lato B</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Come%20essere%20felici%202%20-%20Lato%20B.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Come%20essere%20felici%203%20-%20Lato%20A.mp3" data-name="Come essere felici 3 – Lato A">
+        <span class="track-num">4</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Come essere felici 3 – Lato A</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Come%20essere%20felici%203%20-%20Lato%20A.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Come%20essere%20felici%204%20-%20Lato%20A.mp3" data-name="Come essere felici 4 – Lato A">
+        <span class="track-num">5</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Come essere felici 4 – Lato A</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Come%20essere%20felici%204%20-%20Lato%20A.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Come%20essere%20felici%205%20-%20Lato%20A.mp3" data-name="Come essere felici 5 – Lato A">
+        <span class="track-num">6</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Come essere felici 5 – Lato A</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Come%20essere%20felici%205%20-%20Lato%20A.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Come%20essere%20felici%206%20-%20Lato%20A.mp3" data-name="Come essere felici 6 – Lato A">
+        <span class="track-num">7</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Come essere felici 6 – Lato A</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Come%20essere%20felici%206%20-%20Lato%20A.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Come%20essere%20felici%207%20-%20Lato%20A.mp3" data-name="Come essere felici 7 – Lato A">
+        <span class="track-num">8</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Come essere felici 7 – Lato A</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Come%20essere%20felici%207%20-%20Lato%20A.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">Come evangelizzare</div>
+      <span class="series-count">4 predicazioni</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Come%20evangelizzare%201%20-%20lato%20A.mp3" data-name="Come evangelizzare 1 – Lato A">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Come evangelizzare 1 – Lato A</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Come%20evangelizzare%201%20-%20lato%20A.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Come%20evangelizzare%201%20-%20lato%20B.mp3" data-name="Come evangelizzare 1 – Lato B">
+        <span class="track-num">2</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Come evangelizzare 1 – Lato B</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Come%20evangelizzare%201%20-%20lato%20B.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Come%20evangelizzare%202%20-%20lato%20A.mp3" data-name="Come evangelizzare 2 – Lato A">
+        <span class="track-num">3</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Come evangelizzare 2 – Lato A</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Come%20evangelizzare%202%20-%20lato%20A.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Come%20evangelizzare%203%20-%20lato%20A.mp3" data-name="Come evangelizzare 3 – Lato A">
+        <span class="track-num">4</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Come evangelizzare 3 – Lato A</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Come%20evangelizzare%203%20-%20lato%20A.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">Cos'è la fede</div>
+      <span class="series-count">2 predicazioni</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Cos%27%C3%A8%20la%20fede%20-%20lato%20A.mp3" data-name="Cos'è la fede – Lato A">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Cos'è la fede – Lato A</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Cos%27%C3%A8%20la%20fede%20-%20lato%20A.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Cos%27%C3%A8%20la%20fede%20-%20lato%20B.mp3" data-name="Cos'è la fede – Lato B">
+        <span class="track-num">2</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Cos'è la fede – Lato B</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Cos%27%C3%A8%20la%20fede%20-%20lato%20B.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">Giudicare</div>
+      <span class="series-count">19 predicazioni</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Giudicare_1.mp3" data-name="Giudicare 1">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Giudicare 1</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Giudicare_1.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Giudicare_2.mp3" data-name="Giudicare 2">
+        <span class="track-num">2</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Giudicare 2</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Giudicare_2.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Giudicare_3.mp3" data-name="Giudicare 3">
+        <span class="track-num">3</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Giudicare 3</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Giudicare_3.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Giudicare_4.mp3" data-name="Giudicare 4">
+        <span class="track-num">4</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Giudicare 4</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Giudicare_4.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Giudicare_5.mp3" data-name="Giudicare 5">
+        <span class="track-num">5</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Giudicare 5</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Giudicare_5.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Giudicare_6.mp3" data-name="Giudicare 6">
+        <span class="track-num">6</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Giudicare 6</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Giudicare_6.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Giudicare_7.mp3" data-name="Giudicare 7">
+        <span class="track-num">7</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Giudicare 7</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Giudicare_7.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Giudicare_8.mp3" data-name="Giudicare 8">
+        <span class="track-num">8</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Giudicare 8</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Giudicare_8.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Giudicare_9.mp3" data-name="Giudicare 9">
+        <span class="track-num">9</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Giudicare 9</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Giudicare_9.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Giudicare_10.mp3" data-name="Giudicare 10">
+        <span class="track-num">10</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Giudicare 10</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Giudicare_10.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Giudicare_11.mp3" data-name="Giudicare 11">
+        <span class="track-num">11</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Giudicare 11</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Giudicare_11.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Giudicare_12.mp3" data-name="Giudicare 12">
+        <span class="track-num">12</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Giudicare 12</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Giudicare_12.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Giudicare_13.mp3" data-name="Giudicare 13">
+        <span class="track-num">13</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Giudicare 13</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Giudicare_13.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Giudicare_14.mp3" data-name="Giudicare 14">
+        <span class="track-num">14</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Giudicare 14</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Giudicare_14.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Giudicare_15.mp3" data-name="Giudicare 15">
+        <span class="track-num">15</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Giudicare 15</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Giudicare_15.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Giudicare_16.mp3" data-name="Giudicare 16">
+        <span class="track-num">16</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Giudicare 16</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Giudicare_16.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Giudicare_17.mp3" data-name="Giudicare 17">
+        <span class="track-num">17</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Giudicare 17</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Giudicare_17.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Giudicare_18.mp3" data-name="Giudicare 18">
+        <span class="track-num">18</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Giudicare 18</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Giudicare_18.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Giudicare_19.mp3" data-name="Giudicare 19">
+        <span class="track-num">19</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Giudicare 19</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Giudicare_19.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">Gli elementi della fede che salva</div>
+      <span class="series-count">2 predicazioni</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Gli%20elementi%20della%20fede%20che%20salva%20-%20lato%20A.mp3" data-name="Gli elementi della fede che salva – Lato A">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Gli elementi della fede che salva – Lato A</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Gli%20elementi%20della%20fede%20che%20salva%20-%20lato%20A.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Gli%20elementi%20della%20fede%20che%20salva%20-%20lato%20B.mp3" data-name="Gli elementi della fede che salva – Lato B">
+        <span class="track-num">2</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Gli elementi della fede che salva – Lato B</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Gli%20elementi%20della%20fede%20che%20salva%20-%20lato%20B.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">Il Patto</div>
+      <span class="series-count">6 predicazioni</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Il%20Patto%20%20-%201.%20%20L%27insegnamento%20nel%20nuovo%20patto.mp3" data-name="Il Patto 1 – L'insegnamento nel nuovo patto">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Il Patto 1 – L'insegnamento nel nuovo patto</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Il%20Patto%20%20-%201.%20%20L%27insegnamento%20nel%20nuovo%20patto.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Il%20Patto%20-%202.%20Il%20sangue%20del%20patto.mp3" data-name="Il Patto 2 – Il sangue del patto">
+        <span class="track-num">2</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Il Patto 2 – Il sangue del patto</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Il%20Patto%20-%202.%20Il%20sangue%20del%20patto.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Il%20Patto%20-%204.%20Il%20peccato%20e%20la%20coscienza.mp3" data-name="Il Patto 4 – Il peccato e la coscienza">
+        <span class="track-num">3</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Il Patto 4 – Il peccato e la coscienza</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Il%20Patto%20-%204.%20Il%20peccato%20e%20la%20coscienza.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Il%20Patto%20-%205.%20Il%20sacerdote%20e%20la%20presenza%20di%20Dio.mp3" data-name="Il Patto 5 – Il sacerdote e la presenza di Dio">
+        <span class="track-num">4</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Il Patto 5 – Il sacerdote e la presenza di Dio</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Il%20Patto%20-%205.%20Il%20sacerdote%20e%20la%20presenza%20di%20Dio.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Il%20Patto%20-%206.%20La%20sottomissione%20e%20la%20coscienza.mp3" data-name="Il Patto 6 – La sottomissione e la coscienza">
+        <span class="track-num">5</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Il Patto 6 – La sottomissione e la coscienza</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Il%20Patto%20-%206.%20La%20sottomissione%20e%20la%20coscienza.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Il%20Patto%20-%208.%20Chi%20appartiene%20a%20Dio.mp3" data-name="Il Patto 8 – Chi appartiene a Dio">
+        <span class="track-num">6</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Il Patto 8 – Chi appartiene a Dio</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Il%20Patto%20-%208.%20Chi%20appartiene%20a%20Dio.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">Il Sangue di Cristo</div>
+      <span class="series-count">1 predicazione</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Il%20Sangue%20di%20Cristo.mp3" data-name="Il Sangue di Cristo">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Il Sangue di Cristo</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Il%20Sangue%20di%20Cristo.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">La coscienza</div>
+      <span class="series-count">4 predicazioni</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/La%20coscienza%201%20-%20Lato%20A.mp3" data-name="La coscienza 1 – Lato A">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">La coscienza 1 – Lato A</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/La%20coscienza%201%20-%20Lato%20A.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/La%20coscienza%201%20-%20Lato%20B.mp3" data-name="La coscienza 1 – Lato B">
+        <span class="track-num">2</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">La coscienza 1 – Lato B</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/La%20coscienza%201%20-%20Lato%20B.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/La%20coscienza%202%20-%20Lato%20A.mp3" data-name="La coscienza 2 – Lato A">
+        <span class="track-num">3</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">La coscienza 2 – Lato A</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/La%20coscienza%202%20-%20Lato%20A.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/La%20coscienza%202%20-%20Lato%20B.mp3" data-name="La coscienza 2 – Lato B">
+        <span class="track-num">4</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">La coscienza 2 – Lato B</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/La%20coscienza%202%20-%20Lato%20B.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">La fede ebraica – Risposta a un interrogativo</div>
+      <span class="series-count">1 predicazione</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/La%20fede%20ebraica%20Risposta%20a%20un%20interrogativo.mp3" data-name="La fede ebraica – Risposta a un interrogativo">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">La fede ebraica – Risposta a un interrogativo</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/La%20fede%20ebraica%20Risposta%20a%20un%20interrogativo.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">La legge civile, morale, religiosa</div>
+      <span class="series-count">2 predicazioni</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/La%20legge%20civile%2C%20morale%2C%20religiosa%20-%20lato%20A.mp3" data-name="La legge civile, morale, religiosa – Lato A">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">La legge civile, morale, religiosa – Lato A</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/La%20legge%20civile%2C%20morale%2C%20religiosa%20-%20lato%20A.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/La%20legge%20civile%2C%20morale%2C%20religiosa%20-%20lato%20B.mp3" data-name="La legge civile, morale, religiosa – Lato B">
+        <span class="track-num">2</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">La legge civile, morale, religiosa – Lato B</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/La%20legge%20civile%2C%20morale%2C%20religiosa%20-%20lato%20B.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">La Mia Fede – YHWH</div>
+      <span class="series-count">1 predicazione</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/La%20Mia%20Fede1-YHWH.mp3" data-name="La Mia Fede – YHWH">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">La Mia Fede – YHWH</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/La%20Mia%20Fede1-YHWH.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">La necessità della fede</div>
+      <span class="series-count">2 predicazioni</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/La%20necessit%C3%A0%20della%20fede%20-%20lato%20A.mp3" data-name="La necessità della fede – Lato A">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">La necessità della fede – Lato A</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/La%20necessit%C3%A0%20della%20fede%20-%20lato%20A.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/La%20necessit%C3%A0%20della%20fede%20-%20lato%20B.mp3" data-name="La necessità della fede – Lato B">
+        <span class="track-num">2</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">La necessità della fede – Lato B</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/La%20necessit%C3%A0%20della%20fede%20-%20lato%20B.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">La prova di una vera fede</div>
+      <span class="series-count">2 predicazioni</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/La%20prova%20di%20una%20vera%20fede%20-%20lato%20A.mp3" data-name="La prova di una vera fede – Lato A">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">La prova di una vera fede – Lato A</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/La%20prova%20di%20una%20vera%20fede%20-%20lato%20A.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/La%20prova%20di%20una%20vera%20fede%20-%20lato%20B.mp3" data-name="La prova di una vera fede – Lato B">
+        <span class="track-num">2</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">La prova di una vera fede – Lato B</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/La%20prova%20di%20una%20vera%20fede%20-%20lato%20B.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">La sofferenza e la prosperità dei malvagi</div>
+      <span class="series-count">1 predicazione</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/La%20sofferenza%20e%20la%20prosperit%C3%A0%20dei%20malvagi.mp3" data-name="La sofferenza e la prosperità dei malvagi">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">La sofferenza e la prosperità dei malvagi</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/La%20sofferenza%20e%20la%20prosperit%C3%A0%20dei%20malvagi.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">Le offerte e il dare</div>
+      <span class="series-count">1 predicazione</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Le%20offerte%20e%20il%20dare.mp3" data-name="Le offerte e il dare">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Le offerte e il dare</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Le%20offerte%20e%20il%20dare.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">Qual'è la religione giusta</div>
+      <span class="series-count">3 predicazioni</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Qual%27%C3%A8%20la%20religione%20giusta%20-%20Lato%20A.mp3" data-name="Qual'è la religione giusta – Lato A">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Qual'è la religione giusta – Lato A</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Qual%27%C3%A8%20la%20religione%20giusta%20-%20Lato%20A.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Qual%27%C3%A8%20la%20religione%20giusta%20-%20Lato%20B.mp3" data-name="Qual'è la religione giusta – Lato B">
+        <span class="track-num">2</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Qual'è la religione giusta – Lato B</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Qual%27%C3%A8%20la%20religione%20giusta%20-%20Lato%20B.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Qual%27%C3%A8%20la%20religione%20giusta%202%20-%20Lato%20A.mp3" data-name="Qual'è la religione giusta 2 – Lato A">
+        <span class="track-num">3</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Qual'è la religione giusta 2 – Lato A</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Qual%27%C3%A8%20la%20religione%20giusta%202%20-%20Lato%20A.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">Rimettere i peccati</div>
+      <span class="series-count">1 predicazione</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Rimettere%20i%20peccati.mp3" data-name="Rimettere i peccati">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Rimettere i peccati</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Rimettere%20i%20peccati.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">Studio parola – Rema Logos</div>
+      <span class="series-count">2 predicazioni</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Studio%20parola%20-%20rema%20logos%20-%20lato%20A.mp3" data-name="Studio parola – Rema Logos – Lato A">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Studio parola – Rema Logos – Lato A</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Studio%20parola%20-%20rema%20logos%20-%20lato%20A.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Studio%20parola%20-%20rema%20logos%20-%20lato%20B.mp3" data-name="Studio parola – Rema Logos – Lato B">
+        <span class="track-num">2</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Studio parola – Rema Logos – Lato B</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Studio%20parola%20-%20rema%20logos%20-%20lato%20B.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">Studio sulla Fede</div>
+      <span class="series-count">1 predicazione</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Studio%20sulla%20Fede.mp3" data-name="Studio sulla Fede">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Studio sulla Fede</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Studio%20sulla%20Fede.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-block">
+    <div class="series-header" onclick="toggleSeries(this.parentElement)">
+      <div class="series-dot"></div>
+      <div class="series-name">Unità della Chiesa</div>
+      <span class="series-count">1 predicazione</span>
+      <span class="series-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+    <div class="series-tracks">
+      <div class="track-row" data-src="https://archive.org/download/giudicare-14/Unit%C3%A0%20della%20Chiesa.mp3" data-name="Unità della Chiesa">
+        <span class="track-num">1</span>
+        <button class="track-play-btn"><svg class="icon-play"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><svg class="icon-spin"  viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="display:none;animation:spin 0.8s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/></svg></button>
+        <div class="track-info">
+          <div class="track-name">Unità della Chiesa</div>
+          <div class="track-progress-wrap"><div class="track-bar"><div class="track-bar-fill"></div></div><span class="track-time">0:00</span></div>
+        </div>
+        <div class="track-actions"><a class="track-dl-btn" href="https://archive.org/download/giudicare-14/Unit%C3%A0%20della%20Chiesa.mp3" download title="Scarica"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+</div>
+<footer>
+  <p>© 2025 Chiesa Evangelica di Maranello · <a href="privacy.html">Privacy Policy</a> · <a href="index.html">Home</a> · Audio: <a href="https://archive.org/details/giudicare-14" target="_blank" rel="noopener">Internet Archive</a></p>
+</footer>
+<script>
+function toggleSeries(block){block.classList.toggle('open');}
+
+(function(){
+  let curAudio=null,curBtn=null,curRow=null;
+  function fmtT(s){if(isNaN(s)||s<0)return'0:00';const m=Math.floor(s/60),sec=Math.floor(s%60);return m+':'+(sec<10?'0':'')+sec;}
+  function setIcon(btn,state){
+    btn.querySelector('.icon-play').style.display=state==='play'?'':'none';
+    btn.querySelector('.icon-pause').style.display=state==='pause'?'':'none';
+    btn.querySelector('.icon-spin').style.display=state==='spin'?'':'none';
+    btn.className='track-play-btn'+(state==='pause'?' playing':state==='spin'?' loading':'');
+  }
+  function stopCurrent(){
+    if(curAudio){curAudio.pause();curAudio=null;}
+    if(curBtn)setIcon(curBtn,'play');
+    if(curRow){curRow.querySelector('.track-progress-wrap').classList.remove('visible');curRow.querySelector('.track-bar-fill').style.width='0%';curRow.querySelector('.track-time').textContent='0:00';}
+    curBtn=null;curRow=null;
+  }
+  async function handlePlay(btn,row){
+    if(curRow===row&&curAudio){
+      if(curAudio.paused){curAudio.play();setIcon(btn,'pause');}
+      else{curAudio.pause();setIcon(btn,'play');}
+      return;
+    }
+    stopCurrent();setIcon(btn,'spin');
+    const audio=new Audio(row.dataset.src);
+    curAudio=audio;curBtn=btn;curRow=row;
+    const prog=row.querySelector('.track-progress-wrap'),fill=row.querySelector('.track-bar-fill'),time=row.querySelector('.track-time'),bar=row.querySelector('.track-bar');
+    prog.classList.add('visible');
+    audio.ontimeupdate=()=>{if(audio.duration){fill.style.width=(audio.currentTime/audio.duration*100)+'%';time.textContent=fmtT(audio.currentTime);}};
+    audio.onended=()=>{setIcon(btn,'play');fill.style.width='0%';time.textContent='0:00';prog.classList.remove('visible');curAudio=null;curBtn=null;curRow=null;};
+    bar.onclick=e=>{if(audio.duration){const r=bar.getBoundingClientRect();audio.currentTime=((e.clientX-r.left)/r.width)*audio.duration;}};
+    try{await audio.play();setIcon(btn,'pause');}
+    catch(e){setIcon(btn,'play');prog.classList.remove('visible');curAudio=null;curBtn=null;curRow=null;}
+  }
+  document.querySelectorAll('.track-play-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>handlePlay(btn,btn.closest('.track-row')));
+  });
+})();
+
+(function(){
+  const searchInput=document.getElementById('search-input');
+  const noResults=document.getElementById('no-results');
+  searchInput.addEventListener('input',applyFilters);
+  function applyFilters(){
+    const q=searchInput.value.toLowerCase().trim();
+    let anyVisible=false;
+    document.querySelectorAll('.series-block').forEach(block=>{
+      let hasVisible=false;
+      block.querySelectorAll('.track-row').forEach(row=>{
+        const match=q===''||row.dataset.name.toLowerCase().includes(q);
+        row.classList.toggle('hidden',!match);
+        if(match)hasVisible=true;
+      });
+      if(!hasVisible&&q!==''&&block.querySelector('.series-name').textContent.toLowerCase().includes(q)){
+        block.querySelectorAll('.track-row').forEach(r=>r.classList.remove('hidden'));
+        hasVisible=true;
+      }
+      block.classList.toggle('hidden',!hasVisible);
+      if(hasVisible)anyVisible=true;
+    });
+    noResults.style.display=anyVisible?'none':'block';
+  }
+})();
+</script>
+</body>
+</html>
